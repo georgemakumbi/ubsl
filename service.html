@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Support | Unique Business Systems Limited</title>
+    <meta name="description" content="Book preventative maintenance, on-site repairs, or request support for cash counters and sorters. Certified engineering service in Uganda.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h1>Unique Business Systems</h1>
+                    <span>Engineering & Cash Solutions</span>
+                </div>
+            </a>
+            
+            <nav id="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="service.html" class="active">Services</a></li>
+                    <li><a href="calculator.html">Lease Calculator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="theme-toggle-btn" aria-label="Toggle dark mode">
+                    <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="burger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="hero" style="padding: 60px 0 80px;">
+        <div class="container">
+            <h2 style="font-size: 40px; margin-bottom: 12px; text-align: center;">Engineering & Support Services</h2>
+            <p style="text-align: center; color: #E2E8F0; max-width: 600px; margin: 0 auto;">Authorized preventative maintenance, hardware calibration, warranty logistics, and emergency on-site repair dispatches.</p>
+        </div>
+    </section>
+
+    <!-- Detailed Services Description -->
+    <section class="section">
+        <div class="container grid-2">
+            <div>
+                <span class="subtitle" style="color: var(--accent); font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;">Technical Pedigree</span>
+                <h2 style="font-size: 32px; margin-bottom: 20px;">Why Banks Trust Our Engineers</h2>
+                <p style="color: var(--text-muted); margin-bottom: 16px;">At Unique Business Systems Limited, we recognize that when a currency sorter or cheque scanner breaks down, it stalls transaction loops and increases teller vulnerability. Our support department is engineered to prevent this.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Every technician in our field team is factory-trained or certified, possessing extensive knowledge of the community banking and financial institution industry. We maintain active direct access pathways to manufacturers for complex firmware calibrations.</p>
+                
+                <h3 style="font-size: 20px; margin-bottom: 16px; margin-top: 30px; color: var(--primary);">Service Level Commitments:</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                    <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px;">
+                        <span style="color: var(--accent); font-weight: bold;">✔</span>
+                        <span><strong>Single Number Dispatch:</strong> Speak directly to dispatch managers who route certified field staff.</span>
+                    </li>
+                    <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px;">
+                        <span style="color: var(--accent); font-weight: bold;">✔</span>
+                        <span><strong>Stocked Spares:</strong> Extensive local warehouse housing rollers, sensors, boards, and cartridges.</span>
+                    </li>
+                    <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px;">
+                        <span style="color: var(--accent); font-weight: bold;">✔</span>
+                        <span><strong>Preventative SLA:</strong> Routine scheduled cleaning, dust removal, and sensor test routines.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Booking Form -->
+            <div style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-premium);">
+                <h3 style="font-size: 24px; margin-bottom: 8px;">Schedule Support Visit</h3>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Log an equipment malfunction or preventative check. An engineer will be dispatched to your location.</p>
+                
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="booking-company">Company / Institution Name *</label>
+                        <input type="text" id="booking-company" required placeholder="e.g., Century Bank Uganda">
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-name">Contact Person *</label>
+                        <input type="text" id="booking-name" required placeholder="e.g., Alice Namono">
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-email">Corporate Email *</label>
+                        <input type="email" id="booking-email" required placeholder="e.g., operations@bank.co.ug">
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-model">Equipment Model</label>
+                        <select id="booking-model">
+                            <option value="Century Sorter 101 / 301">Century Sorter (Notes)</option>
+                            <option value="Jetscan Currency Sorter">Jetscan Counter (Notes)</option>
+                            <option value="SC 303 / Jetsort Coin Counter">ScanCoin / Jetsort (Coins)</option>
+                            <option value="BJ-141 / Bankscan UV">Bankscan / BJ-141 (Counterfeit)</option>
+                            <option value="Cheque Scanner / Writer">Cheque Scanner or Writer</option>
+                            <option value="General Checkup">Other / Unsure</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-issue">Issue Description *</label>
+                        <textarea id="booking-issue" rows="3" required placeholder="Detail the error codes, sensor failures, or machine jams..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-date">Preferred Date of Inspection *</label>
+                        <input type="date" id="booking-date" required>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" type="submit">Book Technician Visit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <div class="logo-icon" style="color: var(--primary-dark);">U</div>
+                    <div class="logo-text">
+                        <h1 style="color: #FFFFFF; font-size: 18px;">Unique Business Systems</h1>
+                        <span style="color: var(--accent);">Engineering & Cash Solutions</span>
+                    </div>
+                </div>
+                <p>Founded in 2005 to address the technical service gap for East African banking institutions. Registered currency handling specialists.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">tw</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">fb</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home Overview</a></li>
+                    <li><a href="about.html">About Company</a></li>
+                    <li><a href="products.html">Equipment Catalog</a></li>
+                    <li><a href="service.html">Repairs & Maintenance</a></li>
+                    <li><a href="calculator.html">Lease Cost Calculator</a></li>
+                    <li><a href="contact.html">Get in Touch</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html?category=Notes+Counters">Notes Counters</a></li>
+                    <li><a href="products.html?category=Coin+Counters">Coin Sorters</a></li>
+                    <li><a href="products.html?category=Counterfeit+Detectors">Counterfeit Detectors</a></li>
+                    <li><a href="products.html?category=Cheque+Embossers+%26+Writers">Cheque Writers</a></li>
+                    <li><a href="products.html?category=Security+Bags+%26+Seals">Security Bags & Seals</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Sign up to receive technical alerts, product launches and currency security updates.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+                    <input type="email" placeholder="Your corporate email" required>
+                    <button class="btn btn-primary" style="padding: 10px 16px;" type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Unique Business Systems Limited. All rights reserved.</p>
+            <p>Plot 450 Balintuma Road, Mengo, P.O. Box 965 Kampala, Uganda</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

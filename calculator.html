@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lease Cost Calculator | Unique Business Systems Limited</title>
+    <meta name="description" content="Calculate baseline leasing and rental estimations for currency counters, coin sorters, and document security hardware. Get custom corporate quotes.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h1>Unique Business Systems</h1>
+                    <span>Engineering & Cash Solutions</span>
+                </div>
+            </a>
+            
+            <nav id="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="calculator.html" class="active">Lease Calculator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="theme-toggle-btn" aria-label="Toggle dark mode">
+                    <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="burger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="hero" style="padding: 60px 0 80px;">
+        <div class="container">
+            <h2 style="font-size: 40px; margin-bottom: 12px; text-align: center;">Lease Cost Calculator</h2>
+            <p style="text-align: center; color: #E2E8F0; max-width: 600px; margin: 0 auto;">Calculate baseline estimations for renting or leasing equipment. Get custom corporate pricing for large-scale banking operations.</p>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section">
+        <div class="container">
+            <div class="calc-container">
+                
+                <!-- Input Panel -->
+                <div class="calc-panel calc-form-panel">
+                    <h3 style="font-size: 22px; margin-bottom: 12px;">1. Lease Parameters</h3>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Adjust the parameters to fit your bank branch or cash counting vault requirements.</p>
+                    
+                    <form id="calc-form">
+                        <div class="form-group">
+                            <label for="calc-category">Equipment Category</label>
+                            <select id="calc-category">
+                                <option value="Notes Counters">Notes Counters (e.g. Jetscan, Century Sorter)</option>
+                                <option value="Coin Counters">Coin Counters & Sorters (e.g. SC 303, Jetsort)</option>
+                                <option value="Counterfeit Detectors">Counterfeit Detectors (e.g. Bankscan, Pocket UV)</option>
+                                <option value="Strapping & Wrapping">Strapping & Wrapping Machines (e.g. Sirio)</option>
+                                <option value="Cheque Embossers">Cheque Embossers & Writers</option>
+                                <option value="Exchange Rate Boards">LED Exchange Rate Boards</option>
+                                <option value="Accessories & Others">Accessories / Auxiliary Systems</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <label for="calc-qty">Quantity Needed</label>
+                                <input type="number" id="calc-qty" min="1" max="100" value="2">
+                            </div>
+                            <div>
+                                <label for="calc-months">Lease Duration (Months)</label>
+                                <input type="number" id="calc-months" min="1" max="60" value="12">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc-support">Engineering SLA Tier</label>
+                            <select id="calc-support">
+                                <option value="standard">Standard (Business Hours Dispatch, Standard Warranty)</option>
+                                <option value="premium">Premium (+25% Rate: 4hr Max Dispatch, Spares Included)</option>
+                                <option value="enterprise">Enterprise (+40% Rate: 24/7 Hotline, Hot-swaps Included)</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-top: 30px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="calc-custom-check" style="width: auto; margin-right: 6px; cursor: pointer;">
+                            <label for="calc-custom-check" style="font-size: 14px; font-weight: 500; cursor: pointer; user-select: none;">
+                                Need a custom quote override? (Bulk discount or specific hardware models)
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Results Output Panel -->
+                <div class="calc-panel calc-result-panel">
+                    
+                    <!-- Normal Result State -->
+                    <div id="calc-result-normal" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                        <div>
+                            <h3 style="font-size: 22px; margin-bottom: 12px; color: var(--primary);">2. Estimate Breakdown</h3>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Based on current baseline rates. Includes routine preventative maintenance.</p>
+                            
+                            <div class="quote-breakdown">
+                                <div class="quote-line">
+                                    <span>Rate Per Device (with SLA):</span>
+                                    <strong id="res-base-rate">$0.00</strong>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Quantity:</span>
+                                    <strong id="res-qty">0</strong>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Lease Term:</span>
+                                    <strong id="res-months">0 months</strong>
+                                </div>
+                                <div class="quote-line">
+                                    <span>Active Discounts:</span>
+                                    <strong id="res-discounts" style="color: var(--success);">None</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="quote-total" style="margin-bottom: 8px;">
+                                <span>Monthly Cost:</span>
+                                <span id="res-monthly-total" style="color: var(--accent-hover); font-size: 28px;">$0.00</span>
+                            </div>
+                            <div class="quote-line" style="margin-bottom: 30px; font-size: 13px;">
+                                <span>Estimated contract value:</span>
+                                <span id="res-contract-total" style="font-weight: bold;">$0.00</span>
+                            </div>
+                            
+                            <button id="request-custom-btn" class="btn btn-primary" style="width: 100%;">Lock in Quote & Apply</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Result State -->
+                    <div id="calc-result-custom" style="display: none; padding: 40px 0; text-align: center; margin: auto 0;">
+                        <svg style="width: 64px; height: 64px; color: var(--accent); margin: 0 auto 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <h3 style="font-size: 22px; margin-bottom: 12px; color: var(--primary);">Custom Quote Required</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px; max-width: 320px; margin-left: auto; margin-right: auto;">Bulk quantity requests, specific model requirements, or multi-country installations require tailored corporate pricing agreements.</p>
+                        <a href="contact.html?subject=Custom+Leasing+Quote+Request&details=Requesting+leasing+quote+for+custom+equipment+quantities." class="btn btn-secondary" style="width: 100%;">Request Custom Quote</a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <div class="logo-icon" style="color: var(--primary-dark);">U</div>
+                    <div class="logo-text">
+                        <h1 style="color: #FFFFFF; font-size: 18px;">Unique Business Systems</h1>
+                        <span style="color: var(--accent);">Engineering & Cash Solutions</span>
+                    </div>
+                </div>
+                <p>Founded in 2005 to address the technical service gap for East African banking institutions. Registered currency handling specialists.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">tw</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">fb</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home Overview</a></li>
+                    <li><a href="about.html">About Company</a></li>
+                    <li><a href="products.html">Equipment Catalog</a></li>
+                    <li><a href="service.html">Repairs & Maintenance</a></li>
+                    <li><a href="calculator.html">Lease Cost Calculator</a></li>
+                    <li><a href="contact.html">Get in Touch</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html?category=Notes+Counters">Notes Counters</a></li>
+                    <li><a href="products.html?category=Coin+Counters">Coin Sorters</a></li>
+                    <li><a href="products.html?category=Counterfeit+Detectors">Counterfeit Detectors</a></li>
+                    <li><a href="products.html?category=Cheque+Embossers+%26+Writers">Cheque Writers</a></li>
+                    <li><a href="products.html?category=Security+Bags+%26+Seals">Security Bags & Seals</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Sign up to receive technical alerts, product launches and currency security updates.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+                    <input type="email" placeholder="Your corporate email" required>
+                    <button class="btn btn-primary" style="padding: 10px 16px;" type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Unique Business Systems Limited. All rights reserved.</p>
+            <p>Plot 450 Balintuma Road, Mengo, P.O. Box 965 Kampala, Uganda</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
