@@ -14,5 +14,8 @@
     "banking"
   ],
   "author": "Unique Business Systems Limited",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
 }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lease Cost Calculator | Unique Business Systems Limited</title>
-    <meta name="description" content="Calculate baseline leasing and rental estimations for currency counters, coin sorters, and document security hardware. Get custom corporate quotes.">
+    <title>Quote & Pricing Estimator | Unique Business Systems Limited</title>
+    <meta name="description" content="Estimate purchase pricing, support contract SLAs, or leasing options for currency counters, coin sorters, and document security hardware. Get custom corporate quotes.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="products.html">Products</a></li>
                     <li><a href="service.html">Services</a></li>
-                    <li><a href="calculator.html" class="active">Lease Calculator</a></li>
+                    <li><a href="calculator.html" class="active">Quote Estimator</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -49,8 +49,8 @@
     <!-- Page Banner -->
     <section class="hero" style="padding: 60px 0 80px;">
         <div class="container">
-            <h2 style="font-size: 40px; margin-bottom: 12px; text-align: center;">Lease Cost Calculator</h2>
-            <p style="text-align: center; color: #E2E8F0; max-width: 600px; margin: 0 auto;">Calculate baseline estimations for renting or leasing equipment. Get custom corporate pricing for large-scale banking operations.</p>
+            <h2 style="font-size: 40px; margin-bottom: 12px; text-align: center;">Quote & Pricing Estimator</h2>
+            <p style="text-align: center; color: #E2E8F0; max-width: 600px; margin: 0 auto;">Calculate baseline pricing for equipment purchase, annual servicing SLAs, or flexible leasing options. Get custom corporate quotes.</p>
         </div>
     </section>
 
@@ -61,10 +61,18 @@
                 
                 <!-- Input Panel -->
                 <div class="calc-panel calc-form-panel">
-                    <h3 style="font-size: 22px; margin-bottom: 12px;">1. Lease Parameters</h3>
-                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Adjust the parameters to fit your bank branch or cash counting vault requirements.</p>
+                    <h3 style="font-size: 22px; margin-bottom: 12px;">1. Quote Parameters</h3>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Select acquisition model, product category, and support level for your financial branch or vault.</p>
                     
                     <form id="calc-form">
+                        <div class="form-group">
+                            <label for="calc-type">Acquisition Model</label>
+                            <select id="calc-type">
+                                <option value="purchase">Outright Purchase & Support SLA</option>
+                                <option value="lease">Equipment Leasing / Rental (Financing)</option>
+                            </select>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="calc-category">Equipment Category</label>
                             <select id="calc-category">
@@ -84,8 +92,8 @@
                                 <input type="number" id="calc-qty" min="1" max="100" value="2">
                             </div>
                             <div>
-                                <label for="calc-months">Lease Duration (Months)</label>
-                                <input type="number" id="calc-months" min="1" max="60" value="12">
+                                <label id="calc-duration-label" for="calc-months">SLA Term (Years)</label>
+                                <input type="number" id="calc-months" min="1" max="60" value="1">
                             </div>
                         </div>
                         
@@ -114,35 +122,58 @@
                     <div id="calc-result-normal" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                         <div>
                             <h3 style="font-size: 22px; margin-bottom: 12px; color: var(--primary);">2. Estimate Breakdown</h3>
-                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Based on current baseline rates. Includes routine preventative maintenance.</p>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Estimated baseline quotes. Final pricing subject to site surveys.</p>
                             
                             <div class="quote-breakdown">
-                                <div class="quote-line">
-                                    <span>Rate Per Device (with SLA):</span>
-                                    <strong id="res-base-rate">$0.00</strong>
+                                <!-- Purchase Breakdown Panels -->
+                                <div id="breakdown-purchase" style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+                                    <div class="quote-line">
+                                        <span>Unit Purchase Cost:</span>
+                                        <strong id="res-purchase-unit">$0.00</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Equipment Subtotal:</span>
+                                        <strong id="res-purchase-subtotal">$0.00</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Annual SLA Rate (per unit):</span>
+                                        <strong id="res-sla-unit">$0.00</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Active Discounts:</span>
+                                        <strong id="res-purchase-discounts" style="color: var(--success);">None</strong>
+                                    </div>
                                 </div>
-                                <div class="quote-line">
-                                    <span>Quantity:</span>
-                                    <strong id="res-qty">0</strong>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Lease Term:</span>
-                                    <strong id="res-months">0 months</strong>
-                                </div>
-                                <div class="quote-line">
-                                    <span>Active Discounts:</span>
-                                    <strong id="res-discounts" style="color: var(--success);">None</strong>
+                                
+                                <!-- Lease Breakdown Panels -->
+                                <div id="breakdown-lease" style="display: none; flex-direction: column; gap: 16px; width: 100%;">
+                                    <div class="quote-line">
+                                        <span>Monthly Rate (per unit):</span>
+                                        <strong id="res-base-rate">$0.00</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Quantity:</span>
+                                        <strong id="res-qty">0</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Lease Term:</span>
+                                        <strong id="res-months">0 months</strong>
+                                    </div>
+                                    <div class="quote-line">
+                                        <span>Active Discounts:</span>
+                                        <strong id="res-discounts" style="color: var(--success);">None</strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div>
                             <div class="quote-total" style="margin-bottom: 8px;">
-                                <span>Monthly Cost:</span>
+                                <span id="res-total-label">Total Outlay:</span>
                                 <span id="res-monthly-total" style="color: var(--accent-hover); font-size: 28px;">$0.00</span>
                             </div>
                             <div class="quote-line" style="margin-bottom: 30px; font-size: 13px;">
-                                <span>Estimated contract value:</span>
+                                <span id="res-contract-label">Annual Support Cost:</span>
                                 <span id="res-contract-total" style="font-weight: bold;">$0.00</span>
                             </div>
                             
@@ -192,7 +223,7 @@
                     <li><a href="about.html">About Company</a></li>
                     <li><a href="products.html">Equipment Catalog</a></li>
                     <li><a href="service.html">Repairs & Maintenance</a></li>
-                    <li><a href="calculator.html">Lease Cost Calculator</a></li>
+                    <li><a href="calculator.html">Quote & Pricing Estimator</a></li>
                     <li><a href="contact.html">Get in Touch</a></li>
                 </ul>
             </div>

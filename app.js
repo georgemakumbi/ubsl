@@ -399,9 +399,9 @@ document.addEventListener("DOMContentLoaded", () => {
         initProductCatalog();
     }
 
-    // 4. Leasing Calculator Engine (If on calculator.html)
+    // 4. Quote & Pricing Estimator Engine (If on calculator.html)
     if (document.getElementById("calc-form")) {
-        initLeasingCalculator();
+        initQuoteCalculator();
     }
 
     // 5. Contact Form Validation (If on contact.html)
@@ -597,22 +597,62 @@ function showProductModal(product) {
                                <li>Direct field support engineer coverage.</li>`;
     }
 
+    const inquireLink = modal.querySelector("#modal-inquire-link");
+    if (inquireLink) {
+        inquireLink.href = `contact.html?subject=Inquiry+regarding+${encodeURIComponent(product.name)}&details=Hello,+I+would+like+to+request+a+quote+and+further+information+about+the+${encodeURIComponent(product.name)}.`;
+    }
+    const estimateLink = modal.querySelector("#modal-estimate-link");
+    if (estimateLink) {
+        let mappedCategory = product.category;
+        if (mappedCategory === "Coin Wrapping Machines" || mappedCategory === "Strapping Machines") {
+            mappedCategory = "Strapping & Wrapping";
+        } else if (mappedCategory === "Cheque Embossers & Writers") {
+            mappedCategory = "Cheque Embossers";
+        } else if (mappedCategory === "Thermal Printers" || mappedCategory === "Accessories") {
+            mappedCategory = "Accessories & Others";
+        }
+        estimateLink.href = `calculator.html?category=${encodeURIComponent(mappedCategory)}`;
+    }
+
     modal.classList.add("active");
 }
 
-/* Leasing Calculator Module */
-function initLeasingCalculator() {
+/* Quote & Pricing Estimator Module */
+function initQuoteCalculator() {
     const form = document.getElementById("calc-form");
     const resultPanel = document.getElementById("calc-result-normal");
     const customQuotePanel = document.getElementById("calc-result-custom");
     
+    const typeSelect = document.getElementById("calc-type");
     const catSelect = document.getElementById("calc-category");
     const qtyInput = document.getElementById("calc-qty");
     const monthsInput = document.getElementById("calc-months");
     const supportSelect = document.getElementById("calc-support");
     const customQuoteCheckbox = document.getElementById("calc-custom-check");
 
-    // Monthly baseline prices for product categories
+    const durationLabel = document.getElementById("calc-duration-label");
+    const purchasePanel = document.getElementById("breakdown-purchase");
+    const leasePanel = document.getElementById("breakdown-lease");
+
+    // Outright purchase prices for product categories
+    const purchaseRates = {
+        "Notes Counters": 1200.00,
+        "Coin Counters": 1450.00,
+        "Counterfeit Detectors": 350.00,
+        "Strapping & Wrapping": 2100.00,
+        "Cheque Embossers": 1650.00,
+        "Exchange Rate Boards": 2400.00,
+        "Accessories & Others": 180.00
+    };
+
+    // Annual SLA rates for product categories
+    const slaRates = {
+        "standard": 120.00,
+        "premium": 240.00,
+        "enterprise": 450.00
+    };
+
+    // Monthly baseline leasing prices for product categories
     const baseRates = {
         "Notes Counters": 45.00,
         "Coin Counters": 55.00,
@@ -627,6 +667,7 @@ function initLeasingCalculator() {
         const isCustom = customQuoteCheckbox.checked;
 
         // Enable/Disable inputs
+        typeSelect.disabled = isCustom;
         catSelect.disabled = isCustom;
         qtyInput.disabled = isCustom;
         monthsInput.disabled = isCustom;
@@ -641,60 +682,152 @@ function initLeasingCalculator() {
         resultPanel.style.display = "flex";
         customQuotePanel.style.display = "none";
 
-        // Calculate values
         const category = catSelect.value;
         const qty = parseInt(qtyInput.value) || 1;
-        const months = parseInt(monthsInput.value) || 1;
+        const durationValue = parseInt(monthsInput.value) || 1;
         const support = supportSelect.value;
+        const isPurchase = typeSelect.value === "purchase";
 
-        const baseRate = baseRates[category] || 35.00;
-        let supportMultiplier = 1.0; // Standard
+        if (isPurchase) {
+            purchasePanel.style.display = "flex";
+            leasePanel.style.display = "none";
 
-        if (support === "premium") {
-            supportMultiplier = 1.25; // Premium support is +25%
-        } else if (support === "enterprise") {
-            supportMultiplier = 1.40; // Enterprise +40%
+            const unitCost = purchaseRates[category] || 1000.00;
+            const annualSla = slaRates[support] || 120.00;
+            const termYears = durationValue;
+
+            // Apply purchase quantity discount
+            let qtyDiscount = 1.0;
+            if (qty >= 5 && qty < 10) qtyDiscount = 0.95; // 5% off
+            else if (qty >= 10) qtyDiscount = 0.90; // 10% off
+
+            // Apply support SLA duration discount (3+ years contract)
+            let termDiscount = 1.0;
+            if (termYears >= 3) termDiscount = 0.90; // 10% off annual SLA rate
+
+            const equipSubtotal = unitCost * qty;
+            const discountedEquipSubtotal = equipSubtotal * qtyDiscount;
+            const annualSlaSubtotal = annualSla * qty;
+            const discountedAnnualSlaSubtotal = annualSlaSubtotal * termDiscount;
+            const totalOutlay = discountedEquipSubtotal + (discountedAnnualSlaSubtotal * termYears);
+
+            // Display results
+            document.getElementById("res-purchase-unit").textContent = `$${unitCost.toFixed(2)}`;
+            document.getElementById("res-purchase-subtotal").textContent = `$${discountedEquipSubtotal.toFixed(2)}`;
+            document.getElementById("res-sla-unit").textContent = `$${annualSla.toFixed(2)}/yr`;
+
+            const discountLine = document.getElementById("res-purchase-discounts");
+            let discountsText = "None";
+            if (qtyDiscount < 1.0 || termDiscount < 1.0) {
+                let parts = [];
+                if (qtyDiscount < 1.0) parts.push(`${Math.round((1 - qtyDiscount) * 100)}% Qty`);
+                if (termDiscount < 1.0) parts.push(`${Math.round((1 - termDiscount) * 100)}% SLA`);
+                discountsText = `Saved ${parts.join(" + ")}`;
+            }
+            discountLine.textContent = discountsText;
+
+            document.getElementById("res-total-label").textContent = "Total Outlay:";
+            document.getElementById("res-monthly-total").textContent = `$${totalOutlay.toFixed(2)}`;
+            document.getElementById("res-contract-label").textContent = "Annual Support Cost:";
+            document.getElementById("res-contract-total").textContent = `$${discountedAnnualSlaSubtotal.toFixed(2)}/yr`;
+
+        } else {
+            purchasePanel.style.display = "none";
+            leasePanel.style.display = "flex";
+
+            const baseRate = baseRates[category] || 35.00;
+            let supportMultiplier = 1.0;
+
+            if (support === "premium") {
+                supportMultiplier = 1.25;
+            } else if (support === "enterprise") {
+                supportMultiplier = 1.40;
+            }
+
+            const months = durationValue;
+
+            // Apply bulk discount on quantities
+            let qtyDiscount = 1.0;
+            if (qty >= 5 && qty < 10) qtyDiscount = 0.90; // 10% off
+            else if (qty >= 10) qtyDiscount = 0.80; // 20% off
+
+            // Apply duration discount
+            let durationDiscount = 1.0;
+            if (months >= 12 && months < 24) durationDiscount = 0.90; // 10% off for 1yr+
+            else if (months >= 24) durationDiscount = 0.85; // 15% off for 2yr+
+
+            const ratePerDevice = baseRate * supportMultiplier;
+            const monthlySubtotal = ratePerDevice * qty * qtyDiscount;
+            const totalContract = monthlySubtotal * months * durationDiscount;
+            const finalMonthlyRate = totalContract / months;
+
+            // Display results
+            document.getElementById("res-base-rate").textContent = `$${ratePerDevice.toFixed(2)}`;
+            document.getElementById("res-qty").textContent = qty;
+            document.getElementById("res-months").textContent = `${months} months`;
+
+            const discountLine = document.getElementById("res-discounts");
+            let discountsText = "None";
+            if (qtyDiscount < 1.0 || durationDiscount < 1.0) {
+                const savingsPercent = Math.round((1 - (qtyDiscount * durationDiscount)) * 100);
+                discountsText = `Saved ${savingsPercent}% (Bulk/Term)`;
+            }
+            discountLine.textContent = discountsText;
+
+            document.getElementById("res-total-label").textContent = "Monthly Lease Cost:";
+            document.getElementById("res-monthly-total").textContent = `$${finalMonthlyRate.toFixed(2)}`;
+            document.getElementById("res-contract-label").textContent = "Estimated Contract Value:";
+            document.getElementById("res-contract-total").textContent = `$${totalContract.toFixed(2)}`;
         }
+    }
 
-        // Apply bulk discount on quantities
-        let qtyDiscount = 1.0;
-        if (qty >= 5 && qty < 10) qtyDiscount = 0.90; // 10% off
-        else if (qty >= 10) qtyDiscount = 0.80; // 20% off
+    // Toggle fields based on type select
+    if (typeSelect) {
+        typeSelect.addEventListener("change", () => {
+            const isPurchase = typeSelect.value === "purchase";
+            if (isPurchase) {
+                durationLabel.textContent = "SLA Term (Years)";
+                monthsInput.min = "1";
+                monthsInput.max = "5";
+                if (parseInt(monthsInput.value) > 5) {
+                    monthsInput.value = "1";
+                }
+            } else {
+                durationLabel.textContent = "Lease Duration (Months)";
+                monthsInput.min = "1";
+                monthsInput.max = "60";
+                if (parseInt(monthsInput.value) < 6 || parseInt(monthsInput.value) > 60) {
+                    monthsInput.value = "12";
+                }
+            }
+            updateCalculator();
+        });
 
-        // Apply duration discount
-        let durationDiscount = 1.0;
-        if (months >= 12 && months < 24) durationDiscount = 0.90; // 10% off for 1yr+
-        else if (months >= 24) durationDiscount = 0.85; // 15% off for 2yr+
-
-        const ratePerDevice = baseRate * supportMultiplier;
-        const monthlySubtotal = ratePerDevice * qty * qtyDiscount;
-        const totalContract = monthlySubtotal * months * durationDiscount;
-        const finalMonthlyRate = totalContract / months;
-
-        // Display results
-        document.getElementById("res-base-rate").textContent = `$${ratePerDevice.toFixed(2)}`;
-        document.getElementById("res-qty").textContent = qty;
-        document.getElementById("res-months").textContent = `${months} months`;
-        
-        // Show discounts if applicable
-        const discountLine = document.getElementById("res-discounts");
-        let discountsText = "None";
-        if (qtyDiscount < 1.0 || durationDiscount < 1.0) {
-            const savingsPercent = Math.round((1 - (qtyDiscount * durationDiscount)) * 100);
-            discountsText = `Saved ${savingsPercent}% (Bulk/Term)`;
+        // Initialize state on load
+        const isPurchase = typeSelect.value === "purchase";
+        if (isPurchase) {
+            durationLabel.textContent = "SLA Term (Years)";
+            monthsInput.min = "1";
+            monthsInput.max = "5";
+            if (parseInt(monthsInput.value) > 5) {
+                monthsInput.value = "1";
+            }
         }
-        discountLine.textContent = discountsText;
-
-        document.getElementById("res-monthly-total").textContent = `$${finalMonthlyRate.toFixed(2)}`;
-        document.getElementById("res-contract-total").textContent = `$${totalContract.toFixed(2)}`;
     }
 
     // Bind listeners
-    [catSelect, qtyInput, monthsInput, supportSelect, customQuoteCheckbox].forEach(el => {
+    [typeSelect, catSelect, qtyInput, monthsInput, supportSelect, customQuoteCheckbox].forEach(el => {
         if (el) el.addEventListener("change", updateCalculator);
     });
     if (qtyInput) qtyInput.addEventListener("input", updateCalculator);
     if (monthsInput) monthsInput.addEventListener("input", updateCalculator);
+
+    // Prepopulate parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get("category");
+    if (categoryParam && catSelect) {
+        catSelect.value = categoryParam;
+    }
 
     // Run first calculation
     if (form) updateCalculator();
@@ -703,11 +836,24 @@ function initLeasingCalculator() {
     const quoteBtn = document.getElementById("request-custom-btn");
     if (quoteBtn) {
         quoteBtn.addEventListener("click", () => {
-            // Redirect to contact form with prepopulated quote details
             const category = catSelect.value;
             const qty = qtyInput.value;
-            const term = monthsInput.value;
-            window.location.href = `contact.html?subject=Custom+Quote+Request&details=Requesting+leasing+quote+for+${qty}+units+of+${encodeURIComponent(category)}+equipment+for+a+duration+of+${term}+months.`;
+            const durationValue = monthsInput.value;
+            const isPurchase = typeSelect.value === "purchase";
+            const support = supportSelect.value;
+
+            let subject = "";
+            let details = "";
+
+            if (isPurchase) {
+                subject = `Purchase Quote Request: ${qty}x ${category}`;
+                details = `Requesting a formal purchase quote for ${qty} unit(s) of ${category} equipment with a ${durationValue}-year ${support} SLA support agreement.`;
+            } else {
+                subject = `Leasing Quote Request: ${qty}x ${category}`;
+                details = `Requesting a formal leasing quote for ${qty} unit(s) of ${category} equipment for a term of ${durationValue} months with ${support} support.`;
+            }
+
+            window.location.href = `contact.html?subject=${encodeURIComponent(subject)}&details=${encodeURIComponent(details)}`;
         });
     }
 }
