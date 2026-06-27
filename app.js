@@ -383,6 +383,109 @@ const PRODUCTS_DB = [
             "Available in varying sizes, colors, and dimensions.",
             "Highly adhesive and heat resistant."
         ]
+    },
+    {
+        "name": "Journal Rolls",
+        "category": "Accessories",
+        "description": "High-quality thermal journal rolls for ATM and POS machine audit trail printing.",
+        "specs": [
+            "Archival-grade thermal paper for long-lasting records.",
+            "Compatible with all major ATM and cash register brands.",
+            "Available in standard widths: 57mm, 76mm, 80mm."
+        ]
+    },
+    {
+        "name": "UV Replacement Tubes",
+        "category": "Accessories",
+        "description": "Genuine replacement UV tubes for Bankscan and BJ-141 counterfeit detectors.",
+        "specs": [
+            "365nm peak wavelength for optimal fluorescent detection.",
+            "6-Watt fast-start design.",
+            "Compatible with UBSL-supplied UV detector range."
+        ]
+    },
+    {
+        "name": "Coin Wrapping Rolls",
+        "category": "Accessories",
+        "description": "Pre-formed paper coin wrapping rolls for use with Sirio and other coin wrapping machines.",
+        "specs": [
+            "Pre-formed to standard denomination sizes.",
+            "Durable paper grade resists tearing under machine tension.",
+            "Available in UGX, KES, TZS, USD denominations."
+        ]
+    },
+    {
+        "name": "Plastic Stripping Rolls",
+        "category": "Accessories",
+        "description": "Polypropylene plastic stripping rolls for semi-automatic strapping machines.",
+        "specs": [
+            "Width: 6mm to 15.5mm options available.",
+            "High tensile strength: break strain up to 69kg.",
+            "UV-resistant for outdoor cargo applications."
+        ]
+    },
+    {
+        "name": "Printer Ribbons",
+        "category": "Accessories",
+        "description": "OEM-compatible printer ribbons for dot-matrix receipt and document printers used in banking environments.",
+        "specs": [
+            "Available for Epson, Oki, and Canon dot-matrix models.",
+            "High ink yield for extended print runs.",
+            "Delivers sharp, smear-resistant characters."
+        ]
+    },
+    {
+        "name": "Thermal Paper Rolls",
+        "category": "Accessories",
+        "description": "BPA-free thermal receipt paper for POS terminals, ATM machines, and handheld PDA printers.",
+        "specs": [
+            "Available widths: 57mm and 80mm.",
+            "BPA-free coating for compliance with handling regulations.",
+            "100m length rolls for high-volume environments."
+        ]
+    },
+    {
+        "name": "Hologram Seal Rolls",
+        "category": "Accessories",
+        "description": "Tamper-evident holographic seal rolls for securing bank envelopes, cash bags, and negotiable documents.",
+        "specs": [
+            "VOID pattern revealed on attempted removal.",
+            "Sequential numbering for audit trail control.",
+            "Available in gold and silver foil finishes."
+        ]
+    },
+    {
+        "name": "Hologram Applicator",
+        "category": "Security Machines",
+        "description": "Precision desktop machine for applying holographic security seals to banknotes, passports, and identity documents.",
+        "specs": [
+            "Consistent pressure application for perfect adhesion.",
+            "Adjustable for various document sizes.",
+            "Compact footprint suitable for teller counters.",
+            "Reduces reliance on manual hologram placement."
+        ]
+    },
+    {
+        "name": "Perforating Machine",
+        "category": "Security Machines",
+        "description": "High-speed document perforating machine used to cancel or void cheques, certificates, and negotiable instruments.",
+        "specs": [
+            "Micro-perforation pattern prevents re-use or alteration.",
+            "Heavy-duty steel chassis for continuous operation.",
+            "Processes up to A3 document size.",
+            "One-touch foot pedal operation available."
+        ]
+    },
+    {
+        "name": "Date Time Stamp Machine",
+        "category": "Security Machines",
+        "description": "Automatic self-inking date and time stamp for recording receipt or processing time on documents and cheques.",
+        "specs": [
+            "Automatic advance to next date at midnight.",
+            "12/24-hour time format selectable.",
+            "Self-inking mechanism — no separate ink pad required.",
+            "Prints up to 5,000 impressions per ink refill."
+        ]
     }
 ];
 
@@ -399,9 +502,12 @@ document.addEventListener("DOMContentLoaded", () => {
         initProductCatalog();
     }
 
-    // 4. Quote & Pricing Estimator Engine (If on calculator.html)
-    if (document.getElementById("calc-form")) {
-        initQuoteCalculator();
+    // 4. Order & Inquiry Forms (If on order.html)
+    if (document.getElementById("order-form")) {
+        initOrderForm();
+    }
+    if (document.getElementById("inquiry-form")) {
+        initInquiryForm();
     }
 
     // 5. Contact Form Validation (If on contact.html)
@@ -597,272 +703,148 @@ function showProductModal(product) {
                                <li>Direct field support engineer coverage.</li>`;
     }
 
+    const orderLink = modal.querySelector("#modal-order-link");
+    if (orderLink) {
+        orderLink.href = `order.html?tab=order&product=${encodeURIComponent(product.name)}`;
+    }
     const inquireLink = modal.querySelector("#modal-inquire-link");
     if (inquireLink) {
-        inquireLink.href = `contact.html?subject=Inquiry+regarding+${encodeURIComponent(product.name)}&details=Hello,+I+would+like+to+request+a+quote+and+further+information+about+the+${encodeURIComponent(product.name)}.`;
-    }
-    const estimateLink = modal.querySelector("#modal-estimate-link");
-    if (estimateLink) {
-        let mappedCategory = product.category;
-        if (mappedCategory === "Coin Wrapping Machines" || mappedCategory === "Strapping Machines") {
-            mappedCategory = "Strapping & Wrapping";
-        } else if (mappedCategory === "Cheque Embossers & Writers") {
-            mappedCategory = "Cheque Embossers";
-        } else if (mappedCategory === "Thermal Printers" || mappedCategory === "Accessories") {
-            mappedCategory = "Accessories & Others";
-        }
-        estimateLink.href = `calculator.html?category=${encodeURIComponent(mappedCategory)}`;
+        inquireLink.href = `order.html?tab=inquiry&product=${encodeURIComponent(product.name)}&subject=${encodeURIComponent('Inquiry about: ' + product.name)}`;
     }
 
     modal.classList.add("active");
 }
 
-/* Quote & Pricing Estimator Module */
-function initQuoteCalculator() {
-    const form = document.getElementById("calc-form");
-    const resultPanel = document.getElementById("calc-result-normal");
-    const customQuotePanel = document.getElementById("calc-result-custom");
-    
-    const typeSelect = document.getElementById("calc-type");
-    const catSelect = document.getElementById("calc-category");
-    const qtyInput = document.getElementById("calc-qty");
-    const monthsInput = document.getElementById("calc-months");
-    const supportSelect = document.getElementById("calc-support");
-    const customQuoteCheckbox = document.getElementById("calc-custom-check");
+/* Order Form Module */
+function initOrderForm() {
+    const form = document.getElementById("order-form");
+    if (!form) return;
 
-    const durationLabel = document.getElementById("calc-duration-label");
-    const purchasePanel = document.getElementById("breakdown-purchase");
-    const leasePanel = document.getElementById("breakdown-lease");
+    // Pre-fill from URL params (when opened from product modal)
+    const urlParams = new URLSearchParams(window.location.search);
+    const productParam = urlParams.get("product");
+    const tabParam = urlParams.get("tab");
 
-    // Outright purchase prices for product categories
-    const purchaseRates = {
-        "Notes Counters": 1200.00,
-        "Coin Counters": 1450.00,
-        "Counterfeit Detectors": 350.00,
-        "Strapping & Wrapping": 2100.00,
-        "Cheque Embossers": 1650.00,
-        "Exchange Rate Boards": 2400.00,
-        "Accessories & Others": 180.00
-    };
+    // Switch to correct tab if directed from modal
+    if (tabParam === "inquiry" && typeof switchTab === "function") {
+        switchTab("inquiry");
+    }
 
-    // Annual SLA rates for product categories
-    const slaRates = {
-        "standard": 120.00,
-        "premium": 240.00,
-        "enterprise": 450.00
-    };
+    // Pre-fill the product field
+    if (productParam) {
+        const productField = document.getElementById("order-product");
+        if (productField) productField.value = productParam;
+        // Show the banner
+        const banner = document.getElementById("order-product-banner");
+        const bannerName = document.getElementById("order-product-name");
+        if (banner && bannerName) {
+            bannerName.textContent = productParam;
+            banner.classList.add("visible");
+        }
+    }
 
-    // Monthly baseline leasing prices for product categories
-    const baseRates = {
-        "Notes Counters": 45.00,
-        "Coin Counters": 55.00,
-        "Counterfeit Detectors": 15.00,
-        "Strapping & Wrapping": 75.00,
-        "Cheque Embossers": 65.00,
-        "Exchange Rate Boards": 80.00,
-        "Accessories & Others": 25.00
-    };
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("order-name").value.trim();
+        const company = document.getElementById("order-company").value.trim();
+        const email = document.getElementById("order-email").value.trim();
+        const phone = document.getElementById("order-phone").value.trim();
+        const product = document.getElementById("order-product").value.trim();
+        const qty = document.getElementById("order-qty").value;
+        const delivery = document.getElementById("order-delivery").value;
+        const location = document.getElementById("order-location").value.trim();
+        const notes = document.getElementById("order-notes").value.trim();
 
-    function updateCalculator() {
-        const isCustom = customQuoteCheckbox.checked;
-
-        // Enable/Disable inputs
-        typeSelect.disabled = isCustom;
-        catSelect.disabled = isCustom;
-        qtyInput.disabled = isCustom;
-        monthsInput.disabled = isCustom;
-        supportSelect.disabled = isCustom;
-
-        if (isCustom) {
-            resultPanel.style.display = "none";
-            customQuotePanel.style.display = "block";
+        if (!name || !company || !email || !phone || !product) {
+            alert("Please fill in all required fields (*).");
             return;
         }
 
-        resultPanel.style.display = "flex";
-        customQuotePanel.style.display = "none";
-
-        const category = catSelect.value;
-        const qty = parseInt(qtyInput.value) || 1;
-        const durationValue = parseInt(monthsInput.value) || 1;
-        const support = supportSelect.value;
-        const isPurchase = typeSelect.value === "purchase";
-
-        if (isPurchase) {
-            purchasePanel.style.display = "flex";
-            leasePanel.style.display = "none";
-
-            const unitCost = purchaseRates[category] || 1000.00;
-            const annualSla = slaRates[support] || 120.00;
-            const termYears = durationValue;
-
-            // Apply purchase quantity discount
-            let qtyDiscount = 1.0;
-            if (qty >= 5 && qty < 10) qtyDiscount = 0.95; // 5% off
-            else if (qty >= 10) qtyDiscount = 0.90; // 10% off
-
-            // Apply support SLA duration discount (3+ years contract)
-            let termDiscount = 1.0;
-            if (termYears >= 3) termDiscount = 0.90; // 10% off annual SLA rate
-
-            const equipSubtotal = unitCost * qty;
-            const discountedEquipSubtotal = equipSubtotal * qtyDiscount;
-            const annualSlaSubtotal = annualSla * qty;
-            const discountedAnnualSlaSubtotal = annualSlaSubtotal * termDiscount;
-            const totalOutlay = discountedEquipSubtotal + (discountedAnnualSlaSubtotal * termYears);
-
-            // Display results
-            document.getElementById("res-purchase-unit").textContent = `$${unitCost.toFixed(2)}`;
-            document.getElementById("res-purchase-subtotal").textContent = `$${discountedEquipSubtotal.toFixed(2)}`;
-            document.getElementById("res-sla-unit").textContent = `$${annualSla.toFixed(2)}/yr`;
-
-            const discountLine = document.getElementById("res-purchase-discounts");
-            let discountsText = "None";
-            if (qtyDiscount < 1.0 || termDiscount < 1.0) {
-                let parts = [];
-                if (qtyDiscount < 1.0) parts.push(`${Math.round((1 - qtyDiscount) * 100)}% Qty`);
-                if (termDiscount < 1.0) parts.push(`${Math.round((1 - termDiscount) * 100)}% SLA`);
-                discountsText = `Saved ${parts.join(" + ")}`;
-            }
-            discountLine.textContent = discountsText;
-
-            document.getElementById("res-total-label").textContent = "Total Outlay:";
-            document.getElementById("res-monthly-total").textContent = `$${totalOutlay.toFixed(2)}`;
-            document.getElementById("res-contract-label").textContent = "Annual Support Cost:";
-            document.getElementById("res-contract-total").textContent = `$${discountedAnnualSlaSubtotal.toFixed(2)}/yr`;
-
-        } else {
-            purchasePanel.style.display = "none";
-            leasePanel.style.display = "flex";
-
-            const baseRate = baseRates[category] || 35.00;
-            let supportMultiplier = 1.0;
-
-            if (support === "premium") {
-                supportMultiplier = 1.25;
-            } else if (support === "enterprise") {
-                supportMultiplier = 1.40;
-            }
-
-            const months = durationValue;
-
-            // Apply bulk discount on quantities
-            let qtyDiscount = 1.0;
-            if (qty >= 5 && qty < 10) qtyDiscount = 0.90; // 10% off
-            else if (qty >= 10) qtyDiscount = 0.80; // 20% off
-
-            // Apply duration discount
-            let durationDiscount = 1.0;
-            if (months >= 12 && months < 24) durationDiscount = 0.90; // 10% off for 1yr+
-            else if (months >= 24) durationDiscount = 0.85; // 15% off for 2yr+
-
-            const ratePerDevice = baseRate * supportMultiplier;
-            const monthlySubtotal = ratePerDevice * qty * qtyDiscount;
-            const totalContract = monthlySubtotal * months * durationDiscount;
-            const finalMonthlyRate = totalContract / months;
-
-            // Display results
-            document.getElementById("res-base-rate").textContent = `$${ratePerDevice.toFixed(2)}`;
-            document.getElementById("res-qty").textContent = qty;
-            document.getElementById("res-months").textContent = `${months} months`;
-
-            const discountLine = document.getElementById("res-discounts");
-            let discountsText = "None";
-            if (qtyDiscount < 1.0 || durationDiscount < 1.0) {
-                const savingsPercent = Math.round((1 - (qtyDiscount * durationDiscount)) * 100);
-                discountsText = `Saved ${savingsPercent}% (Bulk/Term)`;
-            }
-            discountLine.textContent = discountsText;
-
-            document.getElementById("res-total-label").textContent = "Monthly Lease Cost:";
-            document.getElementById("res-monthly-total").textContent = `$${finalMonthlyRate.toFixed(2)}`;
-            document.getElementById("res-contract-label").textContent = "Estimated Contract Value:";
-            document.getElementById("res-contract-total").textContent = `$${totalContract.toFixed(2)}`;
-        }
-    }
-
-    // Toggle fields based on type select
-    if (typeSelect) {
-        typeSelect.addEventListener("change", () => {
-            const isPurchase = typeSelect.value === "purchase";
-            if (isPurchase) {
-                durationLabel.textContent = "SLA Term (Years)";
-                monthsInput.min = "1";
-                monthsInput.max = "5";
-                if (parseInt(monthsInput.value) > 5) {
-                    monthsInput.value = "1";
-                }
-            } else {
-                durationLabel.textContent = "Lease Duration (Months)";
-                monthsInput.min = "1";
-                monthsInput.max = "60";
-                if (parseInt(monthsInput.value) < 6 || parseInt(monthsInput.value) > 60) {
-                    monthsInput.value = "12";
-                }
-            }
-            updateCalculator();
-        });
-
-        // Initialize state on load
-        const isPurchase = typeSelect.value === "purchase";
-        if (isPurchase) {
-            durationLabel.textContent = "SLA Term (Years)";
-            monthsInput.min = "1";
-            monthsInput.max = "5";
-            if (parseInt(monthsInput.value) > 5) {
-                monthsInput.value = "1";
-            }
-        }
-    }
-
-    // Bind listeners
-    [typeSelect, catSelect, qtyInput, monthsInput, supportSelect, customQuoteCheckbox].forEach(el => {
-        if (el) el.addEventListener("change", updateCalculator);
+        const container = form.parentElement;
+        container.innerHTML = `
+            <div class="form-success-message animate-fade-in" style="text-align:center; padding: 60px 20px;">
+                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(197,160,89,0.12);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">🛒</div>
+                <h2 style="font-size:26px;margin-bottom:12px;">Order Request Submitted!</h2>
+                <p style="color:var(--text-muted);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">
+                    Thank you, <strong>${name}</strong>. Your order request for <strong>${qty}× ${product}</strong> has been received.
+                    Our sales team will contact you at <strong>${email}</strong> to confirm pricing and delivery details.
+                </p>
+                <div style="font-size:14px;text-align:left;background:var(--bg-light);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-color);max-width:420px;margin:0 auto 28px;">
+                    <p style="font-weight:700;margin-bottom:10px;">Order Summary:</p>
+                    <p style="margin-bottom:5px;">• Product: ${product}</p>
+                    <p style="margin-bottom:5px;">• Quantity: ${qty}</p>
+                    <p style="margin-bottom:5px;">• Organisation: ${company}</p>
+                    <p style="margin-bottom:5px;">• Preferred Delivery: ${delivery.replace('asap','As soon as possible').replace('2weeks','Within 2 weeks').replace('1month','Within 1 month').replace('3months','Within 3 months').replace('flexible','Flexible')}</p>
+                    ${location ? `<p style="margin-bottom:5px;">• Location: ${location}</p>` : ""}
+                </div>
+                <a href="products.html" class="btn btn-primary">Continue Browsing Products</a>
+            </div>
+        `;
     });
-    if (qtyInput) qtyInput.addEventListener("input", updateCalculator);
-    if (monthsInput) monthsInput.addEventListener("input", updateCalculator);
+}
 
-    // Prepopulate parameters from URL
+/* Inquiry Form Module */
+function initInquiryForm() {
+    const form = document.getElementById("inquiry-form");
+    if (!form) return;
+
+    // Pre-fill from URL params
     const urlParams = new URLSearchParams(window.location.search);
-    const categoryParam = urlParams.get("category");
-    if (categoryParam && catSelect) {
-        catSelect.value = categoryParam;
+    const productParam = urlParams.get("product");
+    const subjectParam = urlParams.get("subject");
+    const tabParam = urlParams.get("tab");
+
+    if (tabParam === "inquiry" && typeof switchTab === "function") {
+        switchTab("inquiry");
     }
 
-    // Run first calculation
-    if (form) updateCalculator();
-
-    // Custom quote button handler
-    const quoteBtn = document.getElementById("request-custom-btn");
-    if (quoteBtn) {
-        quoteBtn.addEventListener("click", () => {
-            const category = catSelect.value;
-            const qty = qtyInput.value;
-            const durationValue = monthsInput.value;
-            const isPurchase = typeSelect.value === "purchase";
-            const support = supportSelect.value;
-
-            let subject = "";
-            let details = "";
-
-            if (isPurchase) {
-                subject = `Purchase Quote Request: ${qty}x ${category}`;
-                details = `Requesting a formal purchase quote for ${qty} unit(s) of ${category} equipment with a ${durationValue}-year ${support} SLA support agreement.`;
-            } else {
-                subject = `Leasing Quote Request: ${qty}x ${category}`;
-                details = `Requesting a formal leasing quote for ${qty} unit(s) of ${category} equipment for a term of ${durationValue} months with ${support} support.`;
-            }
-
-            window.location.href = `contact.html?subject=${encodeURIComponent(subject)}&details=${encodeURIComponent(details)}`;
-        });
+    if (subjectParam) {
+        const subjectField = document.getElementById("inq-subject");
+        if (subjectField) subjectField.value = subjectParam;
     }
+
+    if (productParam) {
+        // Show banner
+        const banner = document.getElementById("inquiry-product-banner");
+        const bannerName = document.getElementById("inquiry-product-name");
+        if (banner && bannerName) {
+            bannerName.textContent = productParam;
+            banner.classList.add("visible");
+        }
+    }
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("inq-name").value.trim();
+        const email = document.getElementById("inq-email").value.trim();
+        const subject = document.getElementById("inq-subject").value.trim();
+        const message = document.getElementById("inq-message").value.trim();
+
+        if (!name || !email || !subject || !message) {
+            alert("Please fill in all required fields (*).");
+            return;
+        }
+
+        const container = form.parentElement;
+        container.innerHTML = `
+            <div class="form-success-message animate-fade-in" style="text-align:center;padding:60px 20px;">
+                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(16,185,129,0.1);color:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">✓</div>
+                <h2 style="font-size:26px;margin-bottom:12px;">Inquiry Sent!</h2>
+                <p style="color:var(--text-muted);margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto;">
+                    Thank you, <strong>${name}</strong>. We've received your inquiry: <em>"${subject}"</em>.
+                    An expert from our team will reply to <strong>${email}</strong> within one business day.
+                </p>
+                <a href="products.html" class="btn btn-primary">Back to Products</a>
+            </div>
+        `;
+    });
 }
 
 /* Contact Form Module */
 function initContactForm() {
     const form = document.getElementById("contact-form");
     
-    // Auto-prepopulate parameters from URL (e.g. from leasing calculator custom request)
+    // Auto-prepopulate parameters from URL
     const urlParams = new URLSearchParams(window.location.search);
     const subjectParam = urlParams.get("subject");
     const detailsParam = urlParams.get("details");
@@ -877,7 +859,6 @@ function initContactForm() {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        // Validate basic inputs
         const name = document.getElementById("contact-name").value.trim();
         const email = document.getElementById("contact-email").value.trim();
         const tel = document.getElementById("contact-phone").value.trim();
@@ -888,18 +869,17 @@ function initContactForm() {
             return;
         }
 
-        // Show visual success overlay
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in">
-                <div class="form-success-icon">✓</div>
+                <div class="form-success-icon">?</div>
                 <h2>Message Sent Successfully!</h2>
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Thank you for contacting Unique Business Systems. An engineering consultant or account manager will get back to you shortly at <strong>${email}</strong>.</p>
                 <div style="font-size: 14px; text-align: left; background-color: var(--bg-light); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                     <p style="margin-bottom: 8px;"><strong>Summary of details submitted:</strong></p>
-                    <p style="margin-bottom: 4px;">• Contact Name: ${name}</p>
-                    <p style="margin-bottom: 4px;">• Phone Number: ${tel || "Not provided"}</p>
-                    <p style="margin-bottom: 4px;">• Email Address: ${email}</p>
+                    <p style="margin-bottom: 4px;">� Contact Name: ${name}</p>
+                    <p style="margin-bottom: 4px;">� Phone Number: ${tel || "Not provided"}</p>
+                    <p style="margin-bottom: 4px;">� Email Address: ${email}</p>
                 </div>
                 <button class="btn btn-primary" style="margin-top: 30px;" onclick="window.location.reload()">Send Another Message</button>
             </div>
@@ -929,15 +909,15 @@ function initBookingForm() {
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in">
-                <div class="form-success-icon">⚙</div>
+                <div class="form-success-icon">?</div>
                 <h2>Repair Scheduled Successfully!</h2>
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Your maintenance request has been logged. An engineer will contact <strong>${contactPerson}</strong> at <strong>${company}</strong> to confirm the dispatch for <strong>${date}</strong>.</p>
                 <div style="font-size: 14px; text-align: left; background-color: var(--bg-light); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                     <p style="margin-bottom: 8px;"><strong>Service Ticket Details:</strong></p>
-                    <p style="margin-bottom: 4px;">• Ticket Status: <span style="color: var(--success); font-weight: 700;">Scheduled</span></p>
-                    <p style="margin-bottom: 4px;">• Equipment Type/Model: ${model}</p>
-                    <p style="margin-bottom: 4px;">• Date of Visit: ${date}</p>
-                    <p style="margin-bottom: 4px;">• Issue Logged: "${issue}"</p>
+                    <p style="margin-bottom: 4px;">� Ticket Status: <span style="color: var(--success); font-weight: 700;">Scheduled</span></p>
+                    <p style="margin-bottom: 4px;">� Equipment Type/Model: ${model}</p>
+                    <p style="margin-bottom: 4px;">� Date of Visit: ${date}</p>
+                    <p style="margin-bottom: 4px;">� Issue Logged: "${issue}"</p>
                 </div>
                 <button class="btn btn-secondary" style="margin-top: 30px;" onclick="window.location.reload()">Book Another Visit</button>
             </div>

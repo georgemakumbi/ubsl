@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order & Inquire | Unique Business Systems Limited</title>
+    <meta name="description" content="Place a product order or send an inquiry about any currency handling machine, coin counter, security system or accessory from Unique Business Systems Limited Uganda.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Order page specific styles */
+        .order-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+        .order-tab-btn {
+            padding: 14px 32px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .order-tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .order-tab-btn:hover:not(.active) {
+            color: var(--text-dark);
+        }
+        .order-tab-panel { display: none; }
+        .order-tab-panel.active { display: block; }
+
+        .order-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+            align-items: start;
+        }
+        .order-form-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-premium);
+        }
+        .order-sidebar-card {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            color: #fff;
+            position: sticky;
+            top: 90px;
+        }
+        .order-sidebar-card h3 {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .sidebar-info-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+        .sidebar-info-icon {
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .sidebar-info-text p { font-size: 13px; color: #CBD5E1; margin-top: 3px; }
+        .sidebar-info-text strong { color: #fff; font-size: 14px; }
+
+        .selected-product-banner {
+            background: rgba(197, 160, 89, 0.1);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            display: none;
+        }
+        .selected-product-banner.visible { display: flex; gap: 12px; align-items: center; }
+        .selected-product-banner .tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+        .selected-product-banner .name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 900px) {
+            .order-layout { grid-template-columns: 1fr; }
+            .order-sidebar-card { position: static; }
+        }
+        @media (max-width: 480px) {
+            .order-form-card { padding: 24px 16px; }
+            .order-tab-btn { padding: 12px 18px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h1>Unique Business Systems</h1>
+                    <span>Engineering &amp; Cash Solutions</span>
+                </div>
+            </a>
+            
+            <nav id="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="order.html" class="active">Order / Inquire</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="theme-toggle-btn" aria-label="Toggle dark mode">
+                    <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="burger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="hero" style="padding: 60px 0 80px;">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 40px; margin-bottom: 12px;">Order &amp; Product Inquiries</h2>
+            <p style="color: #E2E8F0; max-width: 600px; margin: 0 auto; font-size: 16px;">Place a direct order for any equipment in our catalog, or send us a free-form inquiry. Our team responds within one business day.</p>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section class="section">
+        <div class="container">
+            <div class="order-layout">
+
+                <!-- Main Form Area -->
+                <div>
+                    <!-- Tabs -->
+                    <div class="order-tabs">
+                        <button class="order-tab-btn active" id="tab-btn-order" onclick="switchTab('order')">
+                            🛒 Place an Order
+                        </button>
+                        <button class="order-tab-btn" id="tab-btn-inquiry" onclick="switchTab('inquiry')">
+                            💬 Product Inquiry
+                        </button>
+                    </div>
+
+                    <!-- ===== PLACE AN ORDER TAB ===== -->
+                    <div class="order-tab-panel active" id="tab-order">
+                        <div class="order-form-card">
+                            <!-- Pre-selected product banner (populated by JS) -->
+                            <div class="selected-product-banner" id="order-product-banner">
+                                <div style="font-size: 28px;">📦</div>
+                                <div>
+                                    <div class="tag">Selected Product</div>
+                                    <div class="name" id="order-product-name">—</div>
+                                </div>
+                            </div>
+
+                            <h3 style="font-size: 20px; margin-bottom: 8px;">Order Details</h3>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 28px;">Fill in the form below and our sales team will contact you to confirm the order, pricing, and delivery terms.</p>
+
+                            <form id="order-form">
+                                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label for="order-name">Full Name *</label>
+                                        <input type="text" id="order-name" placeholder="e.g. John Mugisha" required>
+                                    </div>
+                                    <div>
+                                        <label for="order-company">Organisation / Company *</label>
+                                        <input type="text" id="order-company" placeholder="e.g. Stanbic Bank Uganda" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label for="order-email">Email Address *</label>
+                                        <input type="email" id="order-email" placeholder="your@organisation.com" required>
+                                    </div>
+                                    <div>
+                                        <label for="order-phone">Phone / WhatsApp *</label>
+                                        <input type="tel" id="order-phone" placeholder="+256 700 000 000" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="order-product">Product / Equipment *</label>
+                                    <input type="text" id="order-product" placeholder="e.g. Jetscan IFX I200, SC 303, Sirio 18..." required>
+                                </div>
+
+                                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label for="order-qty">Quantity Required *</label>
+                                        <input type="number" id="order-qty" min="1" value="1" placeholder="1" required>
+                                    </div>
+                                    <div>
+                                        <label for="order-delivery">Preferred Delivery / Timeline</label>
+                                        <select id="order-delivery">
+                                            <option value="asap">As soon as possible</option>
+                                            <option value="2weeks">Within 2 weeks</option>
+                                            <option value="1month">Within 1 month</option>
+                                            <option value="3months">Within 3 months</option>
+                                            <option value="flexible">Flexible / To be discussed</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="order-location">Delivery Location / Branch</label>
+                                    <input type="text" id="order-location" placeholder="e.g. Kampala Head Office, Gulu Branch...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="order-notes">Additional Notes or Requirements</label>
+                                    <textarea id="order-notes" rows="4" placeholder="e.g. Need installation support, training for 3 staff, specific currency type (UGX only), spare parts bundle..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 15px;">
+                                    Submit Order Request →
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ===== INQUIRY TAB ===== -->
+                    <div class="order-tab-panel" id="tab-inquiry">
+                        <div class="order-form-card">
+                            <!-- Pre-selected product banner (populated by JS) -->
+                            <div class="selected-product-banner" id="inquiry-product-banner">
+                                <div style="font-size: 28px;">🔍</div>
+                                <div>
+                                    <div class="tag">Inquiring About</div>
+                                    <div class="name" id="inquiry-product-name">—</div>
+                                </div>
+                            </div>
+
+                            <h3 style="font-size: 20px; margin-bottom: 8px;">Send a Product Inquiry</h3>
+                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 28px;">Ask us anything — pricing, compatibility, demo requests, spare parts, or technical specs. We'll respond promptly.</p>
+
+                            <form id="inquiry-form">
+                                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label for="inq-name">Full Name *</label>
+                                        <input type="text" id="inq-name" placeholder="e.g. Sarah Nalwanga" required>
+                                    </div>
+                                    <div>
+                                        <label for="inq-company">Organisation / Company</label>
+                                        <input type="text" id="inq-company" placeholder="e.g. Centenary Bank">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label for="inq-email">Email Address *</label>
+                                        <input type="email" id="inq-email" placeholder="your@email.com" required>
+                                    </div>
+                                    <div>
+                                        <label for="inq-phone">Phone / WhatsApp</label>
+                                        <input type="tel" id="inq-phone" placeholder="+256 700 000 000">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inq-subject">Inquiry Subject *</label>
+                                    <input type="text" id="inq-subject" placeholder="e.g. Pricing for Jetscan 150, Service contract for 5 machines..." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inq-type">Inquiry Type</label>
+                                    <select id="inq-type">
+                                        <option value="pricing">Pricing &amp; Quotation</option>
+                                        <option value="specs">Technical Specifications</option>
+                                        <option value="demo">Demo / Trial Request</option>
+                                        <option value="spares">Spare Parts Availability</option>
+                                        <option value="sla">Service &amp; SLA Contract</option>
+                                        <option value="other">Other / General</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inq-message">Your Question / Message *</label>
+                                    <textarea id="inq-message" rows="5" placeholder="Describe your requirements, ask for a specific feature, or request information about a product..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 15px;">
+                                    Send Inquiry →
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="order-sidebar-card">
+                    <h3>Why Order With Us</h3>
+
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon">✅</div>
+                        <div class="sidebar-info-text">
+                            <strong>Factory-Certified Equipment</strong>
+                            <p>Every machine ships with original manufacturer warranty and UBSL installation support.</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon">🚚</div>
+                        <div class="sidebar-info-text">
+                            <strong>Nationwide Delivery</strong>
+                            <p>We deliver and install across Uganda and the East African region, including remote branches.</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon">💳</div>
+                        <div class="sidebar-info-text">
+                            <strong>Flexible Payment Terms</strong>
+                            <p>Corporate clients enjoy up to 30-day credit terms. Leasing and instalment plans available.</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-info-item">
+                        <div class="sidebar-info-icon">🔧</div>
+                        <div class="sidebar-info-text">
+                            <strong>24hr Engineer Dispatch</strong>
+                            <p>Post-sale support with rapid engineer response for any service or technical issue.</p>
+                        </div>
+                    </div>
+
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 24px 0;">
+
+                    <p style="font-size: 13px; color: #94A3B8; margin-bottom: 12px;">Prefer to talk directly?</p>
+                    <a href="tel:+256414272307" style="display: flex; align-items: center; gap: 8px; color: var(--accent); font-weight: 700; font-size: 15px; text-decoration: none; margin-bottom: 10px;">
+                        📞 +256 414 272 307
+                    </a>
+                    <a href="mailto:info@ubsl.co.ug" style="display: flex; align-items: center; gap: 8px; color: #CBD5E1; font-size: 14px; text-decoration: none;">
+                        ✉ info@ubsl.co.ug
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <div class="logo-icon" style="color: var(--primary-dark);">U</div>
+                    <div class="logo-text">
+                        <h1 style="color: #FFFFFF; font-size: 18px;">Unique Business Systems</h1>
+                        <span style="color: var(--accent);">Engineering &amp; Cash Solutions</span>
+                    </div>
+                </div>
+                <p>Founded in 2005 to address the technical service gap for East African banking institutions. Registered currency handling specialists.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">tw</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">fb</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home Overview</a></li>
+                    <li><a href="about.html">About Company</a></li>
+                    <li><a href="products.html">Equipment Catalog</a></li>
+                    <li><a href="service.html">Repairs &amp; Maintenance</a></li>
+                    <li><a href="order.html">Order &amp; Inquire</a></li>
+                    <li><a href="contact.html">Get in Touch</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html?category=Notes+Counters">Notes Counters</a></li>
+                    <li><a href="products.html?category=Coin+Counters">Coin Sorters</a></li>
+                    <li><a href="products.html?category=Counterfeit+Detectors">Counterfeit Detectors</a></li>
+                    <li><a href="products.html?category=Cheque+Embossers+%26+Writers">Cheque Writers</a></li>
+                    <li><a href="products.html?category=Security+Machines">Security Machines</a></li>
+                    <li><a href="products.html?category=Accessories">Accessories</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Sign up to receive technical alerts, product launches and currency security updates.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+                    <input type="email" placeholder="Your corporate email" required>
+                    <button class="btn btn-primary" style="padding: 10px 16px;" type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Unique Business Systems Limited. All rights reserved.</p>
+            <p>Plot 450 Balintuma Road, Mengo, P.O. Box 965 Kampala, Uganda</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.order-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.order-tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-btn-' + tab).classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+    </script>
+</body>
+</html>
