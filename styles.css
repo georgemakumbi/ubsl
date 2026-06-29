@@ -617,6 +617,18 @@ nav {
     opacity: 0.6;
 }
 
+.product-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-placeholder img {
+    transform: scale(1.08);
+}
+
 .product-category {
     font-size: 11px;
     text-transform: uppercase;

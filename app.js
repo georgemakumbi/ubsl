@@ -483,7 +483,7 @@ const PRODUCTS_DB = [
         "specs": [
             "Automatic advance to next date at midnight.",
             "12/24-hour time format selectable.",
-            "Self-inking mechanism — no separate ink pad required.",
+            "Self-inking mechanism â no separate ink pad required.",
             "Prints up to 5,000 impressions per ink refill."
         ]
     }
@@ -623,16 +623,29 @@ function initProductCatalog() {
             return;
         }
 
+        // Category to image mapping
+        const categoryImages = {
+            "Notes Counters": "assets/product_notes_counter.png",
+            "Coin Counters": "assets/product_coin_counter.png",
+            "Counterfeit Detectors": "assets/product_counterfeit_detector.png",
+            "Strapping Machines": "assets/product_strapping_machine.png",
+            "Coin Wrapping Machines": "assets/product_coin_wrapping.png",
+            "Cheque Embossers & Writers": "assets/product_cheque_embosser.png",
+            "Security Bags & Seals": "assets/product_security_bag.png",
+            "Thermal Printers": "assets/product_thermal_printer.png",
+            "Exchange Rate Boards": "assets/product_exchange_rate_board.png",
+            "Accessories": "assets/product_accessories.png",
+            "Security Machines": "assets/product_security_machine.png"
+        };
+
         filtered.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card animate-fade-in";
-            
-            // Build card html structure with clean SVG representing bank/office gear
+            const imgSrc = categoryImages[p.category] || "assets/product_accessories.png";
+
             card.innerHTML = `
-                <div class="product-img-placeholder">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
+                <div class="product-img-placeholder" style="padding: 0; overflow: hidden;">
+                    <img src="${imgSrc}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </div>
                 <div class="product-category">${p.category}</div>
                 <h3>${p.name}</h3>
@@ -666,7 +679,6 @@ function initProductCatalog() {
             renderCatalog();
         });
     }
-
     // Modal close hooks
     if (modal) {
         const closeBtn = modal.querySelector(".modal-close");
@@ -687,6 +699,26 @@ function showProductModal(product) {
     modal.querySelector(".modal-title").textContent = product.name;
     modal.querySelector(".modal-category").textContent = product.category;
     modal.querySelector(".modal-desc").textContent = product.description;
+
+    // Set modal product image
+    const categoryImages = {
+        "Notes Counters": "assets/product_notes_counter.png",
+        "Coin Counters": "assets/product_coin_counter.png",
+        "Counterfeit Detectors": "assets/product_counterfeit_detector.png",
+        "Strapping Machines": "assets/product_strapping_machine.png",
+        "Coin Wrapping Machines": "assets/product_coin_wrapping.png",
+        "Cheque Embossers & Writers": "assets/product_cheque_embosser.png",
+        "Security Bags & Seals": "assets/product_security_bag.png",
+        "Thermal Printers": "assets/product_thermal_printer.png",
+        "Exchange Rate Boards": "assets/product_exchange_rate_board.png",
+        "Accessories": "assets/product_accessories.png",
+        "Security Machines": "assets/product_security_machine.png"
+    };
+    const modalImg = modal.querySelector("#modal-product-img");
+    if (modalImg) {
+        modalImg.src = categoryImages[product.category] || "assets/product_accessories.png";
+        modalImg.alt = product.name;
+    }
 
     const specsList = modal.querySelector(".modal-specs-list");
     specsList.innerHTML = "";
@@ -763,19 +795,19 @@ function initOrderForm() {
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in" style="text-align:center; padding: 60px 20px;">
-                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(197,160,89,0.12);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">🛒</div>
+                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(197,160,89,0.12);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">ð</div>
                 <h2 style="font-size:26px;margin-bottom:12px;">Order Request Submitted!</h2>
                 <p style="color:var(--text-muted);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">
-                    Thank you, <strong>${name}</strong>. Your order request for <strong>${qty}× ${product}</strong> has been received.
+                    Thank you, <strong>${name}</strong>. Your order request for <strong>${qty}Ã ${product}</strong> has been received.
                     Our sales team will contact you at <strong>${email}</strong> to confirm pricing and delivery details.
                 </p>
                 <div style="font-size:14px;text-align:left;background:var(--bg-light);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-color);max-width:420px;margin:0 auto 28px;">
                     <p style="font-weight:700;margin-bottom:10px;">Order Summary:</p>
-                    <p style="margin-bottom:5px;">• Product: ${product}</p>
-                    <p style="margin-bottom:5px;">• Quantity: ${qty}</p>
-                    <p style="margin-bottom:5px;">• Organisation: ${company}</p>
-                    <p style="margin-bottom:5px;">• Preferred Delivery: ${delivery.replace('asap','As soon as possible').replace('2weeks','Within 2 weeks').replace('1month','Within 1 month').replace('3months','Within 3 months').replace('flexible','Flexible')}</p>
-                    ${location ? `<p style="margin-bottom:5px;">• Location: ${location}</p>` : ""}
+                    <p style="margin-bottom:5px;">â¢ Product: ${product}</p>
+                    <p style="margin-bottom:5px;">â¢ Quantity: ${qty}</p>
+                    <p style="margin-bottom:5px;">â¢ Organisation: ${company}</p>
+                    <p style="margin-bottom:5px;">â¢ Preferred Delivery: ${delivery.replace('asap','As soon as possible').replace('2weeks','Within 2 weeks').replace('1month','Within 1 month').replace('3months','Within 3 months').replace('flexible','Flexible')}</p>
+                    ${location ? `<p style="margin-bottom:5px;">â¢ Location: ${location}</p>` : ""}
                 </div>
                 <a href="products.html" class="btn btn-primary">Continue Browsing Products</a>
             </div>
@@ -828,7 +860,7 @@ function initInquiryForm() {
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in" style="text-align:center;padding:60px 20px;">
-                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(16,185,129,0.1);color:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">✓</div>
+                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(16,185,129,0.1);color:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">â</div>
                 <h2 style="font-size:26px;margin-bottom:12px;">Inquiry Sent!</h2>
                 <p style="color:var(--text-muted);margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto;">
                     Thank you, <strong>${name}</strong>. We've received your inquiry: <em>"${subject}"</em>.
@@ -877,9 +909,9 @@ function initContactForm() {
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Thank you for contacting Unique Business Systems. An engineering consultant or account manager will get back to you shortly at <strong>${email}</strong>.</p>
                 <div style="font-size: 14px; text-align: left; background-color: var(--bg-light); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                     <p style="margin-bottom: 8px;"><strong>Summary of details submitted:</strong></p>
-                    <p style="margin-bottom: 4px;">� Contact Name: ${name}</p>
-                    <p style="margin-bottom: 4px;">� Phone Number: ${tel || "Not provided"}</p>
-                    <p style="margin-bottom: 4px;">� Email Address: ${email}</p>
+                    <p style="margin-bottom: 4px;"> Contact Name: ${name}</p>
+                    <p style="margin-bottom: 4px;"> Phone Number: ${tel || "Not provided"}</p>
+                    <p style="margin-bottom: 4px;"> Email Address: ${email}</p>
                 </div>
                 <button class="btn btn-primary" style="margin-top: 30px;" onclick="window.location.reload()">Send Another Message</button>
             </div>
@@ -914,10 +946,10 @@ function initBookingForm() {
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Your maintenance request has been logged. An engineer will contact <strong>${contactPerson}</strong> at <strong>${company}</strong> to confirm the dispatch for <strong>${date}</strong>.</p>
                 <div style="font-size: 14px; text-align: left; background-color: var(--bg-light); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                     <p style="margin-bottom: 8px;"><strong>Service Ticket Details:</strong></p>
-                    <p style="margin-bottom: 4px;">� Ticket Status: <span style="color: var(--success); font-weight: 700;">Scheduled</span></p>
-                    <p style="margin-bottom: 4px;">� Equipment Type/Model: ${model}</p>
-                    <p style="margin-bottom: 4px;">� Date of Visit: ${date}</p>
-                    <p style="margin-bottom: 4px;">� Issue Logged: "${issue}"</p>
+                    <p style="margin-bottom: 4px;"> Ticket Status: <span style="color: var(--success); font-weight: 700;">Scheduled</span></p>
+                    <p style="margin-bottom: 4px;"> Equipment Type/Model: ${model}</p>
+                    <p style="margin-bottom: 4px;"> Date of Visit: ${date}</p>
+                    <p style="margin-bottom: 4px;"> Issue Logged: "${issue}"</p>
                 </div>
                 <button class="btn btn-secondary" style="margin-top: 30px;" onclick="window.location.reload()">Book Another Visit</button>
             </div>
