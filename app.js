@@ -160,7 +160,7 @@ const PRODUCTS_DB = [
         ]
     },
 
-    // 5. Cheque Printers (Sysgraf AD 410)
+    // 5. Cheque Printers (Sysgraf AD 410, FZA 2155 Cheque Scanner, Cheque Scanner)
     {
         "name": "Sysgraf AD 410",
         "category": "Cheque Printers",
@@ -173,30 +173,41 @@ const PRODUCTS_DB = [
             "Seamless integration with banking application systems"
         ]
     },
-
-    // 6. Embossers (FZA 2155 Embosser, Cheque Writer)
     {
-        "name": "FZA 2155 Embosser",
-        "category": "Embossers",
-        "image": "assets/fza_2155_embosser.png",
-        "description": "Premium industrial cheque embosser providing deep stamp relief to secure negotiable documents.",
+        "name": "FZA 2155 Cheque Scanner",
+        "category": "Cheque Printers",
+        "image": "assets/fza scanner.png",
+        "description": "A Fast, Dynamic, High volume Cheque Scanner. It is the cornerstone for production cheque processing, delivering high performance, reliability and image quality.",
         "specs": [
-            "High performance embossing action.",
-            "Durable steel layout for continuous operation.",
-            "Supports various cheque designs and layouts."
+            "Efficient countertop design capable of meeting the toughest challenges.",
+            "Improves efficiency of payment processes and treasury management.",
+            "Handles business and personal cheques, and thicker items such as rebate cards and envelopes."
         ]
     },
     {
+        "name": "Cheque Scanner",
+        "category": "Cheque Printers",
+        "image": "assets/cheque scanner.png",
+        "description": "A Fast, Dynamic, High volume Cheque Scanner delivering high performance, reliability and image quality.",
+        "specs": [
+            "Efficient countertop design.",
+            "Improves efficiency of payment processes and treasury management.",
+            "Handles wide variety of items: business/personal cheques, cards, envelopes."
+        ]
+    },
+
+    // 6. Embossers (Cheque Writer)
+    {
         "name": "Cheque Writer",
         "category": "Embossers",
-        "image": "assets/cheque_writer.png",
-        "description": "Secure manual and electronic cheque writers to prevent document alteration using deeply serrated print.",
+        "image": "assets/cheque writer.png",
+        "description": "The ultimate in 'contemporary' check writing security with a deeply serrated Paymaster typeface.",
         "specs": [
-            "Dye-based inking provides the ultimate alteration deterrent.",
-            "One-key security locking system.",
+            "One-key security system.",
             "Exclusive replaceable ink ribbon cartridge.",
             "Deeply serrated Paymaster typeface.",
-            "Imprints various sized cheques quickly and accurately."
+            "Imprints various sized checks quickly and accurately.",
+            "Dye based inking provides the ultimate alteration deterrent."
         ]
     },
 
@@ -204,7 +215,7 @@ const PRODUCTS_DB = [
     {
         "name": "Sirio 18",
         "category": "Coin Wrappers",
-        "image": "assets/sirio_18.png",
+        "image": "assets/sirio 18.png",
         "description": "Automatic coin wrapping machine designed to package coins into secure paper rolls efficiently.",
         "specs": [
             "Speed: 18 rolls per minute.",
@@ -215,7 +226,7 @@ const PRODUCTS_DB = [
     {
         "name": "Sirio 30",
         "category": "Coin Wrappers",
-        "image": "assets/sirio_30.png",
+        "image": "assets/sirio 30.png",
         "description": "High-speed industrial coin wrapping machine with automatic coin feeder for heavy-duty banking applications.",
         "specs": [
             "Speed: 20 to 30 rolls per minute.",
@@ -303,63 +314,25 @@ const PRODUCTS_DB = [
         "specs": ["Monitors real-time sorting performance", "Optimized profitability and control", "Integrates with vault management systems"]
     },
 
-    // 9. Strapping Machines (Packer tt 201/202, Signode ttx, Semi-Auto tabletop/closed-cabinet models, Strapping Roll)
+    // 9. Strapping Machines (Packer tt 201/202, Signode ttx, Strapping Roll)
     {
         "name": "Packer tt 201",
         "category": "Strapping Machines",
-        "image": "assets/packer_tt_201.png",
-        "description": "Semi-automatic tabletop strapping machine for secure packaging of bank boxes and bundles.",
+        "image": "assets/semi auto strapping machine.png",
+        "description": "Fully RoHS compliant semi-automatic open-cabinet strapping machine set for and fitted with 12mm strapping.",
         "specs": [
-            "Tabletop space-saving configuration",
-            "Quick heating strap sealer",
-            "Adjustable tension controls",
-            "RoHS compliant and easy to reload"
+            "Adjustable for strap width from 6mm to 15.5mm.",
+            "Can operate at up to 24 cycles per minute.",
+            "Easily operated controls including manual tension adjustment.",
+            "On adjustable legs with braked castors (table height 760mm to 930mm).",
+            "Dimensions: W902mm x D586mm x H760mm, weight 85kgs."
         ]
     },
     {
         "name": "Packer tt 202",
         "category": "Strapping Machines",
-        "image": "assets/packer_tt_202.png",
-        "description": "Heavy-duty closed-cabinet semi-automatic strapping machine for professional packaging operations.",
-        "specs": [
-            "Closed cabinet structure for mechanical protection",
-            "Quiet motor and fast strapping cycle",
-            "Supports various strap widths from 6mm to 15.5mm",
-            "Sturdy wheel casters with brakes"
-        ]
-    },
-    {
-        "name": "Signode ttx",
-        "category": "Strapping Machines",
-        "image": "assets/signode_ttx.png",
-        "description": "Premium automatic strapping machine designed for high-speed industrial packaging applications.",
-        "specs": [
-            "High-speed automatic strapping cycle",
-            "Minimal wear and tear parts",
-            "Perfect strap tension and seal strength",
-            "Ideal for sorting rooms and courier depots"
-        ]
-    },
-    {
-        "name": "Semi-Auto Strap Machine for 6MM to 15.5MM",
-        "category": "Strapping Machines",
-        "image": "assets/strap_machine_6_15.png",
-        "description": "Versatile tabletop strapping machine for secure packaging of bank boxes, documents, and merchandise.",
-        "specs": [
-            "Fully RoHS compliant and supplied ready to go with 12mm strapping.",
-            "Twelve months return to base warranty, parts and labour.",
-            "Adjustable for strap width from 6mm to 15.5mm.",
-            "Operates at up to 24 cycles per minute.",
-            "Easily operated controls including manual tension adjustment.",
-            "Adjustable legs with braked castors (table height 760mm to 930mm).",
-            "Dimensions: W902mm x D586mm x H760mm, weight 85kgs."
-        ]
-    },
-    {
-        "name": "Semi-Auto Strap Machine with Closed Cabinet",
-        "category": "Strapping Machines",
-        "image": "assets/strap_machine_closed.png",
-        "description": "Secure closed-cabinet strapping machine protecting mechanical components from dust and debris.",
+        "image": "assets/strap machine.png",
+        "description": "Heavy-duty semi-automatic closed-cabinet strapping machine protecting components from dust and debris.",
         "specs": [
             "Closed cabinet layout for safety and dust protection.",
             "Twelve months return to base warranty, parts and labour.",
@@ -369,14 +342,26 @@ const PRODUCTS_DB = [
         ]
     },
     {
+        "name": "Signode ttx",
+        "category": "Strapping Machines",
+        "image": "assets/semi auto strapping machine.png",
+        "description": "Premium automatic strapping machine designed for high-speed industrial packaging applications.",
+        "specs": [
+            "High-speed automatic strapping cycle",
+            "Minimal wear and tear parts",
+            "Perfect strap tension and seal strength",
+            "Ideal for sorting rooms and courier depots"
+        ]
+    },
+    {
         "name": "5MM*0.47MM Strapping Roll",
         "category": "Strapping Machines",
-        "image": "assets/strapping_roll_5mm.png",
-        "description": "High-grade strapping roll with 69kg break strain for automatic packaging systems.",
+        "image": "assets/strapping roll.png",
+        "description": "Quality strap manufactured to machine grade for consistent and reliable use with PACKER automatic and semi-automatic machines.",
         "specs": [
-            "Quality strap manufactured to machine grade.",
-            "Consistent and reliable use with automatic machines.",
-            "Break strain: 69kg."
+            "Dimensions: 5MM * 0.47MM strapping roll.",
+            "Break strain capacity: 69kg.",
+            "Consistent and reliable use with PACKER automatic machines."
         ]
     },
 
@@ -417,17 +402,18 @@ const PRODUCTS_DB = [
         ]
     },
 
-    // 11. Perforators (Perforating Machine)
+    // 11. Perforators (Perfostar I/D Perforating Machine)
     {
-        "name": "Perforating Machine",
+        "name": "Perfostar I/D Perforating Machine",
         "category": "Perforators",
         "image": "assets/perforator.png",
-        "description": "High-speed document perforating machine used to cancel or void cheques, certificates, and negotiable instruments.",
+        "description": "With our perforator Perfostar I/D you can easily perforate dates with 6 number wheels. Each wheel is equipped with a fixed lever for rapid change of the date.",
         "specs": [
-            "Micro-perforation pattern prevents re-use or alteration.",
-            "Heavy-duty steel chassis for continuous operation.",
-            "Processes up to A3 document size.",
-            "One-touch foot pedal operation available."
+            "8-digit adjustable date/numbers perforation with fixed letters at upper/lower line.",
+            "Manual lever selection type.",
+            "Punching capacity: 15 sheets (64gm).",
+            "Size (L x W x H mm): 295 x 214 x 229 (486 incl. handle), Weight: 14.7kg.",
+            "Die-block: 905L-207."
         ]
     },
 
@@ -457,41 +443,38 @@ const PRODUCTS_DB = [
         ]
     },
 
-    // 13. Counterfeit Detectors (Bankscan, Pocket UV, BJ-141)
+    // 13. Counterfeit Detectors (Bankscan, Pocket UV, SLD-16)
     {
         "name": "Bankscan",
         "category": "Counterfeit Detectors",
         "image": "assets/bankscan.png",
-        "description": "Dual 6-Watt UV counterfeit detector with a sturdy metal frame and large aperture for thorough document checking.",
+        "description": "Large aperture with the ability to slide a complete document below the illumination for thorough examination.",
         "specs": [
-            "Large aperture to slide complete documents below illumination.",
-            "Double 6-Watt UV Fast Start tubes.",
-            "Sturdy metal frame with highly reflective shield.",
-            "Dimensions: 270 x 185 x 120 mm.",
-            "Weight: 1.85 Kg."
+            "Double 6 Watt UV Fast Start Counterfeit Detector.",
+            "Manufactured from a sturdy metal frame with large opening.",
+            "Highly reflective tube shield to maximise the UV output.",
+            "Dimensions: 270 x 185 x 120 mm, Weight: 1.85 Kg."
         ]
     },
     {
         "name": "Pocket UV Counterfeit Detector",
         "category": "Counterfeit Detectors",
-        "image": "assets/pocket_uv_detector.png",
-        "description": "Verify Banknotes, Passports, I.D. Cards, Legal Documents, and Credit Cards on the go.",
+        "image": "assets/pocket uv detectors.png",
+        "description": "Compact counterfeit detector with built-in torch stand and wrist strap to verify banknotes, passports, and credit cards.",
         "specs": [
-            "Compact with built-in torch stand and wrist strap.",
-            "Highly portable battery-powered operation.",
-            "Verify Banknotes, Passports, I.D. Cards, Legal Documents, and Credit Cards"
+            "Compact With Built In Torch Stand And Wrist Strap.",
+            "Verify Banknotes, Passports, I.D. Cards, Legal Documents, and Credit Cards."
         ]
     },
     {
-        "name": "BJ-141",
+        "name": "SLD-16 Currency Authenticator",
         "category": "Counterfeit Detectors",
-        "image": "assets/bj_141.png",
-        "description": "Professional desk counterfeit detector with UV, Magnetic (MG), Watermark and Magnifier checks.",
+        "image": "assets/currency authenticator.png",
+        "description": "Professional counterfeit detector with simple switch controls for UV lamp and white lamp checking.",
         "specs": [
-            "UV, MG, Watermark, and Magnifying detecting functions.",
-            "Strong high quality double UV tubes.",
-            "Integrated banknote-dimension identification ruler.",
-            "230 x 7mm interspace for big document checking."
+            "Switch located on the front has three positions: UV lamp / off / white lamp.",
+            "Sturdy desk design for teller and retail use.",
+            "Easy operation: plug in and turn on."
         ]
     },
 
@@ -531,11 +514,11 @@ const PRODUCTS_DB = [
     {
         "name": "Security Seals",
         "category": "Security Bags & Seals",
-        "image": "assets/security_seals.png",
-        "description": "Nylon and polypropylene pull-tight seals for locking cash bags, container doors, and meters.",
+        "image": "assets/seals.png",
+        "description": "Nylon or polypropylene pull tight seals for securing bank cash bags, container doors, and meters.",
         "specs": [
-            "Nylon or polypropylene pull-tight seal.",
-            "Effective length: 140mm, tail diameter: 3.2mm.",
+            "Nylon or polypropylene pull tight seal.",
+            "Effective length: 140mm, Tail diameter: 3.2mm.",
             "Available in boxes of 1000."
         ]
     },
@@ -544,23 +527,22 @@ const PRODUCTS_DB = [
     {
         "name": "Handheld POS PDA",
         "category": "Thermal Printers",
-        "image": "assets/handheld_pos_pda.png",
-        "description": "Android-based wireless PDA handheld POS terminal with built-in barcode scanner and thermal printer.",
+        "image": "assets/handheld pos.png",
+        "description": "Mini Pos thermal printer Barcode Scanner Handheld POS Terminal wireless bluetooth wifi Android PDA 3G Distribution.",
         "specs": [
             "Built-in 58mm thermal receipt printer.",
-            "Barcode scanner camera integration.",
-            "3G, Wi-Fi, and Bluetooth wireless connectivity."
+            "Integrated Barcode Scanner.",
+            "Wireless Bluetooth, Wi-Fi, and 3G Android PDA."
         ]
     },
     {
         "name": "POS Thermal Printer",
         "category": "Thermal Printers",
-        "image": "assets/pos_thermal_printer.png",
-        "description": "Desktop receipt printers integrating with retail and restaurant point-of-sale systems.",
+        "image": "assets/thermal printers.png",
+        "description": "Thermal receipt printers integrate with retail and restaurant point-of-sale (POS) systems to print customer receipts for completed sales.",
         "specs": [
-            "High-speed 80mm thermal printing.",
-            "Multiple interfaces: USB, Ethernet (LAN), Wi-Fi, and Bluetooth.",
-            "Compatible with popular retail and dining POS softwares."
+            "Connects via USB, Ethernet (LAN), Wi-Fi wireless (WLAN) and Bluetooth.",
+            "Suitable for small businesses in terms of price, functionality and popular POS compatibility."
         ]
     },
 
@@ -592,14 +574,14 @@ const PRODUCTS_DB = [
 
     // 17. Accessories
     {
-        "name": "Strapping Rolls (Plastic)",
+        "name": "Strapping Roll",
         "category": "Accessories",
-        "image": "assets/strapping_rolls_plastic.png",
-        "description": "Machine-grade strapping rolls for securing commercial cargo boxes and heavy paper bundles.",
+        "image": "assets/strapping roll.png",
+        "description": "Quality strap manufactured to machine grade for consistent and reliable use with PACKER automatic machines.",
         "specs": [
-            "Superior quality with smooth surface.",
-            "Perfect edges preventing strap tearing.",
-            "Compatible with standard semi-automatic strapping machines."
+            "Strapping roll dimensions: 5MM * 0.47MM.",
+            "Break strain capacity: 69kg.",
+            "Compatible with PACKER automatic and semi-automatic machines."
         ]
     },
     {
