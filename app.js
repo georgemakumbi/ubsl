@@ -914,6 +914,28 @@ function showProductModal(product) {
     modal.classList.add("active");
 }
 
+/* Helper to save form submissions to LocalStorage */
+function saveSubmission(type, data) {
+    const rawSubmissions = JSON.parse(localStorage.getItem("ubsl_submissions") || "[]");
+    
+    // Generate unique ID based on type
+    const prefix = type === "Order" ? "ORD" : 
+                   type === "Booking" ? "BKG" : 
+                   type === "Inquiry" ? "INQ" : "CON";
+    const id = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    const newSubmission = {
+        id: id,
+        type: type,
+        timestamp: new Date().toISOString(),
+        status: "Pending Review",
+        data: data
+    };
+    
+    rawSubmissions.push(newSubmission);
+    localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
+}
+
 /* Order Form Module */
 function initOrderForm() {
     const form = document.getElementById("order-form");
@@ -958,6 +980,18 @@ function initOrderForm() {
             alert("Please fill in all required fields (*).");
             return;
         }
+
+        saveSubmission("Order", {
+            name,
+            company,
+            email,
+            phone,
+            product,
+            quantity: qty,
+            delivery,
+            location,
+            notes
+        });
 
         const container = form.parentElement;
         container.innerHTML = `
@@ -1024,6 +1058,13 @@ function initInquiryForm() {
             return;
         }
 
+        saveSubmission("Inquiry", {
+            name,
+            email,
+            subject,
+            message
+        });
+
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in" style="text-align:center;padding:60px 20px;">
@@ -1068,6 +1109,13 @@ function initContactForm() {
             return;
         }
 
+        saveSubmission("Contact", {
+            name,
+            email,
+            phone: tel,
+            message
+        });
+
         const container = form.parentElement;
         container.innerHTML = `
             <div class="form-success-message animate-fade-in">
@@ -1104,6 +1152,15 @@ function initBookingForm() {
             alert("Please fill in all required fields.");
             return;
         }
+
+        saveSubmission("Booking", {
+            company,
+            contactPerson,
+            email,
+            model,
+            issue,
+            date
+        });
 
         const container = form.parentElement;
         container.innerHTML = `
