@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Admin-specific dashboard styles */
+        @keyframes dbPulse {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.6; }
+        }
         .admin-page-header {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: #FFFFFF;
@@ -361,6 +366,10 @@
             <div class="admin-title-desc">
                 <h1>Owner & Admin Operations Dashboard</h1>
                 <p>Track, manage, and review client requests, system inquiries, and engineer service dispatches.</p>
+                <div id="db-status-badge" style="display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:6px 12px; border-radius:30px; font-size:11px; font-weight:600; background:rgba(212,175,55,0.1); color:var(--accent);">
+                    <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:currentColor; animation: dbPulse 1.5s infinite ease-in-out;"></span>
+                    <span id="db-status-text">Initializing database connection...</span>
+                </div>
             </div>
             <div>
                 <button class="btn btn-secondary" onclick="exportSubmissionsCSV()">Export Submissions (CSV)</button>
@@ -431,6 +440,12 @@
         </div>
     </footer>
 
+    <!-- Firebase & Database Core -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="db.js"></script>
+
     <!-- Core App JS -->
     <script src="app.js"></script>
     <script>
@@ -463,10 +478,32 @@
         let searchQuery = "";
         let rawSubmissions = [];
 
+        let unsubscribeDashboard = null;
         function loadDashboard() {
-            rawSubmissions = JSON.parse(localStorage.getItem("ubsl_submissions") || "[]");
-            updateStats();
-            renderSubmissions();
+            if (unsubscribeDashboard) unsubscribeDashboard();
+            updateDbStatusUI();
+            
+            unsubscribeDashboard = db.getSubmissions((submissions) => {
+                rawSubmissions = submissions;
+                updateStats();
+                renderSubmissions();
+            });
+        }
+
+        function updateDbStatusUI() {
+            const badge = document.getElementById("db-status-badge");
+            const text = document.getElementById("db-status-text");
+            if (!badge || !text) return;
+            
+            if (db.isCloudConnected()) {
+                badge.style.background = "rgba(16, 185, 129, 0.1)";
+                badge.style.color = "#10B981";
+                text.textContent = "Cloud Database Connected (Firestore)";
+            } else {
+                badge.style.background = "rgba(245, 158, 11, 0.1)";
+                badge.style.color = "#F59E0B";
+                text.textContent = "Local Sandbox Mode (LocalStorage)";
+            }
         }
 
         function updateStats() {
@@ -626,28 +663,30 @@
         }
 
         function updateStatus(ticketId, newStatus) {
-            rawSubmissions = rawSubmissions.map(s => {
-                if (s.id === ticketId) {
-                    s.status = newStatus;
+            db.updateSubmissionStatus(ticketId, newStatus).then(() => {
+                if (!db.isCloudConnected()) {
+                    loadDashboard();
                 }
-                return s;
             });
-            localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
-            loadDashboard();
         }
 
         function deleteSubmission(ticketId) {
             if (confirm("Are you sure you want to delete ticket " + ticketId + "? This action is irreversible.")) {
-                rawSubmissions = rawSubmissions.filter(s => s.id !== ticketId);
-                localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
-                loadDashboard();
+                db.deleteSubmission(ticketId).then(() => {
+                    if (!db.isCloudConnected()) {
+                        loadDashboard();
+                    }
+                });
             }
         }
 
         function clearAllData() {
-            if (confirm("SECURITY WARNING: Are you sure you want to clear ALL orders, bookings, and customer log messages? This will delete all entries in the local database.")) {
-                localStorage.removeItem("ubsl_submissions");
-                loadDashboard();
+            if (confirm("SECURITY WARNING: Are you sure you want to clear ALL orders, bookings, and customer log messages? This will delete all entries in the database.")) {
+                db.clearAllData().then(() => {
+                    if (!db.isCloudConnected()) {
+                        loadDashboard();
+                    }
+                });
             }
         }
 

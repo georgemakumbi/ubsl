@@ -1,0 +1,37 @@
+type User @table {
+  displayName: String!
+  email: String!
+  bio: String!
+  profileImageUrl: String
+  ratingScore: Float
+}
+
+type Skill @table {
+  name: String!
+  category: String!
+  description: String
+}
+
+type UserSkill @table {
+  user: User!
+  skill: Skill!
+  type: String! # "OFFERING" or "SEEKING"
+  proficiencyLevel: String!
+  yearsOfExperience: Int
+}
+
+type SwapRequest @table {
+  requester: User!
+  receiver: User!
+  status: String! # "PENDING", "ACCEPTED", "COMPLETED", "DECLINED"
+  message: String
+  scheduledDate: Timestamp
+}
+
+type Review @table {
+  swapRequest: SwapRequest!
+  reviewer: User!
+  reviewee: User!
+  rating: Int!
+  comment: String
+}

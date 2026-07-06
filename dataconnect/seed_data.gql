@@ -1,0 +1,48 @@
+mutation CreateDemoData @transaction {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      displayName: "Alice",
+      email: "alice@example.com",
+      bio: "Software Engineer",
+      ratingScore: 5.0
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      displayName: "Bob",
+      email: "bob@example.com",
+      bio: "Graphic Designer",
+      ratingScore: 4.8
+    }
+  ])
+  skill_insertMany(data: [
+    {
+      id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      name: "React",
+      category: "Frontend",
+      description: "Building UI components"
+    },
+    {
+      id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12",
+      name: "Figma",
+      category: "Design",
+      description: "Prototyping tools"
+    }
+  ])
+  userSkill_insertMany(data: [
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      skillId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      type: "OFFERING",
+      proficiencyLevel: "Expert",
+      yearsOfExperience: 5
+    },
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      skillId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12",
+      type: "OFFERING",
+      proficiencyLevel: "Advanced",
+      yearsOfExperience: 3
+    }
+  ])
+}

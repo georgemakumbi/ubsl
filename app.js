@@ -914,26 +914,27 @@ function showProductModal(product) {
     modal.classList.add("active");
 }
 
-/* Helper to save form submissions to LocalStorage */
+/* Helper to save form submissions */
 function saveSubmission(type, data) {
-    const rawSubmissions = JSON.parse(localStorage.getItem("ubsl_submissions") || "[]");
-    
-    // Generate unique ID based on type
-    const prefix = type === "Order" ? "ORD" : 
-                   type === "Booking" ? "BKG" : 
-                   type === "Inquiry" ? "INQ" : "CON";
-    const id = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
-    
-    const newSubmission = {
-        id: id,
-        type: type,
-        timestamp: new Date().toISOString(),
-        status: "Pending Review",
-        data: data
-    };
-    
-    rawSubmissions.push(newSubmission);
-    localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
+    if (typeof db !== 'undefined' && db.saveSubmission) {
+        db.saveSubmission(type, data);
+    } else {
+        console.warn("Database adapter not loaded, falling back to basic localStorage.");
+        const rawSubmissions = JSON.parse(localStorage.getItem("ubsl_submissions") || "[]");
+        const prefix = type === "Order" ? "ORD" : 
+                       type === "Booking" ? "BKG" : 
+                       type === "Inquiry" ? "INQ" : "CON";
+        const id = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
+        const newSubmission = {
+            id: id,
+            type: type,
+            timestamp: new Date().toISOString(),
+            status: "Pending Review",
+            data: data
+        };
+        rawSubmissions.push(newSubmission);
+        localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
+    }
 }
 
 /* Order Form Module */

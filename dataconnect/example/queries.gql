@@ -1,0 +1,41 @@
+mutation CreateUserSkill($skillId: UUID!, $type: String!, $level: String!, $years: Int!) @auth(level: USER) {
+  userSkill_insert(data: {
+    userId_expr: "auth.uid",
+    skillId: $skillId,
+    type: $type,
+    proficiencyLevel: $level,
+    yearsOfExperience: $years
+  })
+}
+
+mutation RequestSwap($receiverId: UUID!, $message: String, $date: Timestamp) @auth(level: USER) {
+  swapRequest_insert(data: {
+    requesterId_expr: "auth.uid",
+    receiverId: $receiverId,
+    status: "PENDING",
+    message: $message,
+    scheduledDate: $date
+  })
+}
+
+mutation CreateReview($swapRequestId: UUID!, $revieweeId: UUID!, $rating: Int!, $comment: String) @auth(level: USER) {
+  review_insert(data: {
+    reviewerId_expr: "auth.uid",
+    swapRequestId: $swapRequestId,
+    revieweeId: $revieweeId,
+    rating: $rating,
+    comment: $comment
+  })
+}
+
+query ListMySkills @auth(level: USER) {
+  userSkills(where: {userId: {eq_expr: "auth.uid"}}) {
+    proficiencyLevel
+    type
+    yearsOfExperience
+    skill {
+      name
+      category
+    }
+  }
+}
