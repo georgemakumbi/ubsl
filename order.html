@@ -18,19 +18,19 @@
         /* Order page specific styles */
         .order-tabs {
             display: flex;
-            gap: 0;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 32px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 36px;
         }
         .order-tab-btn {
-            padding: 14px 32px;
+            padding: 14px 28px;
             background: none;
             border: none;
             border-bottom: 3px solid transparent;
             margin-bottom: -2px;
             font-family: var(--font-heading);
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 14.5px;
+            font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
             transition: var(--transition);
@@ -47,7 +47,7 @@
         }
         .order-tab-panel { display: none; }
         .order-tab-panel.active { display: block; }
-
+ 
         .order-layout {
             display: grid;
             grid-template-columns: 1fr 380px;
@@ -59,55 +59,61 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 40px;
-            box-shadow: var(--shadow-premium);
+            box-shadow: var(--shadow-lg);
         }
         .order-sidebar-card {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            background: radial-gradient(circle at 10% 20%, rgba(30, 63, 102, 0.4) 0%, transparent 100%), 
+                        var(--primary-dark);
             border-radius: var(--radius-lg);
-            padding: 32px;
+            padding: 36px;
             color: #fff;
             position: sticky;
-            top: 90px;
+            top: 110px;
+            border: 1px solid var(--border-color);
         }
         .order-sidebar-card h3 {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--accent);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
         }
         .sidebar-info-item {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             align-items: flex-start;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
         .sidebar-info-icon {
-            font-size: 22px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 8px;
+            font-size: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.06);
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            color: var(--accent);
         }
-        .sidebar-info-text p { font-size: 13px; color: #CBD5E1; margin-top: 3px; }
-        .sidebar-info-text strong { color: #fff; font-size: 14px; }
-
+        .sidebar-info-text p { font-size: 13px; color: #94A3B8; margin-top: 4px; line-height: 1.5; }
+        .sidebar-info-text strong { color: #fff; font-size: 14.5px; font-weight: 700; }
+ 
         .selected-product-banner {
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            background: var(--accent-light);
+            border: 1px solid rgba(224, 30, 55, 0.15);
             border-radius: var(--radius-md);
             padding: 16px 20px;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
             display: none;
         }
-        .selected-product-banner.visible { display: flex; gap: 12px; align-items: center; }
+        .selected-product-banner.visible { display: flex; gap: 16px; align-items: center; }
         .selected-product-banner .tag {
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             color: var(--accent);
         }
         .selected-product-banner .name {
@@ -115,14 +121,14 @@
             font-weight: 700;
             color: var(--text-dark);
         }
-
-        @media (max-width: 900px) {
+ 
+        @media (max-width: 960px) {
             .order-layout { grid-template-columns: 1fr; }
             .order-sidebar-card { position: static; }
         }
         @media (max-width: 480px) {
             .order-form-card { padding: 24px 16px; }
-            .order-tab-btn { padding: 12px 18px; font-size: 14px; }
+            .order-tab-btn { padding: 12px 16px; font-size: 13.5px; }
         }
     </style>
 </head>
