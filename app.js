@@ -6,7 +6,7 @@ const PRODUCTS_DB = [
     {
         "name": "FDJ",
         "category": "Note Counters",
-        "image": "assets/fdj.png",
+        "image": "assets/fdj.jpeg",
         "description": "Professional grade high-speed note counter suitable for bank tellers, retail cash offices, and cashier desks.",
         "specs": ["Vacuum suction Note Counter", "Counting speeds up to 1,500 notes/minute", "Compact design", "Reliable sheet feed system"]
     },
@@ -60,14 +60,14 @@ const PRODUCTS_DB = [
     {
         "name": "BC 55",
         "category": "Note Sorters",
-        "image": "assets/bc_55.png",
+        "image": "assets/bc 55.jpeg",
         "description": "Versatile two-pocket currency scanner that processes mixed bills, count, sort and check counterfeit bills concurrently.",
         "specs": ["Continuous operation with dedicated reject pocket", "Identifies note denomination and series", "Durable construction"]
     },
     {
         "name": "Glory GFS 220",
         "category": "Note Sorters",
-        "image": "assets/glory_gfs_220.png",
+        "image": "assets/gfs 220.jpeg",
         "description": "High-speed professional currency sorter offering advanced scanning, fitness sorting, and reliability.",
         "specs": [
             "Advanced dual CIS scanning sensors",
@@ -79,14 +79,14 @@ const PRODUCTS_DB = [
     {
         "name": "LS-100",
         "category": "Note Sorters",
-        "image": "assets/ls_100.png",
+        "image": "assets/ls 100.jpeg",
         "description": "Commercial currency counter and authenticator designed for convenience stores, gas stations, and retail back offices.",
         "specs": ["Compact footprint", "High accuracy sorting and counting", "Easy to clean sensor track"]
     },
     {
         "name": "BNC",
         "category": "Note Sorters",
-        "image": "assets/bnc.png",
+        "image": "assets/bnc.jpeg",
         "description": "Multi-pocket premium currency sorter offering full bank-grade fitness sorting and serial number tracking.",
         "specs": [
             "Easy to install",
