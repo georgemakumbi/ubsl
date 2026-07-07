@@ -431,6 +431,7 @@
             <div>
                 <button class="btn btn-secondary" onclick="exportSubmissionsCSV()">Export Submissions (CSV)</button>
                 <button class="btn btn-accent" style="margin-left: 10px; background:#EF4444;" onclick="clearAllData()">Clear Logs</button>
+                <button class="btn btn-secondary" style="margin-left: 10px;" onclick="logoutAdmin()">Logout</button>
             </div>
         </div>
     </div>
@@ -506,6 +507,12 @@
     <!-- Core App JS -->
     <script src="app.js"></script>
     <script>
+        // State variables (declared at the top to avoid Temporal Dead Zone issues)
+        let currentFilter = "All";
+        let searchQuery = "";
+        let rawSubmissions = [];
+        let unsubscribeDashboard = null;
+
         // Check if admin is authenticated in session
         if (sessionStorage.getItem("ubsl_authenticated") === "true") {
             document.getElementById("passcode-overlay").style.display = "none";
@@ -531,11 +538,11 @@
             }
         }
 
-        let currentFilter = "All";
-        let searchQuery = "";
-        let rawSubmissions = [];
+        function logoutAdmin() {
+            sessionStorage.removeItem("ubsl_authenticated");
+            window.location.reload();
+        }
 
-        let unsubscribeDashboard = null;
         function loadDashboard() {
             if (unsubscribeDashboard) unsubscribeDashboard();
             updateDbStatusUI();

@@ -914,7 +914,7 @@ function showProductModal(product) {
     modal.classList.add("active");
 }
 
-/* Helper to save form submissions */
+/* Helper to save form submissions and trigger Netlify Forms notification */
 function saveSubmission(type, data) {
     if (typeof db !== 'undefined' && db.saveSubmission) {
         db.saveSubmission(type, data);
@@ -935,6 +935,29 @@ function saveSubmission(type, data) {
         rawSubmissions.push(newSubmission);
         localStorage.setItem("ubsl_submissions", JSON.stringify(rawSubmissions));
     }
+
+    // Submit to Netlify forms for email notifications
+    const formName = type === "Order" ? "order-form" :
+                     type === "Booking" ? "booking-form" :
+                     type === "Inquiry" ? "inquiry-form" : "contact-form";
+    submitToNetlify(formName, data);
+}
+
+/* Helper to POST form data to Netlify for email alerts */
+function submitToNetlify(formName, data) {
+    const bodyParams = new URLSearchParams();
+    bodyParams.append("form-name", formName);
+    for (const key in data) {
+        bodyParams.append(key, data[key]);
+    }
+
+    fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: bodyParams.toString()
+    })
+    .then(() => console.log(`UBSL Notifications: Netlify Form [${formName}] submitted successfully.`))
+    .catch(err => console.error("UBSL Notifications: Netlify Form submission failed:", err));
 }
 
 /* Order Form Module */

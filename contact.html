@@ -110,31 +110,32 @@
                 <h3 style="font-size: 24px; margin-bottom: 8px;">Direct Inquiry Form</h3>
                 <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Submit a general request, pricing question or quote application. We typically reply within 2 hours during business hours.</p>
                 
-                <form id="contact-form">
+                <form id="contact-form" name="contact-form" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact-form">
                     <div class="form-group">
                         <label for="contact-name">Your Full Name *</label>
-                        <input type="text" id="contact-name" required placeholder="e.g., Alice Namono">
+                        <input type="text" id="contact-name" name="name" required placeholder="e.g., Alice Namono">
                     </div>
                     
                     <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div>
                             <label for="contact-email">Corporate Email *</label>
-                            <input type="email" id="contact-email" required placeholder="alice@bank.co.ug">
+                            <input type="email" id="contact-email" name="email" required placeholder="alice@bank.co.ug">
                         </div>
                         <div>
                             <label for="contact-phone">Phone Number</label>
-                            <input type="tel" id="contact-phone" placeholder="+256 700 000000">
+                            <input type="tel" id="contact-phone" name="phone" placeholder="+256 700 000000">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="contact-subject">Inquiry Subject</label>
-                        <input type="text" id="contact-subject" placeholder="e.g., Century Sorter 101 pricing request">
+                        <input type="text" id="contact-subject" name="subject" placeholder="e.g., Century Sorter 101 pricing request">
                     </div>
                     
                     <div class="form-group">
                         <label for="contact-message">Inquiry / Request details *</label>
-                        <textarea id="contact-message" rows="4" required placeholder="Please describe your requirements, cash volumes or support issues..."></textarea>
+                        <textarea id="contact-message" name="message" rows="4" required placeholder="Please describe your requirements, cash volumes or support issues..."></textarea>
                     </div>
                     
                     <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" type="submit">Submit Corporate Inquiry</button>

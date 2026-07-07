@@ -93,22 +93,23 @@
                 <h3 style="font-size: 24px; margin-bottom: 8px;">Schedule Support Visit</h3>
                 <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Log an equipment malfunction or preventative check. An engineer will be dispatched to your location.</p>
                 
-                <form id="booking-form">
+                <form id="booking-form" name="booking-form" data-netlify="true">
+                    <input type="hidden" name="form-name" value="booking-form">
                     <div class="form-group">
                         <label for="booking-company">Company / Institution Name *</label>
-                        <input type="text" id="booking-company" required placeholder="e.g., Century Bank Uganda">
+                        <input type="text" id="booking-company" name="company" required placeholder="e.g., Century Bank Uganda">
                     </div>
                     <div class="form-group">
                         <label for="booking-name">Contact Person *</label>
-                        <input type="text" id="booking-name" required placeholder="e.g., Alice Namono">
+                        <input type="text" id="booking-name" name="contactPerson" required placeholder="e.g., Alice Namono">
                     </div>
                     <div class="form-group">
                         <label for="booking-email">Corporate Email *</label>
-                        <input type="email" id="booking-email" required placeholder="e.g., operations@bank.co.ug">
+                        <input type="email" id="booking-email" name="email" required placeholder="e.g., operations@bank.co.ug">
                     </div>
                     <div class="form-group">
                         <label for="booking-model">Equipment Model</label>
-                        <select id="booking-model">
+                        <select id="booking-model" name="model">
                             <option value="Note Counter (FDJ / YC 100 / TC 500)">Note Counter (Vacuum Suction)</option>
                             <option value="Note Sorter (Century 101 / LS-200 / BC 55 / Glory GFS 220)">Note Sorter (1-2 Pockets)</option>
                             <option value="Four Pocket Note Sorter (NC 9500)">Four Pocket Note Sorter</option>
@@ -126,11 +127,11 @@
                     </div>
                     <div class="form-group">
                         <label for="booking-issue">Issue Description *</label>
-                        <textarea id="booking-issue" rows="3" required placeholder="Detail the error codes, sensor failures, or machine jams..."></textarea>
+                        <textarea id="booking-issue" name="issue" rows="3" required placeholder="Detail the error codes, sensor failures, or machine jams..."></textarea>
                     </div>
                     <div class="form-group">
                         <label for="booking-date">Preferred Date of Inspection *</label>
-                        <input type="date" id="booking-date" required>
+                        <input type="date" id="booking-date" name="date" required>
                     </div>
                     
                     <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" type="submit">Book Technician Visit</button>
