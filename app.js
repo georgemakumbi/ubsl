@@ -29,14 +29,14 @@ const PRODUCTS_DB = [
     {
         "name": "LS-200",
         "category": "Note Sorters",
-        "image": "assets/ls_200.png",
+        "image": "assets/ls 200.png",
         "description": "Multi-currency bank-grade note scanner with dual-pocket capability, allowing continuous processing without stops.",
         "specs": ["Continuous counting with reject pocket", "Fast processing for large cash volumes", "Dual CIS image sensors"]
     },
     {
         "name": "Century 101",
         "category": "Note Sorters",
-        "image": "assets/century_101.png",
+        "image": "assets/century sorter 101.png",
         "description": "High performance infrared based digital bank-grade currency sorter designed for heavy-duty sorting.",
         "specs": [
             "Easy to install",
@@ -110,7 +110,7 @@ const PRODUCTS_DB = [
     {
         "name": "BCS 165",
         "category": "Note Sorters",
-        "image": "assets/bcs_165.png",
+        "image": "assets/bcs.png",
         "description": "Advanced multi-pocket currency sorter for high-volume banking cash centers.",
         "specs": [
             "High speed multi-pocket currency fitness sorter",
@@ -124,7 +124,7 @@ const PRODUCTS_DB = [
     {
         "name": "NC 9500",
         "category": "Four Pocket Note Sorters",
-        "image": "assets/nc_9500.png",
+        "image": "assets/4 pokect.png",
         "description": "Professional 4-pocket currency sorter designed for heavy-duty cash room environments, featuring high throughput and deep fitness sorting. Specs: input 100-240 VAC, 3.7A, 50/60Hz.",
         "specs": [
             "Input voltage: 100-240 VAC, 3.7A, 50/60Hz",
@@ -138,7 +138,7 @@ const PRODUCTS_DB = [
     {
         "name": "Cobra",
         "category": "Shredders",
-        "image": "assets/cobra.png",
+        "image": "assets/kobra shredder.jpeg",
         "description": "Heavy-duty paper and document shredder with high-security cross-cut layout for corporate offices.",
         "specs": [
             "Cross-cut security shredding",
@@ -150,7 +150,7 @@ const PRODUCTS_DB = [
     {
         "name": "Atlas",
         "category": "Shredders",
-        "image": "assets/atlas.png",
+        "image": "assets/atlas_shredder.PNG",
         "description": "High-capacity commercial shredder designed for continuous shredding of documents, CDs, and credit cards.",
         "specs": [
             "Large bin capacity for heavy paper load",
