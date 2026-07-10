@@ -11,16 +11,16 @@ const PRODUCTS_DB = [
         "specs": ["Vacuum suction Note Counter", "Counting speeds up to 1,500 notes/minute", "Compact design", "Reliable sheet feed system"]
     },
     {
-        "name": "YC 100",
+        "name": "VC 100",
         "category": "Note Counters",
-        "image": "assets/yc_100.png",
+        "image": "assets/VC.jpeg",
         "description": "Advanced single-pocket currency scanner that counts and authenticates banknotes at high speeds.",
         "specs": ["Vacuum suction Note Counter", "Supports multiple currencies", "Advanced counterfeit detection sensors", "Simplifies daily cash processing"]
     },
     {
         "name": "TC 500",
         "category": "Note Counters",
-        "image": "assets/tc_500.png",
+        "image": "assets/TC-5500.jpeg",
         "description": "Industry leading bank-grade note scanner and counter with state-of-the-art imaging sensors.",
         "specs": ["Vacuum suction Note Counter", "High-speed image scanning", "Unparalleled authentication sensors", "Upgradable software for new note versions"]
     },
@@ -29,7 +29,7 @@ const PRODUCTS_DB = [
     {
         "name": "LS-200",
         "category": "Note Sorters",
-        "image": "assets/ls 200.png",
+        "image": "assets/ls 200.jpeg",
         "description": "Multi-currency bank-grade note scanner with dual-pocket capability, allowing continuous processing without stops.",
         "specs": ["Continuous counting with reject pocket", "Fast processing for large cash volumes", "Dual CIS image sensors"]
     },
@@ -60,7 +60,7 @@ const PRODUCTS_DB = [
     {
         "name": "BC 55",
         "category": "Note Sorters",
-        "image": "assets/bc 55.jpeg",
+        "image": "assets/bcs.PNG",
         "description": "Versatile two-pocket currency scanner that processes mixed bills, count, sort and check counterfeit bills concurrently.",
         "specs": ["Continuous operation with dedicated reject pocket", "Identifies note denomination and series", "Durable construction"]
     },
@@ -68,7 +68,7 @@ const PRODUCTS_DB = [
         "name": "Glory GFS 220",
         "category": "Note Sorters",
         "image": "assets/gfs 220.jpeg",
-        "description": "High-speed professional currency sorter offering advanced scanning, fitness sorting, and reliability.",
+        "description": "High-speed professional currency sorter offering advanced scanning and reliability.",
         "specs": [
             "Advanced dual CIS scanning sensors",
             "Fitness sorting for bank and ATM replenishment",
@@ -86,7 +86,7 @@ const PRODUCTS_DB = [
     {
         "name": "BNC",
         "category": "Note Sorters",
-        "image": "assets/bnc.jpeg",
+        "image": "assets/century sorter 301.png",
         "description": "Multi-pocket premium currency sorter offering full bank-grade fitness sorting and serial number tracking.",
         "specs": [
             "Easy to install",
@@ -110,7 +110,7 @@ const PRODUCTS_DB = [
     {
         "name": "BCS 165",
         "category": "Note Sorters",
-        "image": "assets/bcs.png",
+        "image": "assets/bcs-165.jpeg",
         "description": "Advanced multi-pocket currency sorter for high-volume banking cash centers.",
         "specs": [
             "High speed multi-pocket currency fitness sorter",
@@ -124,7 +124,7 @@ const PRODUCTS_DB = [
     {
         "name": "NC 9500",
         "category": "Four Pocket Note Sorters",
-        "image": "assets/4 pokect.png",
+        "image": "assets/note counter.png",
         "description": "Professional 4-pocket currency sorter designed for heavy-duty cash room environments, featuring high throughput and deep fitness sorting. Specs: input 100-240 VAC, 3.7A, 50/60Hz.",
         "specs": [
             "Input voltage: 100-240 VAC, 3.7A, 50/60Hz",
@@ -136,7 +136,7 @@ const PRODUCTS_DB = [
 
     // 4. Shredders (Cobra, Atlas)
     {
-        "name": "Cobra",
+        "name": "Kobra",
         "category": "Shredders",
         "image": "assets/kobra shredder.jpeg",
         "description": "Heavy-duty paper and document shredder with high-security cross-cut layout for corporate offices.",
@@ -164,7 +164,7 @@ const PRODUCTS_DB = [
     {
         "name": "Sysgraf AD 410",
         "category": "Cheque Printers",
-        "image": "assets/sysgraf_ad_410.png",
+        "image": "assets/adc-410 check printer.png",
         "description": "Specialized high-security inkjet cheque printer for precise personalization, encoding, and bank document printing.",
         "specs": [
             "High precision personalization encoder",
@@ -176,7 +176,7 @@ const PRODUCTS_DB = [
     {
         "name": "FZA 2155 Cheque Scanner",
         "category": "Cheque Printers",
-        "image": "assets/fza scanner.png",
+        "image": "assets/Cheque Personalisation FZA-2155.jpeg",
         "description": "A Fast, Dynamic, High volume Cheque Scanner. It is the cornerstone for production cheque processing, delivering high performance, reliability and image quality.",
         "specs": [
             "Efficient countertop design capable of meeting the toughest challenges.",
@@ -239,7 +239,7 @@ const PRODUCTS_DB = [
     {
         "name": "Uni",
         "category": "Coin Counters",
-        "image": "assets/uni.png",
+        "image": "assets/CS-10 COIN COUNTER.jfif",
         "description": "High-speed coin counting and sorting machine designed for banks, supermarkets, and cash offices.",
         "specs": [
             "Accurate mechanical counting and sorting",
@@ -262,7 +262,7 @@ const PRODUCTS_DB = [
     {
         "name": "Jetsort 1000",
         "category": "Coin Counters",
-        "image": "assets/jetsort_1000.png",
+        "image": "assets/JETSORT.jpg",
         "description": "Improve flexibility with the features and options designed for your business needs. Space-saving footprint with massive performance.",
         "specs": [
             "Gain efficiency with processing speeds up to 2,200 coins per minute.",
@@ -273,7 +273,7 @@ const PRODUCTS_DB = [
     {
         "name": "Sortorex",
         "category": "Coin Counters",
-        "image": "assets/sortorex.png",
+        "image": "assets/SORTOREX.jpg",
         "description": "Heavy-duty coin sorter for large-scale cash centers and vending operators dealing in mixed batches of coins.",
         "specs": [
             "Count up to 3,500 coins per minute.",
@@ -284,7 +284,7 @@ const PRODUCTS_DB = [
     {
         "name": "SC 303/313",
         "category": "Coin Counters",
-        "image": "assets/sc_303_313.png",
+        "image": "assets/SC COIN COUNTER.jfif",
         "description": "Compact and easy-to-use coin counters. Just adjust the coin diameter and thickness and you are up and running.",
         "specs": [
             "Easy adjustment controls for coin specifications",
@@ -295,21 +295,21 @@ const PRODUCTS_DB = [
     {
         "name": "DTC, The New Ultimate Coin Sorter",
         "category": "Coin Counters",
-        "image": "assets/dtc_ultimate.png",
+        "image": "assets/DTC 9 COIN SORTER.jfif",
         "description": "Heavy-duty commercial coin sorter that counts, sorts, and rejects foreign/damaged coins automatically.",
         "specs": ["Next-gen sensor technology", "Highly reliable sorting mechanism", "Modern touchscreen control panel"]
     },
     {
         "name": "SC 350/360",
         "category": "Coin Counters",
-        "image": "assets/sc_350_360.png",
+        "image": "assets/COIN COUNTER SC 360.jpg",
         "description": "Premium electronic coin counters with advanced alloy sensor technology for accurate sorting.",
         "specs": ["Processes up to 3,000 coins/minute", "Configurable batch sizes", "Memory storage for multiple count sessions"]
     },
     {
         "name": "CP Active-9",
         "category": "Coin Counters",
-        "image": "assets/cp_active_9.png",
+        "image": "assets/ICPActive-9_SCAN-COIN_Front.webp",
         "description": "Intelligent Coin Processing system tailored for high-volume cash centres and vault management operations.",
         "specs": ["Monitors real-time sorting performance", "Optimized profitability and control", "Integrates with vault management systems"]
     },
@@ -369,7 +369,7 @@ const PRODUCTS_DB = [
     {
         "name": "DTD-23-2Y-250",
         "category": "Rate Boards",
-        "image": "assets/dtd_23_2y_250.png",
+        "image": "assets/DTD RATE BOARD.webp",
         "description": "Compact digital exchange rate board with LED panels for clear display of current currency conversion rates.",
         "specs": [
             "Accurate digital date and time display.",
@@ -381,7 +381,7 @@ const PRODUCTS_DB = [
     {
         "name": "ERB-2806B+MS Board",
         "category": "Rate Boards",
-        "image": "assets/erb_2806b_ms.png",
+        "image": "assets/ERB-Ms board.webp",
         "description": "Large corporate exchange rate board featuring 16 rows of LED rate listings and a programmable scrolling ticker.",
         "specs": [
             "Includes 16x128 matrix digital moving Arabic/English sign.",
@@ -394,7 +394,7 @@ const PRODUCTS_DB = [
     {
         "name": "ERB-2806B+MS-NP",
         "category": "Rate Boards",
-        "image": "assets/erb_2806b_ms_np.png",
+        "image": "assets/ERB-MS-NP.webp",
         "description": "Professional LED exchange rate display board optimized for currency exchange bureaus and bank branches.",
         "specs": [
             "Backup memory to keep the latest exchange rates when the power fails.",
@@ -421,7 +421,7 @@ const PRODUCTS_DB = [
     {
         "name": "NCR SelfServ ATM",
         "category": "ATMs",
-        "image": "assets/ncr_selfserv_atm.png",
+        "image": "assets/ncr_selfserv_82_resized-1.webp",
         "description": "Reliable lobby cash dispenser ATM system designed for continuous service and high transaction volume.",
         "specs": [
             "High capacity cash dispensing cassettes",
@@ -433,7 +433,7 @@ const PRODUCTS_DB = [
     {
         "name": "Diebold Nixdorf ATM",
         "category": "ATMs",
-        "image": "assets/diebold_nixdorf_atm.png",
+        "image": "assets/DN-Series-150.png",
         "description": "Through-the-wall advanced intelligent cash deposit and dispensing ATM terminal.",
         "specs": [
             "Advanced cash deposit and recycling module",
@@ -482,7 +482,7 @@ const PRODUCTS_DB = [
     {
         "name": "Change / Float Bag",
         "category": "Security Bags & Seals",
-        "image": "assets/change_float_bag.png",
+        "image": "assets/FLOAT BAG.PNG",
         "description": "Re-usable security bag for transporting change, cash float, and small deposits safely.",
         "specs": [
             "Tough PVC/canvas construction.",
@@ -493,7 +493,7 @@ const PRODUCTS_DB = [
     {
         "name": "Till Draw Bag",
         "category": "Security Bags & Seals",
-        "image": "assets/till_draw_bag.png",
+        "image": "assets/FLOAT BAG.PNG",
         "description": "Specialized cash transport bag configured to fit standard cash drawer tills for retail deposits.",
         "specs": [
             "Secure lock mechanism.",
@@ -503,7 +503,7 @@ const PRODUCTS_DB = [
     {
         "name": "Document bag",
         "category": "Security Bags & Seals",
-        "image": "assets/document_bag.png",
+        "image": "assets/security bag.jpg",
         "description": "Heavy-duty tamper-proof bag for courier transport of sensitive bank documents, vouchers, and cheques.",
         "specs": [
             "A4/A3 size capacity.",
@@ -550,7 +550,7 @@ const PRODUCTS_DB = [
     {
         "name": "Hologram Applicator",
         "category": "Security Machines",
-        "image": "assets/hologram_applicator.png",
+        "image": "assets/HOLOGRAM APPLICATOR.PNG",
         "description": "Precision desktop machine for applying holographic security seals to banknotes, passports, and identity documents.",
         "specs": [
             "Consistent pressure application for perfect adhesion.",
@@ -562,7 +562,7 @@ const PRODUCTS_DB = [
     {
         "name": "Date Time Stamp Machine",
         "category": "Security Machines",
-        "image": "assets/date_time_stamp_machine.png",
+        "image": "assets/date time stamp.jfif",
         "description": "Automatic self-inking date and time stamp for recording receipt or processing time on documents and cheques.",
         "specs": [
             "Automatic advance to next date at midnight.",
@@ -587,7 +587,7 @@ const PRODUCTS_DB = [
     {
         "name": "Cheque Inkjet Cartridges",
         "category": "Accessories",
-        "image": "assets/cheque_inkjet_cartridges.png",
+        "image": "assets/cheque inkjet cartridge.jpg",
         "description": "High-durability replacement ink cartridges for document embossers, writers, and scanners.",
         "specs": [
             "Rich dye-based ink for bank-level legibility.",
@@ -598,7 +598,7 @@ const PRODUCTS_DB = [
     {
         "name": "Edge Binding Tapes",
         "category": "Accessories",
-        "image": "assets/edge_binding_tapes.png",
+        "image": "assets/edge banding tape.jpg",
         "description": "Heavy-duty edge band tapes for reinforcing cash drawers, counters, and document desks.",
         "specs": [
             "Prevents material edges from scratching or tearing.",
@@ -609,7 +609,7 @@ const PRODUCTS_DB = [
     {
         "name": "Journal Rolls",
         "category": "Accessories",
-        "image": "assets/journal_rolls.png",
+        "image": "assets/journal-tape-702992.webp",
         "description": "High-quality thermal journal rolls for ATM and POS machine audit trail printing.",
         "specs": [
             "Archival-grade thermal paper for long-lasting records.",
@@ -620,7 +620,7 @@ const PRODUCTS_DB = [
     {
         "name": "UV Replacement Tubes",
         "category": "Accessories",
-        "image": "assets/uv_replacement_tubes.png",
+        "image": "assets/uv replacement tube.webp",
         "description": "Genuine replacement UV tubes for Bankscan and BJ-141 counterfeit detectors.",
         "specs": [
             "365nm peak wavelength for optimal fluorescent detection.",
@@ -631,7 +631,7 @@ const PRODUCTS_DB = [
     {
         "name": "Coin Wrapping Rolls",
         "category": "Accessories",
-        "image": "assets/coin_wrapping_rolls.png",
+        "image": "assets/coin wrapping machine.png",
         "description": "Pre-formed paper coin wrapping rolls for use with Sirio and other coin wrapping machines.",
         "specs": [
             "Pre-formed to standard denomination sizes.",
@@ -642,7 +642,7 @@ const PRODUCTS_DB = [
     {
         "name": "Plastic Stripping Rolls",
         "category": "Accessories",
-        "image": "assets/plastic_stripping_rolls.png",
+        "image": "assets/stripping rolls.jpg",
         "description": "Polypropylene plastic stripping rolls for semi-automatic strapping machines.",
         "specs": [
             "Width: 6mm to 15.5mm options available.",
@@ -653,7 +653,7 @@ const PRODUCTS_DB = [
     {
         "name": "Printer Ribbons",
         "category": "Accessories",
-        "image": "assets/printer_ribbons.png",
+        "image": "assets/printer ribbons.jpg",
         "description": "OEM-compatible printer ribbons for dot-matrix receipt and document printers used in banking environments.",
         "specs": [
             "Available for Epson, Oki, and Canon dot-matrix models.",
@@ -664,7 +664,7 @@ const PRODUCTS_DB = [
     {
         "name": "Thermal Paper Rolls",
         "category": "Accessories",
-        "image": "assets/thermal_paper_rolls.png",
+        "image": "assets/thermal-roll-paper.PNG",
         "description": "BPA-free thermal receipt paper for POS terminals, ATM machines, and handheld PDA printers.",
         "specs": [
             "Available widths: 57mm and 80mm.",
@@ -675,7 +675,7 @@ const PRODUCTS_DB = [
     {
         "name": "Hologram Seal Rolls",
         "category": "Accessories",
-        "image": "assets/hologram_seal_rolls.png",
+        "image": "assets/hologramseal.jfif",
         "description": "Tamper-evident holographic seal rolls for securing bank envelopes, cash bags, and negotiable documents.",
         "specs": [
             "VOID pattern revealed on attempted removal.",
