@@ -2,7 +2,7 @@
 
 // Embed compiled product database (No template placeholders!)
 const PRODUCTS_DB = [
-    // 1. Note Counters (Vacuum - FDJ, YC 100, TC 500)
+    // 1. Note Counters (Vacuum - FDJ, VC 100, TC 500)
     {
         "name": "FDJ",
         "category": "Note Counters",
