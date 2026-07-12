@@ -682,6 +682,31 @@ const PRODUCTS_DB = [
             "Sequential numbering for audit trail control.",
             "Available in gold and silver foil finishes."
         ]
+    },
+    {
+        "name": "UBSL CashConnect SaaS",
+        "category": "Software Solutions",
+        "image": "assets/cashconnect_saas.png",
+        "description": "Cloud-based currency management and ATM monitoring SaaS platform. Track cash vault levels, reconcile teller balances, and monitor ATM uptime in real-time.",
+        "specs": [
+            "Real-time ATM status and cash level monitoring",
+            "Automated teller reconciliation and vault balance tracking",
+            "API integration with Glory, NCR, and Diebold Nixdorf hardware",
+            "End-to-end security compliance with banking standards",
+            "Daily cash flow forecasting using machine learning"
+        ]
+    },
+    {
+        "name": "RateLink Exchange Board Software",
+        "category": "Software Solutions",
+        "image": "assets/ratelink_software.png",
+        "description": "Centralized SaaS platform to manage and synchronize exchange rate listings across multiple LED boards and digital screens instantly.",
+        "specs": [
+            "Centralized cloud dashboard for multi-branch rate updates",
+            "Automated rate fetching from central banks or custom APIs",
+            "Customizable display templates for LED and LCD screens",
+            "Offline recovery and automatic sync when connection is restored"
+        ]
     }];
 
 // App Initialization
@@ -714,6 +739,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("booking-form")) {
         initBookingForm();
     }
+
+    // 7. Lightbox Preview Setup
+    initLightboxPreview();
 });
 
 /* Theme Toggle Module */
@@ -824,8 +852,8 @@ function initProductCatalog() {
             const imgSrc = p.image || "assets/product_accessories.png";
 
             card.innerHTML = `
-                <div class="product-img-placeholder" style="padding: 0; overflow: hidden;">
-                    <img src="${imgSrc}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div class="product-img-placeholder">
+                    <img src="${imgSrc}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: contain; display: block;">
                 </div>
                 <div class="product-category">${p.category}</div>
                 <h3>${p.name}</h3>
@@ -866,6 +894,22 @@ function initProductCatalog() {
         modal.addEventListener("click", (e) => {
             if (e.target === modal) modal.classList.remove("active");
         });
+    }
+
+    // Check URL parameters for starting category filter
+    const urlParams = new URLSearchParams(window.location.search);
+    const catParam = urlParams.get("category");
+    if (catParam) {
+        const decodedCat = decodeURIComponent(catParam).trim().toLowerCase();
+        const matchingBtn = Array.from(categoryButtons).find(btn => {
+            const btnCat = btn.dataset.category.trim().toLowerCase();
+            return btnCat === decodedCat || btnCat.replace(/\s+/g, '+') === decodedCat;
+        });
+        if (matchingBtn) {
+            categoryButtons.forEach(b => b.classList.remove("active"));
+            matchingBtn.classList.add("active");
+            activeCategory = matchingBtn.dataset.category;
+        }
     }
 
     // Initial render
@@ -1202,5 +1246,68 @@ function initBookingForm() {
                 <button class="btn btn-secondary" style="margin-top: 30px;" onclick="window.location.reload()">Book Another Visit</button>
             </div>
         `;
+    });
+}
+
+/* Lightbox Image Preview Module */
+function initLightboxPreview() {
+    // Create the lightbox markup dynamically if it doesn't exist
+    if (!document.getElementById("global-lightbox")) {
+        const lightbox = document.createElement("div");
+        lightbox.id = "global-lightbox";
+        lightbox.className = "lightbox-overlay";
+        lightbox.innerHTML = `
+            <button class="lightbox-close" aria-label="Close preview">&times;</button>
+            <div class="lightbox-img-wrapper">
+                <img class="lightbox-img" src="" alt="Preview">
+            </div>
+            <div class="lightbox-caption"></div>
+        `;
+        document.body.appendChild(lightbox);
+
+        // Click to close
+        lightbox.addEventListener("click", (e) => {
+            if (e.target.className === "lightbox-overlay" || e.target.className === "lightbox-close") {
+                closeLightbox();
+            }
+        });
+    }
+
+    const lightbox = document.getElementById("global-lightbox");
+    const lightboxImg = lightbox.querySelector(".lightbox-img");
+    const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+
+    function openLightbox(src, captionText) {
+        lightboxImg.src = src;
+        lightboxCaption.textContent = captionText || "";
+        lightbox.classList.add("active");
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+    }
+
+    // Delegate click events on body to handle dynamically added catalog product images and modal images
+    document.body.addEventListener("click", (e) => {
+        // If it's a product card image or detail modal image
+        if (e.target.matches(".product-img-placeholder img") || e.target.id === "modal-product-img") {
+            const src = e.target.src;
+            if (src && !src.includes("data:image/svg")) {
+                e.stopPropagation();
+                // Find title
+                let titleText = "";
+                if (e.target.id === "modal-product-img") {
+                    const modalTitle = document.querySelector(".modal-title");
+                    if (modalTitle) titleText = modalTitle.textContent;
+                } else {
+                    const card = e.target.closest(".product-card");
+                    if (card) {
+                        const cardTitle = card.querySelector("h3");
+                        if (cardTitle) titleText = cardTitle.textContent;
+                    }
+                }
+                openLightbox(src, titleText);
+            }
+        }
     });
 }

@@ -14,6 +14,7 @@
     <title>Products Catalog | Unique Business Systems Limited</title>
     <meta name="description" content="Search and filter the complete range of cash handling machines, fit note sorters, coin wrappers, security seals, and LED exchange rate boards sold by UBSL.">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/jpeg" href="assets/ubsl.jpeg">
 </head>
 <body>
 
@@ -21,10 +22,10 @@
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
-                <div class="logo-icon">U</div>
+                <div class="logo-icon"><img src="assets/ubsl.jpeg" alt="UBSL Logo"></div>
                 <div class="logo-text">
-                    <h1>Unique Business Systems</h1>
-                    <span>Engineering & Cash Solutions</span>
+                    <h1>Unique Business Systems Limited</h1>
+                    <span>Sales & Servicing Of Currency Handling Machines</span>
                 </div>
             </a>
             
@@ -82,6 +83,11 @@
                             <li class="filter-item">
                                 <button class="filter-btn active" data-category="All">
                                     All Equipment <span>0</span>
+                                </button>
+                            </li>
+                            <li class="filter-item">
+                                <button class="filter-btn" data-category="Software Solutions">
+                                    Software Solutions <span>0</span>
                                 </button>
                             </li>
                             <li class="filter-item">
@@ -191,8 +197,8 @@
             <span class="modal-category" style="color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">Category</span>
             <h2 class="modal-title">Product Model Title</h2>
             <div class="modal-grid">
-                <div id="modal-product-image" class="product-img-placeholder" style="height: 220px; margin-bottom: 0; padding: 0; overflow: hidden;">
-                    <img id="modal-product-img" src="assets/product_notes_counter.png" alt="Product" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: var(--radius-md);">
+                <div id="modal-product-image" class="product-img-placeholder" style="height: 220px; margin-bottom: 0;">
+                    <img id="modal-product-img" src="assets/product_notes_counter.png" alt="Product" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: var(--radius-md);">
                 </div>
                 <div>
                     <p class="modal-desc" style="color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Full description text about the cash sorting or secure document machine goes here.</p>
@@ -214,10 +220,10 @@
         <div class="container footer-grid">
             <div class="footer-col">
                 <div class="logo" style="margin-bottom: 20px;">
-                    <div class="logo-icon">U</div>
+                    <div class="logo-icon"><img src="assets/ubsl.jpeg" alt="UBSL Logo"></div>
                     <div class="logo-text">
-                        <h1 style="color: #FFFFFF; font-size: 18px;">Unique Business Systems</h1>
-                        <span style="color: var(--accent);">Engineering & Cash Solutions</span>
+                        <h1 style="color: #FFFFFF; font-size: 18px;">Unique Business Systems Limited</h1>
+                        <span style="color: var(--accent);">Sales & Servicing Of Currency Handling Machines</span>
                     </div>
                 </div>
                 <p>Founded in 2005 to address the technical service gap for East African banking institutions. Registered currency handling specialists.</p>
@@ -240,16 +246,16 @@
                 </ul>
             </div>
             
-            <div class="footer-col">
-                <h4>Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="products.html?category=Note+Counters">Note Counters</a></li>
-                    <li><a href="products.html?category=Note+Sorters">Note Sorters</a></li>
-                    <li><a href="products.html?category=Shredders">Shredders</a></li>
-                    <li><a href="products.html?category=Coin+Counters">Coin Counters</a></li>
-                    <li><a href="products.html?category=ATMs">ATMs</a></li>
-                </ul>
-            </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="products.html?category=Note+Counters">Note Counters</a></li>
+                        <li><a href="products.html?category=Note+Sorters">Note Sorters</a></li>
+                        <li><a href="products.html?category=Software+Solutions">Software Solutions</a></li>
+                        <li><a href="products.html?category=Coin+Counters">Coin Counters</a></li>
+                        <li><a href="products.html?category=ATMs">ATMs</a></li>
+                    </ul>
+                </div>
             
             <div class="footer-col">
                 <h4>Newsletter</h4>
@@ -263,7 +269,7 @@
         
         <div class="container footer-bottom">
             <p>&copy; 2026 Unique Business Systems Limited. All rights reserved. | <a href="admin.html" style="text-decoration: underline; opacity: 0.8;">Staff Portal</a></p>
-            <p>Plot 450 Balintuma Road, Mengo, P.O. Box 965 Kampala, Uganda</p>
+            <p>Plot 430 Balintuma Road, Mengo, P.O. Box 965 Kampala, Uganda</p>
         </div>
     </footer>
 
