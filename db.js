@@ -161,6 +161,102 @@
         }
     }
 
+    // ──────────────────────────────────────────────
+    //  PRODUCT MANAGEMENT (Admin-created products)
+    // ──────────────────────────────────────────────
+
+    function generateProductId() {
+        return `PRD-${Math.floor(1000 + Math.random() * 9000)}-${Date.now().toString(36).toUpperCase()}`;
+    }
+
+    /** Save a new product. data: { name, category, description, specs[], image } */
+    function saveProduct(data) {
+        const docId = generateProductId();
+        const product = {
+            id: docId,
+            ...data,
+            createdAt: new Date().toISOString()
+        };
+
+        if (dbType === "firebase") {
+            return firestoreInstance.collection("products").doc(docId).set(product).catch(err => {
+                console.error("Firestore product save failed, using localStorage:", err);
+                return saveProductToLocal(product);
+            });
+        } else {
+            return Promise.resolve(saveProductToLocal(product));
+        }
+    }
+
+    function saveProductToLocal(product) {
+        const list = JSON.parse(localStorage.getItem("ubsl_custom_products") || "[]");
+        list.push(product);
+        localStorage.setItem("ubsl_custom_products", JSON.stringify(list));
+        return product;
+    }
+
+    /** Get admin-managed products. onUpdate(products[]) is called with the current list. */
+    function getProducts(onUpdate) {
+        if (dbType === "firebase") {
+            return firestoreInstance.collection("products")
+                .orderBy("createdAt", "desc")
+                .onSnapshot(snapshot => {
+                    const products = [];
+                    snapshot.forEach(doc => products.push(doc.data()));
+                    onUpdate(products);
+                }, err => {
+                    console.error("Firestore product listen failed, using localStorage:", err);
+                    onUpdate(getLocalProducts());
+                });
+        } else {
+            onUpdate(getLocalProducts());
+            return () => {};
+        }
+    }
+
+    function getLocalProducts() {
+        const list = JSON.parse(localStorage.getItem("ubsl_custom_products") || "[]");
+        return list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    /** Update an existing product by ID. fields: partial { name, category, description, specs, image } */
+    function updateProduct(id, fields) {
+        if (dbType === "firebase") {
+            return firestoreInstance.collection("products").doc(id).update(fields).catch(err => {
+                console.error("Firestore product update failed:", err);
+                updateLocalProduct(id, fields);
+            });
+        } else {
+            updateLocalProduct(id, fields);
+            return Promise.resolve();
+        }
+    }
+
+    function updateLocalProduct(id, fields) {
+        let list = getLocalProducts();
+        list = list.map(p => p.id === id ? { ...p, ...fields } : p);
+        localStorage.setItem("ubsl_custom_products", JSON.stringify(list));
+    }
+
+    /** Delete an admin product by ID */
+    function deleteProduct(id) {
+        if (dbType === "firebase") {
+            return firestoreInstance.collection("products").doc(id).delete().catch(err => {
+                console.error("Firestore product delete failed:", err);
+                deleteLocalProduct(id);
+            });
+        } else {
+            deleteLocalProduct(id);
+            return Promise.resolve();
+        }
+    }
+
+    function deleteLocalProduct(id) {
+        let list = getLocalProducts();
+        list = list.filter(p => p.id !== id);
+        localStorage.setItem("ubsl_custom_products", JSON.stringify(list));
+    }
+
     // Expose functions globally
     global.db = {
         dbType: () => dbType,
@@ -169,6 +265,11 @@
         getSubmissions,
         updateSubmissionStatus,
         deleteSubmission,
-        clearAllData
+        clearAllData,
+        // Product management
+        saveProduct,
+        getProducts,
+        updateProduct,
+        deleteProduct
     };
 })(window);

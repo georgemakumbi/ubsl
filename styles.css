@@ -1536,3 +1536,167 @@ footer {
         gap: 20px;
     }
 }
+
+/* ==========================================================================
+   Cooperating Financial Institutions Styles (Infinite Logo Slider)
+   ========================================================================== */
+.partners-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.partners-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Slider Outer Container */
+.logo-slider-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 24px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Elegant edge fade gradient mask */
+.logo-slider-container::before,
+.logo-slider-container::after {
+    content: "";
+    height: 100%;
+    width: 160px;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.logo-slider-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-light) 0%, rgba(248, 250, 252, 0) 100%);
+}
+
+.logo-slider-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-light) 0%, rgba(248, 250, 252, 0) 100%);
+}
+
+/* Dark theme gradient mask override */
+body.dark-theme .logo-slider-container::before {
+    background: linear-gradient(to right, #030712 0%, rgba(3, 7, 18, 0) 100%);
+}
+body.dark-theme .logo-slider-container::after {
+    background: linear-gradient(to left, #030712 0%, rgba(3, 7, 18, 0) 100%);
+}
+
+/* Sliding Track - uses CSS flex and translates dynamically */
+.logo-slider-track {
+    display: flex;
+    width: max-content;
+    animation: scrollLogos 50s linear infinite;
+    gap: 20px;
+}
+
+/* Pause scroll animation on track hover */
+.logo-slider-track:hover {
+    animation-play-state: paused;
+}
+
+/* Individual Slide Item Box */
+.partner-slide-item {
+    width: 200px;
+    flex-shrink: 0;
+    padding: 10px 0;
+}
+
+.partner-slide-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    cursor: default;
+    height: 110px;
+}
+
+.partner-slide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+
+.partner-logo-wrapper {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.partner-logo-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.65);
+    transition: var(--transition);
+}
+
+body.dark-theme .partner-logo-img {
+    filter: grayscale(100%) opacity(0.8);
+}
+
+.partner-slide-card:hover .partner-logo-img {
+    filter: grayscale(0%) opacity(1);
+}
+
+.partner-name {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+/* Infinite Loop Animation Keyframes */
+@keyframes scrollLogos {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Adjust paddings on mobile */
+@media (max-width: 768px) {
+    .partners-section {
+        padding: 60px 0;
+    }
+    .logo-slider-container::before,
+    .logo-slider-container::after {
+        width: 80px;
+    }
+    .partner-slide-item {
+        width: 160px;
+    }
+    .partner-slide-card {
+        height: 96px;
+        padding: 14px 10px;
+    }
+    .partner-logo-wrapper {
+        height: 40px;
+    }
+    .partner-name {
+        font-size: 12px;
+    }
+}
+
+

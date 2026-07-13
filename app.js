@@ -717,12 +717,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Mobile Menu Setup
     initMobileMenu();
 
-    // 3. Product Catalog Engine (If on products.html)
+    // 3. Logo Slider — clone track once for seamless infinite scroll (no HTML duplicates needed)
+    initLogoSlider();
+
+    // 4. Product Catalog Engine (If on products.html)
     if (document.getElementById("products-catalog-root")) {
         initProductCatalog();
     }
 
-    // 4. Order & Inquiry Forms (If on order.html)
+    // 5. Order & Inquiry Forms (If on order.html)
     if (document.getElementById("order-form")) {
         initOrderForm();
     }
@@ -730,19 +733,45 @@ document.addEventListener("DOMContentLoaded", () => {
         initInquiryForm();
     }
 
-    // 5. Contact Form Validation (If on contact.html)
+    // 6. Contact Form Validation (If on contact.html)
     if (document.getElementById("contact-form")) {
         initContactForm();
     }
 
-    // 6. Service Booking Form (If on service.html)
+    // 7. Service Booking Form (If on service.html)
     if (document.getElementById("booking-form")) {
         initBookingForm();
     }
 
-    // 7. Lightbox Preview Setup
+    // 8. Lightbox Preview Setup
     initLightboxPreview();
 });
+
+/* Logo Slider — seamless infinite scroll without HTML duplication
+ * How it works:
+ *   1. The HTML contains one set of logos (the "original" set).
+ *   2. At runtime we clone those children and append them with aria-hidden="true".
+ *   3. The CSS animates translateX(-50%), which lands exactly at the start of the
+ *      clone — making the loop invisible to the eye.
+ *   4. Adding logos in the future only requires one HTML change; JS handles the rest.
+ */
+function initLogoSlider() {
+    document.querySelectorAll(".logo-slider-track").forEach(track => {
+        // Collect original children (snapshot before mutation)
+        const origItems = Array.from(track.children);
+        if (origItems.length === 0) return;
+
+        // Build a document fragment with clones
+        const frag = document.createDocumentFragment();
+        origItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute("aria-hidden", "true");
+            frag.appendChild(clone);
+        });
+        track.appendChild(frag);
+    });
+}
+
 
 /* Theme Toggle Module */
 function initThemeToggle() {
@@ -807,29 +836,39 @@ function initProductCatalog() {
     
     let activeCategory = "All";
     let searchQuery = "";
+    let adminProducts = []; // Admin-created products from db layer
 
-    // Calculate count badges for categories in the sidebar
-    categoryButtons.forEach(btn => {
-        const catName = btn.dataset.category;
-        const badge = btn.querySelector("span");
-        if (badge) {
-            const count = catName === "All" 
-                ? PRODUCTS_DB.length 
-                : PRODUCTS_DB.filter(p => p.category === catName).length;
-            badge.textContent = count;
-        }
-    });
+    // Merge static base + admin-created products
+    function getAllProducts() {
+        return [...PRODUCTS_DB, ...adminProducts];
+    }
+
+    // Update category badge counts after product list changes
+    function updateCategoryBadges() {
+        const all = getAllProducts();
+        categoryButtons.forEach(btn => {
+            const catName = btn.dataset.category;
+            const badge = btn.querySelector("span");
+            if (badge) {
+                const count = catName === "All"
+                    ? all.length
+                    : all.filter(p => p.category === catName).length;
+                badge.textContent = count;
+            }
+        });
+    }
 
     // Render loop
     function renderCatalog() {
         grid.innerHTML = "";
+        const all = getAllProducts();
         
-        const filtered = PRODUCTS_DB.filter(p => {
+        const filtered = all.filter(p => {
             const matchesCat = activeCategory === "All" || p.category === activeCategory;
             const matchesSearch = searchQuery === "" || 
                 p.name.toLowerCase().includes(searchQuery) ||
                 p.description.toLowerCase().includes(searchQuery) ||
-                p.specs.some(s => s.toLowerCase().includes(searchQuery));
+                (p.specs && p.specs.some(s => s.toLowerCase().includes(searchQuery)));
             return matchesCat && matchesSearch;
         });
 
@@ -912,9 +951,21 @@ function initProductCatalog() {
         }
     }
 
-    // Initial render
-    renderCatalog();
+    // Load admin products from db, then do initial render
+    // db is available because db.js is always loaded before app.js
+    if (typeof db !== "undefined" && db.getProducts) {
+        db.getProducts(products => {
+            adminProducts = products;
+            updateCategoryBadges();
+            renderCatalog();
+        });
+    } else {
+        // Fallback: just render static products
+        updateCategoryBadges();
+        renderCatalog();
+    }
 }
+
 
 function showProductModal(product) {
     const modal = document.getElementById("product-detail-modal");
