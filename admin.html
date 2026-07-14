@@ -884,14 +884,17 @@
                     <label class="pfm-label" for="pfm-desc">Description *</label>
                     <textarea id="pfm-desc" class="pfm-textarea" placeholder="Brief product description visible on the catalogue card..."></textarea>
                 </div>
-                <!-- Image URL with live preview -->
+                <!-- Image URL or Upload with live preview -->
                 <div class="pfm-field">
-                    <label class="pfm-label" for="pfm-image">Product Image URL</label>
+                    <label class="pfm-label" for="pfm-image">Product Image (URL or File Upload)</label>
                     <div class="pfm-img-row">
-                        <input type="url" id="pfm-image" class="pfm-input" placeholder="https://example.com/image.png or assets/product.jpeg" oninput="updateImgPreview()">
+                        <input type="text" id="pfm-image" class="pfm-input" placeholder="https://example.com/image.png or assets/product.jpeg" oninput="updateImgPreview()">
                         <img id="pfm-img-preview" class="pfm-img-preview" src="assets/product_accessories.png" alt="Preview">
                     </div>
-                    <span style="font-size:12px; color:var(--text-muted);">Leave blank to use a default placeholder image.</span>
+                    <div style="margin-top: 8px;">
+                        <input type="file" id="pfm-image-file" accept="image/*" onchange="handleImageUpload(event)" style="font-size: 13px;">
+                    </div>
+                    <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:4px;">Leave blank to use a default placeholder image. Max size 2MB for upload.</span>
                 </div>
                 <!-- Specifications builder -->
                 <div class="pfm-field">
@@ -1076,6 +1079,7 @@
             document.getElementById("pfm-category").value = "";
             document.getElementById("pfm-desc").value = "";
             document.getElementById("pfm-image").value = "";
+            document.getElementById("pfm-image-file").value = "";
             document.getElementById("pfm-img-preview").src = "assets/product_accessories.png";
             document.getElementById("pfm-specs-list").innerHTML = "";
 
@@ -1117,6 +1121,25 @@
             const preview = document.getElementById("pfm-img-preview");
             preview.src = val || "assets/product_accessories.png";
             preview.onerror = () => { preview.src = "assets/product_accessories.png"; };
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Limit to 2MB to prevent quota/Base64 issues
+            if (file.size > 2 * 1024 * 1024) {
+                showToast("Image is too large. Please select an image under 2MB.", "error");
+                event.target.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("pfm-image").value = e.target.result;
+                updateImgPreview();
+            };
+            reader.readAsDataURL(file);
         }
 
         function addSpecRow(val) {

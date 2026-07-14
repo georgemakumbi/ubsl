@@ -684,30 +684,29 @@ const PRODUCTS_DB = [
         ]
     },
     {
-        "name": "UBSL CashConnect SaaS",
+        "name": "UBSL Cheque Ordering Software",
         "category": "Software Solutions",
-        "image": "assets/cashconnect_saas.png",
-        "description": "Cloud-based currency management and ATM monitoring SaaS platform. Track cash vault levels, reconcile teller balances, and monitor ATM uptime in real-time.",
+        "image": "assets/cheque software.jpg",
+        "description": "Secure end-to-end solutions providing financial institutions with software for requesting cheques, followed by high-security printing and direct supply.",
         "specs": [
-            "Real-time ATM status and cash level monitoring",
-            "Automated teller reconciliation and vault balance tracking",
-            "API integration with Glory, NCR, and Diebold Nixdorf hardware",
-            "End-to-end security compliance with banking standards",
-            "Daily cash flow forecasting using machine learning"
+            "Automated cheque ordering and tracking",
+            "Secure cloud-based platform with multi-user access",
+            "Customizable reporting and analytics dashboards"   
         ]
     },
-    {
-        "name": "RateLink Exchange Board Software",
-        "category": "Software Solutions",
-        "image": "assets/ratelink_software.png",
-        "description": "Centralized SaaS platform to manage and synchronize exchange rate listings across multiple LED boards and digital screens instantly.",
-        "specs": [
-            "Centralized cloud dashboard for multi-branch rate updates",
-            "Automated rate fetching from central banks or custom APIs",
-            "Customizable display templates for LED and LCD screens",
-            "Offline recovery and automatic sync when connection is restored"
-        ]
-    }];
+    // {
+    //     "name": "RateLink Exchange Board Software",
+    //     "category": "Software Solutions",
+    //     "image": "assets/ratelink_software.png",
+    //     "description": "Centralized SaaS platform to manage and synchronize exchange rate listings across multiple LED boards and digital screens instantly.",
+    //     "specs": [
+    //         "Centralized cloud dashboard for multi-branch rate updates",
+    //         "Automated rate fetching from central banks or custom APIs",
+    //         "Customizable display templates for LED and LCD screens",
+    //         "Offline recovery and automatic sync when connection is restored"
+    //     ]
+    // }
+    ];
 
 // App Initialization
 document.addEventListener("DOMContentLoaded", () => {
