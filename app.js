@@ -1,79 +1,288 @@
 /* Unique Business Systems Limited (UBSL) - Core Application Logic */
 
 // Embed compiled product database (No template placeholders!)
-const PRODUCTS_DB = [
-    // 1. Note Counters (Vacuum - FDJ, VC 100, TC 500)
+ const PRODUCTS_DB = [
     {
         "name": "FDJ",
-        "category": "Note Counters",
+        "category": "Vacuum Note Counters",
         "image": "assets/fdj.jpeg",
-        "description": "Professional grade high-speed note counter suitable for bank tellers, retail cash offices, and cashier desks.",
-        "specs": ["Vacuum suction Note Counter", "Counting speeds up to 1,500 notes/minute", "Compact design", "Reliable sheet feed system"]
+        "description": "Professional grade high-speed vacuum note counter suitable for bank tellers, retail cash offices, and cashier desks.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Method", "value": "Vacuum suction (air pressure)" },
+                    { "label": "Counting Speed", "value": "Up to 1,500 notes/min" },
+                    { "label": "Hopper Capacity", "value": "Up to 200 notes" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Net Weight", "value": "FDJ-106: 20 kg | FDJ-116: 37 kg | FDJ-126: 31 kg" },
+                    { "label": "Power Supply", "value": "220V/50Hz & 110V/60Hz" },
+                    { "label": "Form Factor", "value": "Compact desktop design" }
+                ]
+            }
+        ]
     },
     {
         "name": "VC 100",
-        "category": "Note Counters",
+        "category": "Vacuum Note Counters",
         "image": "assets/VC.jpeg",
         "description": "Advanced single-pocket currency scanner that counts and authenticates banknotes at high speeds.",
-        "specs": ["Vacuum suction Note Counter", "Supports multiple currencies", "Advanced counterfeit detection sensors", "Simplifies daily cash processing"]
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Method", "value": "Vacuum suction" },
+                    { "label": "Currency Support", "value": "Supports multiple currencies" }
+                ]
+            },
+            {
+                "section": "2. Detection & Sensors",
+                "items": [
+                    { "label": "Counterfeit Detection", "value": "Advanced counterfeit detection sensors" }
+                ]
+            },
+            {
+                "section": "3. Features",
+                "items": [
+                    { "label": "Workflow", "value": "Simplifies daily cash processing" }
+                ]
+            }
+        ]
     },
     {
         "name": "TC 500",
-        "category": "Note Counters",
+        "category": "Vacuum Note Counters",
         "image": "assets/TC-5500.jpeg",
         "description": "Industry leading bank-grade note scanner and counter with state-of-the-art imaging sensors.",
-        "specs": ["Vacuum suction Note Counter", "High-speed image scanning", "Unparalleled authentication sensors", "Upgradable software for new note versions"]
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Method", "value": "Vacuum suction" },
+                    { "label": "Image Scanning", "value": "High-speed image scanning" }
+                ]
+            },
+            {
+                "section": "2. Detection & Sensors",
+                "items": [
+                    { "label": "Authentication", "value": "Unparalleled authentication sensors" }
+                ]
+            },
+            {
+                "section": "3. Software & Upgrades",
+                "items": [
+                    { "label": "Software", "value": "Upgradable software for new note versions" }
+                ]
+            }
+        ]
     },
-
-    // 2. Note Sorters (LS-200, Century 101, BC 55, Glory GFS 220, LS-100, BNC, BCS 165)
+    {
+        "name": "Talaris Brandt 8672",
+        "category": "Note Counters",
+        "image": "assets/TALARIS.png",
+        "description": "A classic, heavily armored desktop currency counter that delivers counterfeit authentication at speeds reaching up to 1,750 notes per minute.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "Adjustable: 600 – 1,750 notes/min" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "Up to 1,000 notes (top feed)" },
+                    { "label": "Stacker Capacity", "value": "Up to 200 notes" },
+                    { "label": "Document Size", "value": "51×102 mm – 108×241 mm" }
+                ]
+            },
+            {
+                "section": "3. Physical & Environmental",
+                "items": [
+                    { "label": "Dimensions", "value": "381 mm (H) × 391 mm (W) × 267 mm (D)" },
+                    { "label": "Net Weight", "value": "10.2 kg (22.5 lbs)" },
+                    { "label": "Power Consumption", "value": "87 Watts (peak)" },
+                    { "label": "Power Supply", "value": "100 – 264V AC, 50/60Hz (auto-switching)" }
+                ]
+            }
+        ]
+    },
     {
         "name": "LS-200",
         "category": "Note Sorters",
         "image": "assets/ls 200.jpeg",
         "description": "Multi-currency bank-grade note scanner with dual-pocket capability, allowing continuous processing without stops.",
-        "specs": ["Continuous counting with reject pocket", "Fast processing for large cash volumes", "Dual CIS image sensors"]
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "1,000 – 1,200 notes/min (Value/Sorting) | 1,500 notes/min (Free Counting)" },
+                    { "label": "Supported Currencies", "value": "Up to 48 currencies with auto-recognition & full-color image processing" },
+                    { "label": "Operating System", "value": "Linux" },
+                    { "label": "Display / Control", "value": "4-inch TFT Touchscreen" },
+                    { "label": "Sorting Capabilities", "value": "Bank fitness sorting & Network Management Solution support" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "500 notes" },
+                    { "label": "Stacker Capacity", "value": "200 notes" },
+                    { "label": "Reject Pocket Capacity", "value": "100 notes" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Counterfeit Detection", "value": "Advanced multi-sensor array using UV, MG, IR, and CIS sensors" }
+                ]
+            },
+            {
+                "section": "4. Connectivity & Interfaces",
+                "items": [
+                    { "label": "USB Ports", "value": "1× USB" },
+                    { "label": "Network Ports", "value": "2× LAN" },
+                    { "label": "Serial Ports", "value": "4× Serial RS-232" }
+                ]
+            },
+            {
+                "section": "5. Physical & Environmental",
+                "items": [
+                    { "label": "Net Weight", "value": "13 kg" },
+                    { "label": "Power Supply", "value": "100–240V AC, 50/60Hz" },
+                    { "label": "Operating Temperature", "value": "10°C – 35°C" },
+                    { "label": "Operating Humidity", "value": "20% – 90% RH" },
+                    { "label": "Expected Product Lifespan", "value": "5 Years" }
+                ]
+            }
+        ]
     },
     {
         "name": "Century 101",
         "category": "Note Sorters",
         "image": "assets/century sorter 101.png",
-        "description": "High performance infrared based digital bank-grade currency sorter designed for heavy-duty sorting.",
-        "specs": [
-            "Easy to install",
-            "Low maintenance",
-            "Fine finishing",
-            "Top performance",
-            "Longer working life",
-            "Launching infrared based digital sorter atm sorter.",
-            "Dual C.I.S based (cute, taped notes sort).",
-            "Options to sort out 2005 separately.",
-            "Software upgradeable.",
-            "Atm sorting options.",
-            "Authentication",
-            "Accurate",
-            "Fitness Sorting",
-            "High Speed",
-            "Serial Number Capturing of each Note.",
-            "Image Scan of Currency"
+        "description": "Century Sorter is a professional, bank-grade 2-pocket banknote counter designed for continuous, high-volume cash handling. It allows operators to sort, count, and authenticate mixed bills completely uninterrupted",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "1,000 notes/min (Standard) | 900 notes/min (Mixed Denomination Valuation)" },
+                    { "label": "Sorting Capabilities", "value": "Denomination, face, and orientation sorting" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "800 notes" },
+                    { "label": "Stacker Capacity", "value": "200 notes" },
+                    { "label": "Reject Pocket Capacity", "value": "100 notes" },
+                    { "label": "Accepted Note Lengths", "value": "110 – 190 mm length | 60 – 90 mm width" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Image Scanning", "value": "Dual CIS and IR scanners for exact note imagery and denomination reading" },
+                    { "label": "Counterfeit Detection", "value": "UV, FL, MG, and MT sensors — flags fakes without stopping" }
+                ]
+            },
+            {
+                "section": "4. Physical & Environmental",
+                "items": [
+                    { "label": "Net Weight", "value": "13 kg" },
+                    { "label": "Dimensions", "value": "33 cm × 30 cm × 37 cm" }
+                ]
+            }
         ]
     },
     {
-        "name": "BC 55",
+        "name": "BCS 165",
         "category": "Note Sorters",
         "image": "assets/bcs.PNG",
-        "description": "Versatile two-pocket currency scanner that processes mixed bills, count, sort and check counterfeit bills concurrently.",
-        "specs": ["Continuous operation with dedicated reject pocket", "Identifies note denomination and series", "Durable construction"]
+        "description": "Ribao BCS-165 is a high-speed, professional mixed denomination banknote counter and sorter. It features a compact front-opening design and utilizes advanced optical recognition to process multi-currency cash flows continuously.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "Up to 1,200 bills/min" },
+                    { "label": "Supported Currencies", "value": "Up to 32 currencies simultaneously" },
+                    { "label": "Display / Control", "value": "4.3-inch color touchscreen" },
+                    { "label": "Sorting Modes", "value": "Denomination, Issue Series, Face, and Orientation" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "600 bills" },
+                    { "label": "Stacker Capacity", "value": "250 bills" },
+                    { "label": "Reject Pocket Capacity", "value": "100 bills" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Image Scanning", "value": "Dual CIS and IR scanners" },
+                    { "label": "Counterfeit Detection", "value": "UV, MG, and MT sensors; serial number tracking" }
+                ]
+            },
+            {
+                "section": "4. Connectivity & Interfaces",
+                "items": [
+                    { "label": "Connectivity", "value": "Full PC and printer connectivity ports" }
+                ]
+            },
+            {
+                "section": "5. Physical & Environmental",
+                "items": [
+                    { "label": "Mechanical Path", "value": "Front-opening design for easy maintenance" }
+                ]
+            }
+        ]
     },
     {
         "name": "Glory GFS 220",
         "category": "Note Sorters",
         "image": "assets/gfs 220.jpeg",
         "description": "High-speed professional currency sorter offering advanced scanning and reliability.",
-        "specs": [
-            "Advanced dual CIS scanning sensors",
-            "Fitness sorting for bank and ATM replenishment",
-            "Counts and sorts up to 1,200 notes/minute",
-            "Multi-currency processing and serial number printing"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "1,300 notes/min (Standard) | 1,200 notes/min (Mixed Denomination)" },
+                    { "label": "Supported Currencies", "value": "Up to 40 currencies simultaneously" },
+                    { "label": "Serial Number Capture", "value": "Advanced OCR logs and tracks serial numbers instantly" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "500 notes" },
+                    { "label": "Stacker Capacity", "value": "250 notes" },
+                    { "label": "Reject Pocket Capacity", "value": "100 notes" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Image Scanning", "value": "Full-width dual CIS — visible, infrared (IR), and green spectra" }
+                ]
+            },
+            {
+                "section": "4. Connectivity & Interfaces",
+                "items": [
+                    { "label": "Connectivity", "value": "Network, PC, and receipt printer ports" }
+                ]
+            },
+            {
+                "section": "5. Physical & Environmental",
+                "items": [
+                    { "label": "Dimensions", "value": "303 mm × 347 mm × 316 mm" }
+                ]
+            }
         ]
     },
     {
@@ -81,70 +290,180 @@ const PRODUCTS_DB = [
         "category": "Note Sorters",
         "image": "assets/ls 100.jpeg",
         "description": "Commercial currency counter and authenticator designed for convenience stores, gas stations, and retail back offices.",
-        "specs": ["Compact footprint", "High accuracy sorting and counting", "Easy to clean sensor track"]
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Accuracy", "value": "High accuracy sorting and counting" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Form Factor", "value": "Compact footprint for retail and teller counters" }
+                ]
+            },
+            {
+                "section": "3. Maintenance",
+                "items": [
+                    { "label": "Sensor Track", "value": "Easy to clean sensor track for reliable performance" }
+                ]
+            }
+        ]
     },
     {
         "name": "BNC",
         "category": "Note Sorters",
-        "image": "assets/century sorter 301.png",
+        "image": "assets/bcs-165.jpeg",
         "description": "Multi-pocket premium currency sorter offering full bank-grade fitness sorting and serial number tracking.",
-        "specs": [
-            "Easy to install",
-            "Low maintenance",
-            "Fine finishing",
-            "Top performance",
-            "Longer working life",
-            "Launching infrared based digital sorter atm sorter.",
-            "Dual C.I.S based (cute, taped notes sort).",
-            "Options to sort out 2005 separately.",
-            "Software upgradeable.",
-            "Atm sorting options.",
-            "Authentication",
-            "Accurate",
-            "Fitness Sorting",
-            "High Speed",
-            "Serial Number Capturing of each Note.",
-            "Image Scan of Currency"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Sorting Speed", "value": "High speed operation" },
+                    { "label": "Sorting Modes", "value": "ATM sorting, fitness sorting, face/orientation sorting" },
+                    { "label": "Serial Number Capture", "value": "Per-note serial number capturing and image scan" },
+                    { "label": "Sorting Options", "value": "Separate 2005 series; ATM fitness sorting available" }
+                ]
+            },
+            {
+                "section": "2. Detection & Sensors",
+                "items": [
+                    { "label": "Image Scanning", "value": "Dual CIS (handles taped and cute notes)" },
+                    { "label": "Authentication", "value": "Infrared-based digital sorter; accurate counterfeit detection" }
+                ]
+            },
+            {
+                "section": "3. Software & Upgrades",
+                "items": [
+                    { "label": "Software", "value": "Software upgradeable for new note versions" }
+                ]
+            },
+            {
+                "section": "4. Physical & Environmental",
+                "items": [
+                    { "label": "Build Quality", "value": "Fine finishing, low maintenance, longer working life" },
+                    { "label": "Installation", "value": "Easy to install" }
+                ]
+            }
         ]
     },
     {
-        "name": "BCS 165",
+        "name": "BCS 160",
         "category": "Note Sorters",
         "image": "assets/bcs-165.jpeg",
         "description": "Advanced multi-pocket currency sorter for high-volume banking cash centers.",
-        "specs": [
-            "High speed multi-pocket currency fitness sorter",
-            "Advanced counterfeit detection and image scanners",
-            "Sorts by denomination, face, orientation, and fitness",
-            "User-friendly interface with touchscreen display"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Speed", "value": "Up to 1,200 notes/min with 99.9% accuracy" },
+                    { "label": "Supported Currencies", "value": "Up to 20 countries" },
+                    { "label": "Display / Control", "value": "4-inch TFT Touchscreen" },
+                    { "label": "Sorting Modes", "value": "Denomination, face, orientation, and fitness sorting" },
+                    { "label": "Serial Number Capture", "value": "Yes" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Hopper Capacity", "value": "600 notes" },
+                    { "label": "Stacker Capacity", "value": "200 notes" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Counterfeit Detection", "value": "UV, MG, IR, and CIS sensors" }
+                ]
+            }
         ]
     },
-
-    // 3. Four Pocket Note Sorters (NC 9500)
+    {
+        "name": "NC 7100",
+        "category": "Note Sorters",
+        "image": "assets/NC.jpeg",
+        "description": "Professional 4-pocket currency sorter designed for heavy-duty cash room environments, featuring high throughput and deep fitness sorting.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Sorting Modes", "value": "ATM fitness sorting, denomination sorting, face/orientation sorting" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Exit Pockets", "value": "4 exit pockets + 1 dedicated reject pocket" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Sensors", "value": "Advanced multi-wavelength IR and CIS sensors" }
+                ]
+            },
+            {
+                "section": "4. Physical & Environmental",
+                "items": [
+                    { "label": "Power Supply", "value": "100–240V AC, 3.7A, 50/60Hz" }
+                ]
+            }
+        ]
+    },
     {
         "name": "NC 9500",
         "category": "Four Pocket Note Sorters",
-        "image": "assets/note counter.png",
-        "description": "Professional 4-pocket currency sorter designed for heavy-duty cash room environments, featuring high throughput and deep fitness sorting. Specs: input 100-240 VAC, 3.7A, 50/60Hz.",
-        "specs": [
-            "Input voltage: 100-240 VAC, 3.7A, 50/60Hz",
-            "4 exit pockets and 1 dedicated reject pocket",
-            "ATM fitness sorting, denomination sorting, face/orient sorting",
-            "Equipped with advanced multi-wavelength IR and CIS sensors"
+        "image": "assets/nc-9500.png",
+        "description": "Professional 4-pocket currency sorter designed for heavy-duty cash room environments, featuring high throughput and deep fitness sorting.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Sorting Modes", "value": "ATM fitness sorting, denomination sorting, face/orientation sorting" }
+                ]
+            },
+            {
+                "section": "2. Capacity & Handling",
+                "items": [
+                    { "label": "Exit Pockets", "value": "4 exit pockets + 1 dedicated reject pocket" }
+                ]
+            },
+            {
+                "section": "3. Detection & Sensors",
+                "items": [
+                    { "label": "Sensors", "value": "Advanced multi-wavelength IR and CIS sensors" }
+                ]
+            },
+            {
+                "section": "4. Physical & Environmental",
+                "items": [
+                    { "label": "Power Supply", "value": "100–240V AC, 3.7A, 50/60Hz" }
+                ]
+            }
         ]
     },
-
-    // 4. Shredders (Cobra, Atlas)
     {
         "name": "Kobra",
         "category": "Shredders",
         "image": "assets/kobra shredder.jpeg",
         "description": "Heavy-duty paper and document shredder with high-security cross-cut layout for corporate offices.",
-        "specs": [
-            "Cross-cut security shredding",
-            "Quiet motor operation",
-            "Automatic start and stop sensors",
-            "Heavy-duty blades that handle staples and paperclips"
+        "specSections": [
+            {
+                "section": "1. Shredding",
+                "items": [
+                    { "label": "Cut Type", "value": "Cross-cut high-security shredding" },
+                    { "label": "Media Handled", "value": "Paper sheets, staples, and paperclips" },
+                    { "label": "Feed Direction", "value": "Forward and backward movement during operation" }
+                ]
+            },
+            {
+                "section": "2. Operation",
+                "items": [
+                    { "label": "Motor", "value": "Quiet motor operation" },
+                    { "label": "Automation", "value": "Automatic start and stop sensors" }
+                ]
+            }
         ]
     },
     {
@@ -152,25 +471,43 @@ const PRODUCTS_DB = [
         "category": "Shredders",
         "image": "assets/atlas_shredder.PNG",
         "description": "High-capacity commercial shredder designed for continuous shredding of documents, CDs, and credit cards.",
-        "specs": [
-            "Large bin capacity for heavy paper load",
-            "Shreds credit cards, CDs, and paper sheets",
-            "Overload protection and jam-proof technology",
-            "Durable casters for mobility in office settings"
+        "specSections": [
+            {
+                "section": "1. Shredding",
+                "items": [
+                    { "label": "Media Handled", "value": "Paper sheets, credit cards, and CDs" },
+                    { "label": "Bin Capacity", "value": "Large bin capacity for heavy paper loads" }
+                ]
+            },
+            {
+                "section": "2. Operation",
+                "items": [
+                    { "label": "Protection", "value": "Overload protection and jam-proof technology" },
+                    { "label": "Mobility", "value": "Durable casters for easy movement in office settings" }
+                ]
+            }
         ]
     },
-
-    // 5. Cheque Printers (Sysgraf AD 410, FZA 2155 Cheque Scanner, Cheque Scanner)
     {
         "name": "Sysgraf AD 410",
         "category": "Cheque Printers",
         "image": "assets/adc-410 check printer.png",
         "description": "Specialized high-security inkjet cheque printer for precise personalization, encoding, and bank document printing.",
-        "specs": [
-            "High precision personalization encoder",
-            "MICR E13B and CMC7 font printing",
-            "Durable print head for high volume cheque books",
-            "Seamless integration with banking application systems"
+        "specSections": [
+            {
+                "section": "1. Printing",
+                "items": [
+                    { "label": "Font Support", "value": "MICR E13B and CMC7" },
+                    { "label": "Print Head", "value": "Durable head designed for high-volume cheque books" },
+                    { "label": "Personalization", "value": "High precision encoder for bank-grade personalization" }
+                ]
+            },
+            {
+                "section": "2. Connectivity",
+                "items": [
+                    { "label": "Integration", "value": "Seamless integration with banking application systems" }
+                ]
+            }
         ]
     },
     {
@@ -178,49 +515,81 @@ const PRODUCTS_DB = [
         "category": "Cheque Printers",
         "image": "assets/Cheque Personalisation FZA-2155.jpeg",
         "description": "A Fast, Dynamic, High volume Cheque Scanner. It is the cornerstone for production cheque processing, delivering high performance, reliability and image quality.",
-        "specs": [
-            "Efficient countertop design capable of meeting the toughest challenges.",
-            "Improves efficiency of payment processes and treasury management.",
-            "Handles business and personal cheques, and thicker items such as rebate cards and envelopes."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Design", "value": "Efficient countertop design for high-volume production" },
+                    { "label": "Media Handled", "value": "Business/personal cheques, rebate cards, and envelopes" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Process Improvement", "value": "Improves efficiency of payment processes and treasury management" }
+                ]
+            }
         ]
     },
     {
         "name": "Cheque Scanner",
         "category": "Cheque Printers",
         "image": "assets/cheque scanner.png",
-        "description": "A Fast, Dynamic, High volume Cheque Scanner delivering high performance, reliability and image quality.",
-        "specs": [
-            "Efficient countertop design.",
-            "Improves efficiency of payment processes and treasury management.",
-            "Handles wide variety of items: business/personal cheques, cards, envelopes."
+        "description": "A fast and accurate scanning of cheques and financial documents. It captures high-resolution images for electronic processing, verification, and archival.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Design", "value": "Efficient countertop design" },
+                    { "label": "Media Handled", "value": "Business/personal cheques, cards, and envelopes" },
+                    { "label": "Image Capture", "value": "High-resolution image capture for electronic processing" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Process Improvement", "value": "Improves efficiency of payment processes and treasury management" }
+                ]
+            }
         ]
     },
-
-    // 6. Embossers (Cheque Writer)
     {
         "name": "Cheque Writer",
         "category": "Embossers",
         "image": "assets/cheque writer.png",
         "description": "The ultimate in 'contemporary' check writing security with a deeply serrated Paymaster typeface.",
-        "specs": [
-            "One-key security system.",
-            "Exclusive replaceable ink ribbon cartridge.",
-            "Deeply serrated Paymaster typeface.",
-            "Imprints various sized checks quickly and accurately.",
-            "Dye based inking provides the ultimate alteration deterrent."
+        "specSections": [
+            {
+                "section": "1. Security",
+                "items": [
+                    { "label": "Lock System", "value": "One-key security system" },
+                    { "label": "Typeface", "value": "Deeply serrated Paymaster typeface" },
+                    { "label": "Alteration Deterrence", "value": "Dye-based inking provides the ultimate alteration deterrent" }
+                ]
+            },
+            {
+                "section": "2. Operation",
+                "items": [
+                    { "label": "Ink System", "value": "Exclusive replaceable ink ribbon cartridge" },
+                    { "label": "Compatibility", "value": "Imprints various sized checks quickly and accurately" }
+                ]
+            }
         ]
     },
-
-    // 7. Coin Wrappers (Sirio 18, Sirio 30)
     {
         "name": "Sirio 18",
         "category": "Coin Wrappers",
         "image": "assets/sirio 18.png",
         "description": "Automatic coin wrapping machine designed to package coins into secure paper rolls efficiently.",
-        "specs": [
-            "Speed: 18 rolls per minute.",
-            "Hopper capacity: 4,000 coins.",
-            "Automatic revolver roll change."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Wrapping Speed", "value": "18 rolls per minute" },
+                    { "label": "Hopper Capacity", "value": "4,000 coins" },
+                    { "label": "Roll Change", "value": "Automatic revolver roll change" }
+                ]
+            }
         ]
     },
     {
@@ -228,24 +597,37 @@ const PRODUCTS_DB = [
         "category": "Coin Wrappers",
         "image": "assets/sirio 30.png",
         "description": "High-speed industrial coin wrapping machine with automatic coin feeder for heavy-duty banking applications.",
-        "specs": [
-            "Speed: 20 to 30 rolls per minute.",
-            "Hopper capacity: 4,000 to 6,000 coins.",
-            "Integrated automatic coin feeder."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Wrapping Speed", "value": "20 – 30 rolls per minute" },
+                    { "label": "Hopper Capacity", "value": "4,000 – 6,000 coins" },
+                    { "label": "Coin Feeder", "value": "Integrated automatic coin feeder" }
+                ]
+            }
         ]
     },
-
-    // 8. Coin Counters (Uni, Scan Coin, Jetsort 1000, Sortorex, SC 303/313, DTC, SC 350/360, CP Active-9)
     {
         "name": "Uni",
         "category": "Coin Counters",
         "image": "assets/CS-10 COIN COUNTER.jfif",
         "description": "High-speed coin counting and sorting machine designed for banks, supermarkets, and cash offices.",
-        "specs": [
-            "Accurate mechanical counting and sorting",
-            "Batching and accumulation options",
-            "Durable design built for continuous operation",
-            "Handles local currency coins and tokens"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Counting Method", "value": "Accurate mechanical counting and sorting" },
+                    { "label": "Batching", "value": "Batching and accumulation options" },
+                    { "label": "Currency Support", "value": "Handles local currency coins and tokens" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Build", "value": "Durable design built for continuous operation" }
+                ]
+            }
         ]
     },
     {
@@ -253,10 +635,21 @@ const PRODUCTS_DB = [
         "category": "Coin Counters",
         "image": "assets/scan_coin.png",
         "description": "Speed up your coin processing while keeping it totally accurate. With this machine you get the highest possible accuracy in counting, sorting and batching.",
-        "specs": [
-            "Off-sort counterfeit, foreign and damaged coins accurately.",
-            "Choose among five different models to best suit your needs.",
-            "High processing speed for mixed currency batches."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Processing Speed", "value": "High speed for mixed currency batches" },
+                    { "label": "Accuracy", "value": "Highest possible accuracy in counting, sorting and batching" },
+                    { "label": "Models", "value": "Five different models to suit various needs" }
+                ]
+            },
+            {
+                "section": "2. Detection",
+                "items": [
+                    { "label": "Reject Handling", "value": "Off-sorts counterfeit, foreign, and damaged coins accurately" }
+                ]
+            }
         ]
     },
     {
@@ -264,10 +657,20 @@ const PRODUCTS_DB = [
         "category": "Coin Counters",
         "image": "assets/JETSORT.jpg",
         "description": "Improve flexibility with the features and options designed for your business needs. Space-saving footprint with massive performance.",
-        "specs": [
-            "Gain efficiency with processing speeds up to 2,200 coins per minute.",
-            "Ensure balanced deposits with 99.995% accuracy.",
-            "Gain convenience and space savings with small footprint."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Processing Speed", "value": "Up to 2,200 coins per minute" },
+                    { "label": "Accuracy", "value": "99.995%" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Form Factor", "value": "Small footprint for space savings" }
+                ]
+            }
         ]
     },
     {
@@ -275,10 +678,20 @@ const PRODUCTS_DB = [
         "category": "Coin Counters",
         "image": "assets/SORTOREX.jpg",
         "description": "Heavy-duty coin sorter for large-scale cash centers and vending operators dealing in mixed batches of coins.",
-        "specs": [
-            "Count up to 3,500 coins per minute.",
-            "Handles up to 16 denominations in two currencies.",
-            "Robust industrial steel chassis."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Processing Speed", "value": "Up to 3,500 coins per minute" },
+                    { "label": "Denomination Support", "value": "Up to 16 denominations in two currencies" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Chassis", "value": "Robust industrial steel chassis" }
+                ]
+            }
         ]
     },
     {
@@ -286,10 +699,20 @@ const PRODUCTS_DB = [
         "category": "Coin Counters",
         "image": "assets/SC COIN COUNTER.jfif",
         "description": "Compact and easy-to-use coin counters. Just adjust the coin diameter and thickness and you are up and running.",
-        "specs": [
-            "Easy adjustment controls for coin specifications",
-            "Highly portable with integrated carry handle",
-            "Quiet operation suitable for front-office use"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Configuration", "value": "Easy adjustment controls for coin diameter and thickness" },
+                    { "label": "Noise Level", "value": "Quiet operation suitable for front-office use" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Portability", "value": "Highly portable with integrated carry handle" }
+                ]
+            }
         ]
     },
     {
@@ -297,35 +720,91 @@ const PRODUCTS_DB = [
         "category": "Coin Counters",
         "image": "assets/DTC 9 COIN SORTER.jfif",
         "description": "Heavy-duty commercial coin sorter that counts, sorts, and rejects foreign/damaged coins automatically.",
-        "specs": ["Next-gen sensor technology", "Highly reliable sorting mechanism", "Modern touchscreen control panel"]
+        "specSections": [
+            {
+                "section": "1. Detection & Sensors",
+                "items": [
+                    { "label": "Sensor Technology", "value": "Next-gen sensor technology for accurate sorting" }
+                ]
+            },
+            {
+                "section": "2. Operation",
+                "items": [
+                    { "label": "Control Panel", "value": "Modern touchscreen control panel" },
+                    { "label": "Reliability", "value": "Highly reliable sorting mechanism" }
+                ]
+            }
+        ]
     },
     {
-        "name": "SC 350/360",
+        "name": "Coin Counter SC-360",
         "category": "Coin Counters",
         "image": "assets/COIN COUNTER SC 360.jpg",
-        "description": "Premium electronic coin counters with advanced alloy sensor technology for accurate sorting.",
-        "specs": ["Processes up to 3,000 coins/minute", "Configurable batch sizes", "Memory storage for multiple count sessions"]
+        "description": "A high-performance coin counting and sorting machine designed to improve cash handling efficiency by accurately counting mixed denominations.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Processing Speed", "value": "Up to 600 coins/minute" },
+                    { "label": "Hopper Capacity", "value": "Approximately 1,000 coins" },
+                    { "label": "Counting Modes", "value": "Continuous, Batch, Add" },
+                    { "label": "Power Supply", "value": "AC 110–240V, 50/60Hz" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Speed", "value": "High-speed counting" },
+                    { "label": "Coin Size Compatibility", "value": "Supports various coin sizes and denominations" },
+                    { "label": "User Interface", "value": "Easy-to-read digital display with intuitive controls" }
+                ]
+            }
+        ]
     },
     {
         "name": "CP Active-9",
         "category": "Coin Counters",
         "image": "assets/ICPActive-9_SCAN-COIN_Front.webp",
         "description": "Intelligent Coin Processing system tailored for high-volume cash centres and vault management operations.",
-        "specs": ["Monitors real-time sorting performance", "Optimized profitability and control", "Integrates with vault management systems"]
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Monitoring", "value": "Real-time sorting performance monitoring" },
+                    { "label": "Integration", "value": "Integrates with vault management systems" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Profitability", "value": "Optimized profitability and operational control" }
+                ]
+            }
+        ]
     },
-
-    // 9. Strapping Machines (Packer tt 201/202, Signode ttx, Strapping Roll)
     {
         "name": "Packer tt 201",
         "category": "Strapping Machines",
         "image": "assets/semi auto strapping machine.png",
         "description": "Fully RoHS compliant semi-automatic open-cabinet strapping machine set for and fitted with 12mm strapping.",
-        "specs": [
-            "Adjustable for strap width from 6mm to 15.5mm.",
-            "Can operate at up to 24 cycles per minute.",
-            "Easily operated controls including manual tension adjustment.",
-            "On adjustable legs with braked castors (table height 760mm to 930mm).",
-            "Dimensions: W902mm x D586mm x H760mm, weight 85kgs."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Cycle Speed", "value": "Up to 24 cycles per minute" },
+                    { "label": "Strap Width", "value": "Adjustable: 6 mm – 15.5 mm" },
+                    { "label": "Tension Adjustment", "value": "Manual tension adjustment controls" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Dimensions", "value": "W 902 mm × D 586 mm × H 760 mm" },
+                    { "label": "Net Weight", "value": "85 kg" },
+                    { "label": "Table Height", "value": "Adjustable legs: 760 mm – 930 mm with braked castors" },
+                    { "label": "Compliance", "value": "Fully RoHS compliant" }
+                ]
+            }
         ]
     },
     {
@@ -333,12 +812,28 @@ const PRODUCTS_DB = [
         "category": "Strapping Machines",
         "image": "assets/strap machine.png",
         "description": "Heavy-duty semi-automatic closed-cabinet strapping machine protecting components from dust and debris.",
-        "specs": [
-            "Closed cabinet layout for safety and dust protection.",
-            "Twelve months return to base warranty, parts and labour.",
-            "Adjustable for strap width from 6mm to 15.5mm.",
-            "On adjustable legs with braked castors.",
-            "Dimensions: W902mm x D586mm x H760mm, weight 85kgs."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Cabinet Type", "value": "Closed cabinet for dust and debris protection" },
+                    { "label": "Strap Width", "value": "Adjustable: 6 mm – 15.5 mm" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Dimensions", "value": "W 902 mm × D 586 mm × H 760 mm" },
+                    { "label": "Net Weight", "value": "85 kg" },
+                    { "label": "Mobility", "value": "Adjustable legs with braked castors" }
+                ]
+            },
+            {
+                "section": "3. Warranty",
+                "items": [
+                    { "label": "Warranty", "value": "12 months return-to-base, parts and labour" }
+                ]
+            }
         ]
     },
     {
@@ -346,11 +841,21 @@ const PRODUCTS_DB = [
         "category": "Strapping Machines",
         "image": "assets/semi auto strapping machine.png",
         "description": "Premium automatic strapping machine designed for high-speed industrial packaging applications.",
-        "specs": [
-            "High-speed automatic strapping cycle",
-            "Minimal wear and tear parts",
-            "Perfect strap tension and seal strength",
-            "Ideal for sorting rooms and courier depots"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Operation", "value": "High-speed automatic strapping cycle" },
+                    { "label": "Strap Tension", "value": "Perfect strap tension and seal strength" },
+                    { "label": "Ideal Use", "value": "Sorting rooms and courier depots" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Wear Parts", "value": "Minimal wear and tear parts" }
+                ]
+            }
         ]
     },
     {
@@ -358,24 +863,37 @@ const PRODUCTS_DB = [
         "category": "Strapping Machines",
         "image": "assets/strapping roll.png",
         "description": "Quality strap manufactured to machine grade for consistent and reliable use with PACKER automatic and semi-automatic machines.",
-        "specs": [
-            "Dimensions: 5MM * 0.47MM strapping roll.",
-            "Break strain capacity: 69kg.",
-            "Consistent and reliable use with PACKER automatic machines."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Dimensions", "value": "5 mm × 0.47 mm" },
+                    { "label": "Break Strain", "value": "69 kg" },
+                    { "label": "Compatibility", "value": "PACKER automatic and semi-automatic machines" }
+                ]
+            }
         ]
     },
-
-    // 10. Rate Boards (DTD-23-2Y-250, ERB-2806B+MS, ERB-2806B+MS-NP)
     {
         "name": "DTD-23-2Y-250",
         "category": "Rate Boards",
         "image": "assets/DTD RATE BOARD.webp",
         "description": "Compact digital exchange rate board with LED panels for clear display of current currency conversion rates.",
-        "specs": [
-            "Accurate digital date and time display.",
-            "Easy operation via local keypad or PC.",
-            "Non-reflective acrylic front panel.",
-            "Backup memory to retain data during power failure."
+        "specSections": [
+            {
+                "section": "1. Display & Control",
+                "items": [
+                    { "label": "Display", "value": "Accurate digital date and time display" },
+                    { "label": "Panel", "value": "Non-reflective acrylic front panel" },
+                    { "label": "Operation", "value": "Easy operation via local keypad or PC" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Memory Backup", "value": "Retains data during power failure" }
+                ]
+            }
         ]
     },
     {
@@ -383,12 +901,28 @@ const PRODUCTS_DB = [
         "category": "Rate Boards",
         "image": "assets/ERB-Ms board.webp",
         "description": "Large corporate exchange rate board featuring 16 rows of LED rate listings and a programmable scrolling ticker.",
-        "specs": [
-            "Includes 16x128 matrix digital moving Arabic/English sign.",
-            "Infrared remote controller for updating rates.",
-            "Changeable magnetic labels for currency name and logo.",
-            "Built-in RS232 interface for PC communication.",
-            "Backup memory to protect current exchange data."
+        "specSections": [
+            {
+                "section": "1. Display & Control",
+                "items": [
+                    { "label": "Rate Rows", "value": "16 rows of LED rate listings" },
+                    { "label": "Scrolling Sign", "value": "16×128 matrix digital moving Arabic/English sign" },
+                    { "label": "Currency Labels", "value": "Changeable magnetic labels for currency name and logo" },
+                    { "label": "Remote Control", "value": "Infrared remote controller for rate updates" }
+                ]
+            },
+            {
+                "section": "2. Connectivity",
+                "items": [
+                    { "label": "Interface", "value": "Built-in RS232 interface for PC communication" }
+                ]
+            },
+            {
+                "section": "3. Features",
+                "items": [
+                    { "label": "Memory Backup", "value": "Retains current exchange data during power failure" }
+                ]
+            }
         ]
     },
     {
@@ -396,64 +930,121 @@ const PRODUCTS_DB = [
         "category": "Rate Boards",
         "image": "assets/ERB-MS-NP.webp",
         "description": "Professional LED exchange rate display board optimized for currency exchange bureaus and bank branches.",
-        "specs": [
-            "Backup memory to keep the latest exchange rates when the power fails.",
-            "Ultra-bright numeric LED panels."
+        "specSections": [
+            {
+                "section": "1. Display & Control",
+                "items": [
+                    { "label": "Panels", "value": "Ultra-bright numeric LED panels" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Memory Backup", "value": "Retains latest exchange rates during power failure" }
+                ]
+            }
         ]
     },
-
-    // 11. Perforators (Perfostar I/D Perforating Machine)
     {
         "name": "Perfostar I/D Perforating Machine",
         "category": "Perforators",
         "image": "assets/perforator.png",
         "description": "With our perforator Perfostar I/D you can easily perforate dates with 6 number wheels. Each wheel is equipped with a fixed lever for rapid change of the date.",
-        "specs": [
-            "8-digit adjustable date/numbers perforation with fixed letters at upper/lower line.",
-            "Manual lever selection type.",
-            "Punching capacity: 15 sheets (64gm).",
-            "Size (L x W x H mm): 295 x 214 x 229 (486 incl. handle), Weight: 14.7kg.",
-            "Die-block: 905L-207."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Perforation", "value": "8-digit adjustable date/numbers with fixed letters at upper/lower line" },
+                    { "label": "Operation Type", "value": "Manual lever selection" },
+                    { "label": "Punching Capacity", "value": "15 sheets (64 gsm)" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Dimensions", "value": "295 × 214 × 229 mm (486 mm incl. handle)" },
+                    { "label": "Net Weight", "value": "14.7 kg" },
+                    { "label": "Die-Block", "value": "905L-207" }
+                ]
+            }
         ]
     },
-
-    // 12. ATMs (NCR SelfServ, Diebold Nixdorf)
     {
         "name": "NCR SelfServ ATM",
         "category": "ATMs",
         "image": "assets/ncr_selfserv_82_resized-1.webp",
         "description": "Reliable lobby cash dispenser ATM system designed for continuous service and high transaction volume.",
-        "specs": [
-            "High capacity cash dispensing cassettes",
-            "Sleek user-friendly interface with touch controls",
-            "Advanced card reader and security sensors",
-            "Industry-proven reliability and longevity"
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Cash Dispensing", "value": "High capacity cash dispensing cassettes" },
+                    { "label": "Interface", "value": "Sleek user-friendly touch controls" }
+                ]
+            },
+            {
+                "section": "2. Security",
+                "items": [
+                    { "label": "Card Reader", "value": "Advanced card reader and security sensors" }
+                ]
+            },
+            {
+                "section": "3. Reliability",
+                "items": [
+                    { "label": "Build", "value": "Industry-proven reliability and longevity" }
+                ]
+            }
         ]
     },
     {
-        "name": "Diebold Nixdorf ATM",
+        "name": "Cash Recycling Machine - CASH80ALG",
         "category": "ATMs",
-        "image": "assets/DN-Series-150.png",
-        "description": "Through-the-wall advanced intelligent cash deposit and dispensing ATM terminal.",
-        "specs": [
-            "Advanced cash deposit and recycling module",
-            "Through-the-wall configuration for 24/7 client access",
-            "High security safe housing",
-            "Full compliance with EMV and PCI standards"
+        "image": "assets/CRS.png",
+        "description": "CRS is a multi-function integrated through-the-wall machine, it provides Cash deposit, Cash withdrawal, Cash deposit and withdrawal nonrecycling & cash recycling. It also provides RFID card top-up and other non-cash services including distributing tickets, coupons, lotteries, etc synchronously.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Functions", "value": "Cash deposit, withdrawal, recycling, RFID card top-up, ticket/coupon/lottery dispensing" },
+                    { "label": "Configuration", "value": "Through-the-wall for 24/7 client access" }
+                ]
+            },
+            {
+                "section": "2. Security",
+                "items": [
+                    { "label": "Housing", "value": "High security safe housing" },
+                    { "label": "Compliance", "value": "Full compliance with EMV and PCI standards" }
+                ]
+            },
+            {
+                "section": "3. Features",
+                "items": [
+                    { "label": "Cash Module", "value": "Advanced cash deposit and recycling module" }
+                ]
+            }
         ]
     },
-
-    // 13. Counterfeit Detectors (Bankscan, Pocket UV, SLD-16)
     {
         "name": "Bankscan",
         "category": "Counterfeit Detectors",
         "image": "assets/bankscan.png",
         "description": "Large aperture with the ability to slide a complete document below the illumination for thorough examination.",
-        "specs": [
-            "Double 6 Watt UV Fast Start Counterfeit Detector.",
-            "Manufactured from a sturdy metal frame with large opening.",
-            "Highly reflective tube shield to maximise the UV output.",
-            "Dimensions: 270 x 185 x 120 mm, Weight: 1.85 Kg."
+        "specSections": [
+            {
+                "section": "1. Detection",
+                "items": [
+                    { "label": "UV Output", "value": "Double 6-Watt UV fast-start tubes" },
+                    { "label": "Shield", "value": "Highly reflective tube shield to maximise UV output" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Build", "value": "Sturdy metal frame with large opening" },
+                    { "label": "Dimensions", "value": "270 × 185 × 120 mm" },
+                    { "label": "Net Weight", "value": "1.85 kg" }
+                ]
+            }
         ]
     },
     {
@@ -461,9 +1052,19 @@ const PRODUCTS_DB = [
         "category": "Counterfeit Detectors",
         "image": "assets/pocket uv detectors.png",
         "description": "Compact counterfeit detector with built-in torch stand and wrist strap to verify banknotes, passports, and credit cards.",
-        "specs": [
-            "Compact With Built In Torch Stand And Wrist Strap.",
-            "Verify Banknotes, Passports, I.D. Cards, Legal Documents, and Credit Cards."
+        "specSections": [
+            {
+                "section": "1. Detection",
+                "items": [
+                    { "label": "Documents Verified", "value": "Banknotes, passports, ID cards, legal documents, and credit cards" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Form Factor", "value": "Compact with built-in torch stand and wrist strap" }
+                ]
+            }
         ]
     },
     {
@@ -471,33 +1072,36 @@ const PRODUCTS_DB = [
         "category": "Counterfeit Detectors",
         "image": "assets/currency authenticator.png",
         "description": "Professional counterfeit detector with simple switch controls for UV lamp and white lamp checking.",
-        "specs": [
-            "Switch located on the front has three positions: UV lamp / off / white lamp.",
-            "Sturdy desk design for teller and retail use.",
-            "Easy operation: plug in and turn on."
+        "specSections": [
+            {
+                "section": "1. Detection",
+                "items": [
+                    { "label": "Lamp Modes", "value": "UV lamp / Off / White lamp (front switch)" }
+                ]
+            },
+            {
+                "section": "2. Operation",
+                "items": [
+                    { "label": "Setup", "value": "Plug in and turn on — no configuration required" },
+                    { "label": "Design", "value": "Sturdy desk design for teller and retail use" }
+                ]
+            }
         ]
     },
-
-    // 14. Security Bags & Seals (Change/Float Bag, Till Draw Bag, Document Bag, Security Seals)
     {
         "name": "Change / Float Bag",
         "category": "Security Bags & Seals",
         "image": "assets/FLOAT BAG.PNG",
         "description": "Re-usable security bag for transporting change, cash float, and small deposits safely.",
-        "specs": [
-            "Tough PVC/canvas construction.",
-            "Tamper-evident locking chamber.",
-            "Available in blue, green, yellow, and red."
-        ]
-    },
-    {
-        "name": "Till Draw Bag",
-        "category": "Security Bags & Seals",
-        "image": "assets/FLOAT BAG.PNG",
-        "description": "Specialized cash transport bag configured to fit standard cash drawer tills for retail deposits.",
-        "specs": [
-            "Secure lock mechanism.",
-            "Available in black, green, red, yellow, and transparent mesh."
+        "specSections": [
+            {
+                "section": "1. Construction",
+                "items": [
+                    { "label": "Material", "value": "Tough PVC/canvas construction" },
+                    { "label": "Security", "value": "Tamper-evident locking chamber" },
+                    { "label": "Available Colours", "value": "Blue, green, yellow, and red" }
+                ]
+            }
         ]
     },
     {
@@ -505,10 +1109,15 @@ const PRODUCTS_DB = [
         "category": "Security Bags & Seals",
         "image": "assets/security bag.jpg",
         "description": "Heavy-duty tamper-proof bag for courier transport of sensitive bank documents, vouchers, and cheques.",
-        "specs": [
-            "A4/A3 size capacity.",
-            "Address viewing window.",
-            "Available in blue, green, yellow, and red."
+        "specSections": [
+            {
+                "section": "1. Construction",
+                "items": [
+                    { "label": "Capacity", "value": "A4/A3 size" },
+                    { "label": "Features", "value": "Address viewing window" },
+                    { "label": "Available Colours", "value": "Blue, green, yellow, and red" }
+                ]
+            }
         ]
     },
     {
@@ -516,23 +1125,38 @@ const PRODUCTS_DB = [
         "category": "Security Bags & Seals",
         "image": "assets/seals.png",
         "description": "Nylon or polypropylene pull tight seals for securing bank cash bags, container doors, and meters.",
-        "specs": [
-            "Nylon or polypropylene pull tight seal.",
-            "Effective length: 140mm, Tail diameter: 3.2mm.",
-            "Available in boxes of 1000."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Material", "value": "Nylon or polypropylene pull tight seal" },
+                    { "label": "Effective Length", "value": "140 mm" },
+                    { "label": "Tail Diameter", "value": "3.2 mm" },
+                    { "label": "Pack Size", "value": "Available in boxes of 1,000" }
+                ]
+            }
         ]
     },
-
-    // 15. Thermal Printers (Handheld POS PDA, POS Thermal Printer)
     {
         "name": "Handheld POS PDA",
         "category": "Thermal Printers",
         "image": "assets/handheld pos.png",
         "description": "Mini Pos thermal printer Barcode Scanner Handheld POS Terminal wireless bluetooth wifi Android PDA 3G Distribution.",
-        "specs": [
-            "Built-in 58mm thermal receipt printer.",
-            "Integrated Barcode Scanner.",
-            "Wireless Bluetooth, Wi-Fi, and 3G Android PDA."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Printer", "value": "Built-in 58 mm thermal receipt printer" },
+                    { "label": "Scanner", "value": "Integrated barcode scanner" }
+                ]
+            },
+            {
+                "section": "2. Connectivity",
+                "items": [
+                    { "label": "Wireless", "value": "Bluetooth, Wi-Fi, and 3G" },
+                    { "label": "Operating System", "value": "Android PDA" }
+                ]
+            }
         ]
     },
     {
@@ -540,59 +1164,119 @@ const PRODUCTS_DB = [
         "category": "Thermal Printers",
         "image": "assets/thermal printers.png",
         "description": "Thermal receipt printers integrate with retail and restaurant point-of-sale (POS) systems to print customer receipts for completed sales.",
-        "specs": [
-            "Connects via USB, Ethernet (LAN), Wi-Fi wireless (WLAN) and Bluetooth.",
-            "Suitable for small businesses in terms of price, functionality and popular POS compatibility."
+        "specSections": [
+            {
+                "section": "1. Connectivity",
+                "items": [
+                    { "label": "Interfaces", "value": "USB, Ethernet (LAN), Wi-Fi (WLAN), and Bluetooth" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Compatibility", "value": "Suitable for small businesses — compatible with popular POS systems" }
+                ]
+            }
         ]
     },
-
-    // 16. Security Machines (Hologram Applicator, Date Time Stamp Machine)
     {
         "name": "Hologram Applicator",
         "category": "Security Machines",
         "image": "assets/HOLOGRAM APPLICATOR.PNG",
         "description": "Precision desktop machine for applying holographic security seals to banknotes, passports, and identity documents.",
-        "specs": [
-            "Consistent pressure application for perfect adhesion.",
-            "Adjustable for various document sizes.",
-            "Compact footprint suitable for teller counters.",
-            "Reduces reliance on manual hologram placement."
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Application", "value": "Consistent pressure for perfect hologram adhesion" },
+                    { "label": "Document Sizes", "value": "Adjustable for various document sizes" }
+                ]
+            },
+            {
+                "section": "2. Physical & Environmental",
+                "items": [
+                    { "label": "Form Factor", "value": "Compact footprint suitable for teller counters" }
+                ]
+            },
+            {
+                "section": "3. Features",
+                "items": [
+                    { "label": "Efficiency", "value": "Reduces reliance on manual hologram placement" }
+                ]
+            }
         ]
     },
     {
-        "name": "Date Time Stamp Machine",
+        "name": "Amano PIX-200 Date & Time Stamp",
         "category": "Security Machines",
         "image": "assets/date time stamp.jfif",
-        "description": "Automatic self-inking date and time stamp for recording receipt or processing time on documents and cheques.",
-        "specs": [
-            "Automatic advance to next date at midnight.",
-            "12/24-hour time format selectable.",
-            "Self-inking mechanism — no separate ink pad required.",
-            "Prints up to 5,000 impressions per ink refill."
+        "description": "An electronic time stamping machine that automatically prints the current date and time on documents with precision and consistency.",
+        "specSections": [
+            {
+                "section": "1. Performance & Operation",
+                "items": [
+                    { "label": "Date Advance", "value": "Automatic advance to next date at midnight" },
+                    { "label": "Time Format", "value": "12/24-hour selectable" },
+                    { "label": "Ink Yield", "value": "Up to 5,000 impressions per ink refill" },
+                    {"label": "Power Supply", "value": "AC 110–240V, 50/60Hz" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Ink System", "value": "Self-inking — no separate ink pad required" },
+                    { "label": "Durability", "value": "Long-lasting construction for high-volume stamping" },
+                    { "label": "Ease of Use", "value": "Simple operation with minimal training required and back up battery." }
+                ]
+            }
         ]
     },
-
-    // 17. Accessories
     {
         "name": "Strapping Roll",
         "category": "Accessories",
         "image": "assets/strapping roll.png",
         "description": "Quality strap manufactured to machine grade for consistent and reliable use with PACKER automatic machines.",
-        "specs": [
-            "Strapping roll dimensions: 5MM * 0.47MM.",
-            "Break strain capacity: 69kg.",
-            "Compatible with PACKER automatic and semi-automatic machines."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Dimensions", "value": "5 mm × 0.47 mm" },
+                    { "label": "Break Strain", "value": "69 kg" },
+                    { "label": "Compatibility", "value": "PACKER automatic and semi-automatic machines" }
+                ]
+            }
         ]
     },
     {
         "name": "Cheque Inkjet Cartridges",
         "category": "Accessories",
         "image": "assets/cheque inkjet cartridge.jpg",
-        "description": "High-durability replacement ink cartridges for document embossers, writers, and scanners.",
-        "specs": [
-            "Rich dye-based ink for bank-level legibility.",
-            "Long print life cycle.",
-            "Compatible with popular cheque printer brands."
+        "description": "High-quality replacement ink cartridge designed for cheque printing systems. It produces sharp, permanent characters and graphics on financial documents while ensuring consistent print quality and reliable performance",
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Ink Type", "value": "Quick-drying, permanent ink" },
+                    { "label": "Print Life", "value": "Long print life cycle" },
+                    { "label": "Compatibility", "value": "Compatible with popular cheque printer brands" },
+                    { "label": "Compatibility", "value": "Compatible with cheque printing systems using matching cartridge models" },
+                    { "label": "Print Resolution", "value": "Produces sharp, permanent characters and graphics on financial documents" }
+                ]
+            },
+            {
+                "section": "2. Features",
+                "items": [
+                    { "label": "Consistent Print Quality", "value": "Ensures consistent print quality and reliable performance" }
+                ]
+            },
+            {
+                "section": "3. Applications",
+                "items": [
+                    { "label": "Places", "value": "Banks" },
+                    { "label": "Places", "value": "Financial institutions" },
+                    { "label": "Places", "value": "Corporate offices" },
+                ]
+            }
         ]
     },
     {
@@ -600,10 +1284,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/edge banding tape.jpg",
         "description": "Heavy-duty edge band tapes for reinforcing cash drawers, counters, and document desks.",
-        "specs": [
-            "Prevents material edges from scratching or tearing.",
-            "Available in varying sizes, colors, and dimensions.",
-            "Highly adhesive and heat resistant."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Function", "value": "Prevents material edges from scratching or tearing" },
+                    { "label": "Options", "value": "Available in varying sizes, colours, and dimensions" },
+                    { "label": "Properties", "value": "Highly adhesive and heat resistant" }
+                ]
+            }
         ]
     },
     {
@@ -611,10 +1300,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/journal-tape-702992.webp",
         "description": "High-quality thermal journal rolls for ATM and POS machine audit trail printing.",
-        "specs": [
-            "Archival-grade thermal paper for long-lasting records.",
-            "Compatible with all major ATM and cash register brands.",
-            "Available in standard widths: 57mm, 76mm, 80mm."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Paper Grade", "value": "Archival-grade thermal paper for long-lasting records" },
+                    { "label": "Available Widths", "value": "57 mm, 76 mm, 80 mm" },
+                    { "label": "Compatibility", "value": "Compatible with all major ATM and cash register brands" }
+                ]
+            }
         ]
     },
     {
@@ -622,10 +1316,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/uv replacement tube.webp",
         "description": "Genuine replacement UV tubes for Bankscan and BJ-141 counterfeit detectors.",
-        "specs": [
-            "365nm peak wavelength for optimal fluorescent detection.",
-            "6-Watt fast-start design.",
-            "Compatible with UBSL-supplied UV detector range."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Peak Wavelength", "value": "365 nm for optimal fluorescent detection" },
+                    { "label": "Power", "value": "6-Watt fast-start design" },
+                    { "label": "Compatibility", "value": "UBSL-supplied UV detector range" }
+                ]
+            }
         ]
     },
     {
@@ -633,10 +1332,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/coin wrapping machine.png",
         "description": "Pre-formed paper coin wrapping rolls for use with Sirio and other coin wrapping machines.",
-        "specs": [
-            "Pre-formed to standard denomination sizes.",
-            "Durable paper grade resists tearing under machine tension.",
-            "Available in UGX, KES, TZS, USD denominations."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Form", "value": "Pre-formed to standard denomination sizes" },
+                    { "label": "Material", "value": "Durable paper grade resists tearing under machine tension" },
+                    { "label": "Currency Support", "value": "UGX, KES, TZS, USD denominations" }
+                ]
+            }
         ]
     },
     {
@@ -644,10 +1348,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/stripping rolls.jpg",
         "description": "Polypropylene plastic stripping rolls for semi-automatic strapping machines.",
-        "specs": [
-            "Width: 6mm to 15.5mm options available.",
-            "High tensile strength: break strain up to 69kg.",
-            "UV-resistant for outdoor cargo applications."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Width Options", "value": "6 mm – 15.5 mm" },
+                    { "label": "Break Strain", "value": "Up to 69 kg" },
+                    { "label": "Properties", "value": "UV-resistant for outdoor cargo applications" }
+                ]
+            }
         ]
     },
     {
@@ -655,10 +1364,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/printer ribbons.jpg",
         "description": "OEM-compatible printer ribbons for dot-matrix receipt and document printers used in banking environments.",
-        "specs": [
-            "Available for Epson, Oki, and Canon dot-matrix models.",
-            "High ink yield for extended print runs.",
-            "Delivers sharp, smear-resistant characters."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Compatibility", "value": "Epson, Oki, and Canon dot-matrix models" },
+                    { "label": "Ink Yield", "value": "High yield for extended print runs" },
+                    { "label": "Print Quality", "value": "Sharp, smear-resistant characters" }
+                ]
+            }
         ]
     },
     {
@@ -666,10 +1380,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/thermal-roll-paper.PNG",
         "description": "BPA-free thermal receipt paper for POS terminals, ATM machines, and handheld PDA printers.",
-        "specs": [
-            "Available widths: 57mm and 80mm.",
-            "BPA-free coating for compliance with handling regulations.",
-            "100m length rolls for high-volume environments."
+        "specSections": [
+            {
+                "section": "1. Specifications",
+                "items": [
+                    { "label": "Available Widths", "value": "57 mm and 80 mm" },
+                    { "label": "Coating", "value": "BPA-free for compliance with handling regulations" },
+                    { "label": "Roll Length", "value": "100 m for high-volume environments" }
+                ]
+            }
         ]
     },
     {
@@ -677,10 +1396,15 @@ const PRODUCTS_DB = [
         "category": "Accessories",
         "image": "assets/hologramseal.jfif",
         "description": "Tamper-evident holographic seal rolls for securing bank envelopes, cash bags, and negotiable documents.",
-        "specs": [
-            "VOID pattern revealed on attempted removal.",
-            "Sequential numbering for audit trail control.",
-            "Available in gold and silver foil finishes."
+        "specSections": [
+            {
+                "section": "1. Security",
+                "items": [
+                    { "label": "Tamper Evidence", "value": "VOID pattern revealed on attempted removal" },
+                    { "label": "Numbering", "value": "Sequential numbering for audit trail control" },
+                    { "label": "Finish", "value": "Available in gold and silver foil finishes" }
+                ]
+            }
         ]
     },
     {
@@ -688,24 +1412,17 @@ const PRODUCTS_DB = [
         "category": "Software Solutions",
         "image": "assets/cheque software.jpg",
         "description": "Secure end-to-end solutions providing financial institutions with software for requesting cheques, followed by high-security printing and direct supply.",
-        "specs": [
-            "Automated cheque ordering and tracking",
-            "Secure cloud-based platform with multi-user access",
-            "Customizable reporting and analytics dashboards"   
+        "specSections": [
+            {
+                "section": "1. Features",
+                "items": [
+                    { "label": "Ordering", "value": "Automated cheque ordering and tracking" },
+                    { "label": "Platform", "value": "Secure cloud-based platform with multi-user access" },
+                    { "label": "Reporting", "value": "Customizable reporting and analytics dashboards" }
+                ]
+            }
         ]
-    },
-    // {
-    //     "name": "RateLink Exchange Board Software",
-    //     "category": "Software Solutions",
-    //     "image": "assets/ratelink_software.png",
-    //     "description": "Centralized SaaS platform to manage and synchronize exchange rate listings across multiple LED boards and digital screens instantly.",
-    //     "specs": [
-    //         "Centralized cloud dashboard for multi-branch rate updates",
-    //         "Automated rate fetching from central banks or custom APIs",
-    //         "Customizable display templates for LED and LCD screens",
-    //         "Offline recovery and automatic sync when connection is restored"
-    //     ]
-    // }
+    }
     ];
 
 // App Initialization
@@ -983,8 +1700,24 @@ function showProductModal(product) {
 
     const specsList = modal.querySelector(".modal-specs-list");
     specsList.innerHTML = "";
-    
-    if (product.specs && product.specs.length > 0) {
+
+    if (product.specSections && product.specSections.length > 0) {
+        // Render structured grouped spec sections
+        product.specSections.forEach(group => {
+            const sectionEl = document.createElement("li");
+            sectionEl.className = "spec-section";
+            sectionEl.innerHTML = `<span class="spec-section-heading">${group.section}</span>`;
+            const table = document.createElement("table");
+            table.className = "spec-table";
+            group.items.forEach(item => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td class="spec-label">${item.label}</td><td class="spec-value">${item.value}</td>`;
+                table.appendChild(tr);
+            });
+            sectionEl.appendChild(table);
+            specsList.appendChild(sectionEl);
+        });
+    } else if (product.specs && product.specs.length > 0) {
         product.specs.forEach(spec => {
             const li = document.createElement("li");
             li.textContent = spec;

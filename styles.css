@@ -967,6 +967,59 @@ nav {
     font-weight: 800;
 }
 
+/* Grouped / sectioned spec format (e.g. LS-200) */
+.modal-specs-list li.spec-section {
+    padding-left: 0;
+    margin-top: 18px;
+}
+.modal-specs-list li.spec-section:first-child {
+    margin-top: 0;
+}
+.modal-specs-list li.spec-section::before {
+    display: none;
+}
+
+.spec-section-heading {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding: 4px 10px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--accent);
+    background: rgba(224, 30, 55, 0.06);
+    border-radius: 0 4px 4px 0;
+}
+
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spec-table tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.spec-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    padding: 6px 10px 6px 4px;
+    white-space: nowrap;
+    width: 38%;
+    vertical-align: top;
+}
+
+.spec-value {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 6px 4px 6px 0;
+    vertical-align: top;
+    line-height: 1.5;
+}
+
 /* Forms & Calculator */
 .calc-container {
     background-color: var(--bg-white);
