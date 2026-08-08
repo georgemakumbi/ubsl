@@ -1459,7 +1459,12 @@ document.addEventListener("DOMContentLoaded", () => {
         initBookingForm();
     }
 
-    // 8. Lightbox Preview Setup
+    // 8. Quote Calculator Form (If on calculator.html)
+    if (document.getElementById("calc-form")) {
+        initCalculator();
+    }
+
+    // 9. Lightbox Preview Setup
     initLightboxPreview();
 });
 
@@ -2030,6 +2035,116 @@ function initBookingForm() {
             </div>
         `;
     });
+}
+
+/* Quote & Pricing Estimator Module */
+function initCalculator() {
+    const form = document.getElementById("calc-form");
+    if (!form) return;
+
+    const calcType = document.getElementById("calc-type");
+    const calcCategory = document.getElementById("calc-category");
+    const calcQty = document.getElementById("calc-qty");
+    const calcDuration = document.getElementById("calc-months");
+    const calcSupport = document.getElementById("calc-support");
+    const calcCustom = document.getElementById("calc-custom-check");
+
+    const durationLabel = document.getElementById("calc-duration-label");
+    const resultNormal = document.getElementById("calc-result-normal");
+    const resultCustom = document.getElementById("calc-result-custom");
+    const breakdownPurchase = document.getElementById("breakdown-purchase");
+    const breakdownLease = document.getElementById("breakdown-lease");
+
+    const basePrices = {
+        "Notes Counters": 800,
+        "Coin Counters": 1200,
+        "Counterfeit Detectors": 150,
+        "Strapping & Wrapping": 2500,
+        "Cheque Embossers": 1800,
+        "Exchange Rate Boards": 900,
+        "Accessories & Others": 100
+    };
+
+    function calculate() {
+        if (calcCustom.checked || calcQty.value > 50) {
+            resultNormal.style.display = "none";
+            resultCustom.style.display = "block";
+            return;
+        } else {
+            resultNormal.style.display = "flex";
+            resultCustom.style.display = "none";
+        }
+
+        const type = calcType.value;
+        const category = calcCategory.value;
+        let qty = parseInt(calcQty.value) || 1;
+        let duration = parseInt(calcDuration.value) || 1;
+        const support = calcSupport.value;
+
+        const basePrice = basePrices[category] || 1000;
+        let slaRateMultiplier = 0.1; 
+        if (support === "premium") slaRateMultiplier = 0.125;
+        if (support === "enterprise") slaRateMultiplier = 0.14;
+
+        if (type === "purchase") {
+            durationLabel.textContent = "SLA Term (Years)";
+            breakdownPurchase.style.display = "flex";
+            breakdownLease.style.display = "none";
+
+            const unitCost = basePrice;
+            const subtotal = unitCost * qty;
+            const annualSLAUnit = unitCost * slaRateMultiplier;
+            const totalSLA = annualSLAUnit * qty * duration;
+
+            document.getElementById("res-purchase-unit").textContent = "$" + unitCost.toFixed(2);
+            document.getElementById("res-purchase-subtotal").textContent = "$" + subtotal.toFixed(2);
+            document.getElementById("res-sla-unit").textContent = "$" + annualSLAUnit.toFixed(2);
+            document.getElementById("res-purchase-discounts").textContent = qty > 10 ? "Bulk 5% Applied" : "None";
+
+            let finalSubtotal = subtotal;
+            if (qty > 10) finalSubtotal = subtotal * 0.95;
+
+            document.getElementById("res-total-label").textContent = "Total Equipment Outlay:";
+            document.getElementById("res-monthly-total").textContent = "$" + finalSubtotal.toFixed(2);
+            document.getElementById("res-contract-label").textContent = "Annual Support Cost (All Units):";
+            document.getElementById("res-contract-total").textContent = "$" + (annualSLAUnit * qty).toFixed(2);
+        } else {
+            durationLabel.textContent = "Lease Term (Months)";
+            breakdownPurchase.style.display = "none";
+            breakdownLease.style.display = "flex";
+
+            const monthlyRateBase = basePrice * 0.05; 
+            const supportMonthly = (basePrice * slaRateMultiplier) / 12;
+            const unitMonthly = monthlyRateBase + supportMonthly;
+
+            document.getElementById("res-base-rate").textContent = "$" + unitMonthly.toFixed(2);
+            document.getElementById("res-qty").textContent = qty;
+            document.getElementById("res-months").textContent = duration + " months";
+            document.getElementById("res-discounts").textContent = qty > 10 ? "Bulk 5% Applied" : "None";
+
+            let totalMonthly = unitMonthly * qty;
+            if (qty > 10) totalMonthly *= 0.95;
+
+            document.getElementById("res-total-label").textContent = "Total Monthly Lease:";
+            document.getElementById("res-monthly-total").textContent = "$" + totalMonthly.toFixed(2);
+            document.getElementById("res-contract-label").textContent = "Total Contract Value:";
+            document.getElementById("res-contract-total").textContent = "$" + (totalMonthly * duration).toFixed(2);
+        }
+    }
+
+    form.addEventListener("input", calculate);
+    calcType.addEventListener("change", calculate);
+    calcCategory.addEventListener("change", calculate);
+    calcSupport.addEventListener("change", calculate);
+    
+    calculate();
+
+    const reqBtn = document.getElementById("request-custom-btn");
+    if (reqBtn) {
+        reqBtn.addEventListener("click", () => {
+            window.location.href = `order.html?product=${encodeURIComponent(calcCategory.value + (calcType.value === 'lease' ? ' (Lease)' : ' (Purchase)'))}`;
+        });
+    }
 }
 
 /* Lightbox Image Preview Module */
