@@ -511,10 +511,10 @@
         ]
     },
     {
-        "name": "FZA 2155 Cheque Scanner",
+        "name": "FZA 2155 Cheque Personalization",
         "category": "Cheque Printers",
         "image": "assets/Cheque Personalisation FZA-2155.jpeg",
-        "description": "A Fast, Dynamic, High volume Cheque Scanner. It is the cornerstone for production cheque processing, delivering high performance, reliability and image quality.",
+        "description": "The FZA-2155 is a mid to high volume impact cheque printer that prints personalisation and MICR characters simultaneously in one single pass. The printer has the ability to print quality cheques and international standard MICR documents with high speed and accuracy.",
         "specSections": [
             {
                 "section": "1. Performance & Operation",
