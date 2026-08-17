@@ -4,6 +4,7 @@
 (function(global) {
     let dbType = "local"; // "local" or "firebase"
     let firestoreInstance = null;
+    let authInstance = null;
 
     // Check if firebaseConfig is valid and populated
     const isFirebaseConfigured = typeof firebaseConfig !== 'undefined' && 
@@ -17,8 +18,10 @@
             // Initialize Firebase App
             firebase.initializeApp(firebaseConfig);
             firestoreInstance = firebase.firestore();
+            // Initialize Firebase Auth
+            authInstance = firebase.auth();
             dbType = "firebase";
-            console.log("UBSL Database: Connected to Firebase Firestore");
+            console.log("UBSL Database: Connected to Firebase Firestore + Auth");
         } catch (error) {
             console.error("UBSL Database: Firebase initialization failed. Falling back to localStorage.", error);
             dbType = "local";
@@ -270,6 +273,8 @@
         saveProduct,
         getProducts,
         updateProduct,
-        deleteProduct
+        deleteProduct,
+        // Auth — only available when Firebase is configured
+        auth: authInstance
     };
 })(window);

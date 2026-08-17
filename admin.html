@@ -305,64 +305,186 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
         }
-        /* Passcode overlay locks the page */
-        #passcode-overlay {
+        /* ── Auth Overlay (Firebase Login) ── */
+        #auth-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(7, 12, 24, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 70%, rgba(30, 63, 102, 0.25) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        rgba(7, 12, 24, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            transition: opacity 0.3s ease;
         }
-        .passcode-card {
+        #auth-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .auth-card {
             background: var(--bg-white);
-            max-width: 420px;
+            max-width: 440px;
             width: 100%;
-            padding: 48px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-premium);
-            text-align: center;
             border-top: 4px solid var(--accent);
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--accent);
+            overflow: hidden;
         }
-        .passcode-card h2 {
-            font-size: 26px;
-            margin-bottom: 12px;
+        .auth-card-header {
+            background: var(--primary-dark);
+            padding: 36px 40px 28px;
+            text-align: center;
+        }
+        .auth-card-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(212, 175, 55, 0.4);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .auth-card-header h2 {
+            font-size: 22px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: #FFFFFF;
             letter-spacing: -0.01em;
+            margin-bottom: 6px;
         }
-        .passcode-card p {
+        .auth-card-header p {
+            color: rgba(255,255,255,0.55);
+            font-size: 13.5px;
+        }
+        .auth-card-body {
+            padding: 32px 40px 40px;
+        }
+        .auth-field {
+            margin-bottom: 20px;
+        }
+        .auth-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             color: var(--text-muted);
-            font-size: 14.5px;
-            margin-bottom: 28px;
+            margin-bottom: 8px;
         }
-        .passcode-input {
+        .auth-input {
             width: 100%;
-            padding: 12px 18px;
+            padding: 13px 16px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 24px;
-            background-color: var(--bg-light);
+            font-size: 15px;
+            background: var(--bg-light);
             color: var(--text-dark);
             outline: none;
             transition: var(--transition);
+            font-family: inherit;
+            box-sizing: border-box;
         }
-        .passcode-input:focus {
+        .auth-input:focus {
             border-color: var(--accent);
-            background-color: var(--bg-white);
+            background: var(--bg-white);
             box-shadow: 0 0 0 4px rgba(224, 30, 55, 0.08);
+        }
+        .auth-error {
+            display: none;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #DC2626;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .auth-error.visible { display: block; }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.01em;
+        }
+        .auth-btn:hover:not(:disabled) {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(15, 41, 66, 0.3);
+        }
+        .auth-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .auth-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        .auth-btn.loading .auth-spinner { display: block; }
+        .auth-btn.loading .auth-btn-text { opacity: 0.7; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Initial page-load auth check state ── */
+        #auth-resolving-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--primary-dark);
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.4s ease;
+        }
+        #auth-resolving-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .resolving-logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(212,175,55,0.4);
+            margin-bottom: 4px;
+        }
+        .resolving-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .resolving-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(212,175,55,0.2);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
         .no-data-msg {
             text-align: center;
@@ -697,15 +819,35 @@
 </head>
 <body>
 
-    <!-- Access Lock -->
-    <div id="passcode-overlay">
-        <div class="passcode-card">
-            <h2>Portal Authentication</h2>
-            <p>This page contains customer orders and service logs. Please enter the staff passcode to proceed.</p>
-            <input type="password" id="passcode-field" class="passcode-input" placeholder="••••••••" autofocus>
-            <button class="btn btn-primary" style="width: 100%;" onclick="checkPasscode()">Verify Access</button>
-            <div id="passcode-error" style="color: var(--accent); font-size: 13px; font-weight: 700; margin-top: 15px; display: none;">
-                Access Denied: Invalid Passcode.
+    <!-- Auth Resolving Overlay (shown while Firebase checks session on load) -->
+    <div id="auth-resolving-overlay">
+        <img src="assets/ubsl.jpeg" alt="UBSL" class="resolving-logo">
+        <div class="resolving-spinner"></div>
+        <p class="resolving-label">VERIFYING SESSION&hellip;</p>
+    </div>
+
+    <!-- Firebase Login Overlay -->
+    <div id="auth-overlay" class="hidden">
+        <div class="auth-card">
+            <div class="auth-card-header">
+                <img src="assets/ubsl.jpeg" alt="UBSL Logo" class="auth-card-logo">
+                <h2>Staff Portal Sign In</h2>
+                <p>Unique Business Systems Limited &mdash; Secure Access</p>
+            </div>
+            <div class="auth-card-body">
+                <div class="auth-error" id="auth-error-msg">Invalid credentials. Please try again.</div>
+                <div class="auth-field">
+                    <label class="auth-label" for="auth-email">Email Address</label>
+                    <input type="email" id="auth-email" class="auth-input" placeholder="admin@ubsl.co.ug" autocomplete="email">
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label" for="auth-password">Password</label>
+                    <input type="password" id="auth-password" class="auth-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+                </div>
+                <button class="auth-btn" id="auth-sign-in-btn" onclick="handleSignIn()">
+                    <span class="auth-spinner"></span>
+                    <span class="auth-btn-text">Sign In to Dashboard</span>
+                </button>
             </div>
         </div>
     </div>
@@ -747,14 +889,15 @@
                     <span id="db-status-text">Initializing database connection...</span>
                 </div>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <span id="admin-user-email" style="font-size:13px; color:rgba(255,255,255,0.55); display:none;"></span>
                 <button class="btn btn-secondary" onclick="exportSubmissionsCSV()">Export CSV</button>
                 <button id="btn-add-product" class="btn btn-primary" style="display:none;" onclick="openProductModal(null)">
                     <svg style="width:16px;height:16px;display:inline;vertical-align:-2px;margin-right:6px;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                     Add Product
                 </button>
                 <button class="btn btn-accent" style="background:#EF4444;" onclick="clearAllData()">Clear Logs</button>
-                <button class="btn btn-secondary" onclick="logoutAdmin()">Logout</button>
+                <button class="btn btn-secondary" onclick="handleSignOut()">Sign Out</button>
             </div>
         </div>
     </div>
@@ -925,6 +1068,7 @@
     <!-- Firebase & Database Core -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script src="db.js"></script>
 
@@ -940,34 +1084,112 @@
         let unsubscribeProducts = null;
         let editingProductId = null; // null = add mode, string = edit mode
 
-        // Check if admin is authenticated in session
-        if (sessionStorage.getItem("ubsl_authenticated") === "true") {
-            document.getElementById("passcode-overlay").style.display = "none";
+        // ── Firebase Auth Gate ──────────────────────────
+        // onAuthStateChanged resolves once on page load.
+        // If signed in  → hide resolving overlay, load dashboard.
+        // If signed out → hide resolving overlay, show login form.
+        if (db.auth) {
+            db.auth.onAuthStateChanged(function(user) {
+                hideResolvingOverlay();
+                if (user) {
+                    showDashboard(user);
+                } else {
+                    showLoginScreen();
+                }
+            });
+        } else {
+            // Firebase not configured — fall through to sandbox mode with a warning
+            console.warn("UBSL Admin: Firebase Auth not available. Running in local sandbox mode.");
+            hideResolvingOverlay();
+            showDashboard(null);
+        }
+
+        function hideResolvingOverlay() {
+            const el = document.getElementById("auth-resolving-overlay");
+            el.classList.add("hidden");
+            setTimeout(() => el.remove(), 400);
+        }
+
+        function showLoginScreen() {
+            const overlay = document.getElementById("auth-overlay");
+            overlay.classList.remove("hidden");
+            setTimeout(() => {
+                const emailInput = document.getElementById("auth-email");
+                if (emailInput) emailInput.focus();
+            }, 50);
+            // Allow Enter key submission
+            ["auth-email", "auth-password"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener("keydown", function(e) {
+                    if (e.key === "Enter") handleSignIn();
+                });
+            });
+        }
+
+        function showDashboard(user) {
+            // Ensure login overlay is hidden
+            const overlay = document.getElementById("auth-overlay");
+            if (overlay) overlay.classList.add("hidden");
+
+            // Show signed-in email in header
+            if (user) {
+                const emailEl = document.getElementById("admin-user-email");
+                if (emailEl) {
+                    emailEl.textContent = "\uD83D\uDC64 " + user.email;
+                    emailEl.style.display = "inline";
+                }
+            }
             loadDashboard();
         }
 
-        // Handle Enter key on passcode screen
-        document.getElementById("passcode-field").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") checkPasscode();
-        });
+        async function handleSignIn() {
+            const email    = document.getElementById("auth-email").value.trim();
+            const password = document.getElementById("auth-password").value;
+            const btn      = document.getElementById("auth-sign-in-btn");
+            const errorEl  = document.getElementById("auth-error-msg");
 
-        function checkPasscode() {
-            const val = document.getElementById("passcode-field").value;
-            if (val === "ubsladmin") {
-                sessionStorage.setItem("ubsl_authenticated", "true");
-                document.getElementById("passcode-overlay").style.display = "none";
-                loadDashboard();
-            } else {
-                const err = document.getElementById("passcode-error");
-                err.style.display = "block";
-                err.classList.add("animate-shake");
-                setTimeout(() => err.classList.remove("animate-shake"), 500);
+            if (!email || !password) {
+                errorEl.textContent = "Please enter your email address and password.";
+                errorEl.classList.add("visible");
+                return;
+            }
+
+            // Loading state
+            btn.disabled = true;
+            btn.classList.add("loading");
+            errorEl.classList.remove("visible");
+
+            try {
+                await db.auth.signInWithEmailAndPassword(email, password);
+                // onAuthStateChanged will fire and call showDashboard() automatically
+            } catch (err) {
+                btn.disabled = false;
+                btn.classList.remove("loading");
+                let msg = "Sign-in failed. Please check your credentials.";
+                if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
+                    msg = "Incorrect email or password. Please try again.";
+                } else if (err.code === "auth/too-many-requests") {
+                    msg = "Too many failed attempts. Account temporarily locked. Try again later.";
+                } else if (err.code === "auth/network-request-failed") {
+                    msg = "Network error. Please check your internet connection.";
+                }
+                errorEl.textContent = msg;
+                errorEl.classList.add("visible");
+                console.error("Auth error:", err.code, err.message);
             }
         }
 
-        function logoutAdmin() {
-            sessionStorage.removeItem("ubsl_authenticated");
-            window.location.reload();
+        async function handleSignOut() {
+            if (!db.auth) { window.location.reload(); return; }
+            try {
+                if (unsubscribeDashboard) unsubscribeDashboard();
+                if (unsubscribeProducts) unsubscribeProducts();
+                await db.auth.signOut();
+                // onAuthStateChanged fires → showLoginScreen()
+            } catch (err) {
+                console.error("Sign out error:", err);
+                window.location.reload();
+            }
         }
 
         function loadDashboard() {
