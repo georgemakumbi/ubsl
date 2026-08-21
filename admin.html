@@ -1159,23 +1159,45 @@
             btn.classList.add("loading");
             errorEl.classList.remove("visible");
 
-            try {
-                await db.auth.signInWithEmailAndPassword(email, password);
-                // onAuthStateChanged will fire and call showDashboard() automatically
-            } catch (err) {
+            // Helper: always restores the button to a clickable state
+            function resetBtn() {
                 btn.disabled = false;
                 btn.classList.remove("loading");
+            }
+
+            try {
+                // Race the sign-in against a 20-second timeout so the
+                // button can never freeze indefinitely on slow networks.
+                const authPromise = db.auth.signInWithEmailAndPassword(email, password);
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject({ code: "auth/timeout" }), 20000)
+                );
+
+                await Promise.race([authPromise, timeoutPromise]);
+
+                // Sign-in succeeded — reset the button immediately.
+                // onAuthStateChanged will also fire and call showDashboard().
+                resetBtn();
+
+            } catch (err) {
+                resetBtn();
                 let msg = "Sign-in failed. Please check your credentials.";
-                if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
+                if (err.code === "auth/timeout") {
+                    msg = "Connection timed out. Please check your internet and try again.";
+                } else if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
                     msg = "Incorrect email or password. Please try again.";
                 } else if (err.code === "auth/too-many-requests") {
                     msg = "Too many failed attempts. Account temporarily locked. Try again later.";
                 } else if (err.code === "auth/network-request-failed") {
                     msg = "Network error. Please check your internet connection.";
+                } else if (err.code === "auth/operation-not-allowed") {
+                    msg = "Email/password sign-in is not enabled. Contact the site administrator.";
                 }
                 errorEl.textContent = msg;
                 errorEl.classList.add("visible");
-                console.error("Auth error:", err.code, err.message);
+                if (err.code !== "auth/timeout") {
+                    console.error("Auth error:", err.code, err.message);
+                }
             }
         }
 

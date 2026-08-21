@@ -211,7 +211,7 @@
                     { "label": "Counting Speed", "value": "Up to 1,200 bills/min" },
                     { "label": "Supported Currencies", "value": "Up to 32 currencies simultaneously" },
                     { "label": "Display / Control", "value": "4.3-inch color touchscreen" },
-                    { "label": "Sorting Modes", "value": "Denomination, Issue Series, Face, and Orientation" }
+                    { "label": "Sorting Modes", "value": "Mixed, Counting, Denomination, Face, and Orientation" }
                 ]
             },
             {
@@ -232,13 +232,13 @@
             {
                 "section": "4. Connectivity & Interfaces",
                 "items": [
-                    { "label": "Connectivity", "value": "Full PC and printer connectivity ports" }
+                    { "label": "Connectivity", "value": "PC, printer, USB and RJ 12 external display connectivity ports" }
                 ]
             },
             {
                 "section": "5. Physical & Environmental",
                 "items": [
-                    { "label": "Mechanical Path", "value": "Front-opening design for easy maintenance" }
+                    { "label": "Mechanical Path", "value": "Front & Back opening design for easy maintenance" }
                 ]
             }
         ]
@@ -358,11 +358,11 @@
                 "section": "1. Performance & Operation",
                 "items": [
                     { "label": "Counting Speed", "value": "Up to 1,200 notes/min with 99.9% accuracy" },
-                    { "label": "Supported Currencies", "value": "Up to 20 countries" },
+                    { "label": "Supported Currencies", "value": "Up to 14 countries" },
                     { "label": "Display / Control", "value": "4-inch TFT Touchscreen" },
-                    { "label": "Sorting Modes", "value": "Denomination, face, orientation, and fitness sorting" },
-                    { "label": "Serial Number Capture", "value": "Yes" }
-                ]
+                    { "label": "Sorting Modes", "value": "Denomination, face, orientation, and Mix counting sorting" },
+                    { "label": "Serial Number Capture", "value": "Yes" },
+                    { "label": "Software Upgrade", "value": "Yes, for new note versions" }]
             },
             {
                 "section": "2. Capacity & Handling",
@@ -375,6 +375,12 @@
                 "section": "3. Detection & Sensors",
                 "items": [
                     { "label": "Counterfeit Detection", "value": "UV, MG, IR, and CIS sensors" }
+                ]
+            },
+            {
+                "section": "4. Connectivity & Interfaces",
+                "items": [
+                    { "label": "Connectivity", "value": "PC, printer, USB, LAN port and RJ 12 external display connectivity ports" }
                 ]
             }
         ]
