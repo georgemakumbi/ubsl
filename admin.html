@@ -1166,18 +1166,19 @@
             }
 
             try {
-                // Race the sign-in against a 20-second timeout so the
-                // button can never freeze indefinitely on slow networks.
+                // Race the sign-in against a 20-second timeout
                 const authPromise = db.auth.signInWithEmailAndPassword(email, password);
                 const timeoutPromise = new Promise((_, reject) =>
                     setTimeout(() => reject({ code: "auth/timeout" }), 20000)
                 );
 
-                await Promise.race([authPromise, timeoutPromise]);
+                const userCredential = await Promise.race([authPromise, timeoutPromise]);
 
-                // Sign-in succeeded — reset the button immediately.
-                // onAuthStateChanged will also fire and call showDashboard().
+                // Sign-in succeeded
                 resetBtn();
+                if (userCredential && userCredential.user) {
+                    showDashboard(userCredential.user);
+                }
 
             } catch (err) {
                 resetBtn();
