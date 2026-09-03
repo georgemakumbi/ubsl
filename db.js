@@ -241,6 +241,33 @@
         localStorage.setItem("ubsl_custom_products", JSON.stringify(list));
     }
 
+    /** Update stock for a product by ID. changeAmount can be positive or negative. */
+    function updateProductStock(id, changeAmount) {
+        if (dbType === "firebase") {
+            return firestoreInstance.collection("products").doc(id).update({
+                stock: firebase.firestore.FieldValue.increment(changeAmount)
+            }).catch(err => {
+                console.error("Firestore product stock update failed:", err);
+                updateLocalProductStock(id, changeAmount);
+            });
+        } else {
+            updateLocalProductStock(id, changeAmount);
+            return Promise.resolve();
+        }
+    }
+
+    function updateLocalProductStock(id, changeAmount) {
+        let list = getLocalProducts();
+        list = list.map(p => {
+            if (p.id === id) {
+                const currentStock = parseInt(p.stock) || 0;
+                return { ...p, stock: currentStock + changeAmount };
+            }
+            return p;
+        });
+        localStorage.setItem("ubsl_custom_products", JSON.stringify(list));
+    }
+
     /** Delete an admin product by ID */
     function deleteProduct(id) {
         if (dbType === "firebase") {
@@ -273,6 +300,7 @@
         saveProduct,
         getProducts,
         updateProduct,
+        updateProductStock,
         deleteProduct,
         // Auth — only available when Firebase is configured
         auth: authInstance

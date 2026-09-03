@@ -1617,11 +1617,18 @@ function initProductCatalog() {
             card.className = "product-card animate-fade-in";
             const imgSrc = p.image || "assets/product_accessories.png";
 
+            const isOutOfStock = (!p.stock || p.stock <= 0);
+            const stockLabel = isOutOfStock ? '<span style="color:var(--accent); font-weight:700;">Pre-order</span>' 
+                : `<span style="color:${p.stock < 5 ? 'var(--accent)' : 'var(--success)'}; font-weight:700;">Stock: ${p.stock}${p.stock < 5 ? ' (Low)' : ''}</span>`;
+
             card.innerHTML = `
                 <div class="product-img-placeholder">
                     <img src="${imgSrc}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: contain; display: block;">
                 </div>
-                <div class="product-category">${p.category}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                    <div class="product-category" style="margin-bottom:0;">${p.category}</div>
+                    <div style="font-size:12px;">${stockLabel}</div>
+                </div>
                 <h3>${p.name}</h3>
                 <p>${p.description}</p>
                 <div class="product-card-footer">
@@ -1740,13 +1747,25 @@ function showProductModal(product) {
                                <li>Direct field support engineer coverage.</li>`;
     }
 
+    const isOutOfStock = (!product.stock || product.stock <= 0);
+
     const orderLink = modal.querySelector("#modal-order-link");
     if (orderLink) {
-        orderLink.href = `order.html?tab=order&product=${encodeURIComponent(product.name)}`;
+        const preorderFlag = isOutOfStock ? '&preorder=true' : '';
+        orderLink.href = `order.html?tab=order&productId=${product.id}&product=${encodeURIComponent(product.name)}${preorderFlag}`;
+        if (isOutOfStock) {
+            orderLink.innerHTML = "📅 Pre-Order";
+            orderLink.style.backgroundColor = "var(--accent)";
+            orderLink.style.borderColor = "var(--accent)";
+        } else {
+            orderLink.innerHTML = "🛒 Place an Order";
+            orderLink.style.backgroundColor = "var(--primary)";
+            orderLink.style.borderColor = "var(--primary)";
+        }
     }
     const inquireLink = modal.querySelector("#modal-inquire-link");
     if (inquireLink) {
-        inquireLink.href = `order.html?tab=inquiry&product=${encodeURIComponent(product.name)}&subject=${encodeURIComponent('Inquiry about: ' + product.name)}`;
+        inquireLink.href = `order.html?tab=inquiry&productId=${product.id}&product=${encodeURIComponent(product.name)}&subject=${encodeURIComponent('Inquiry about: ' + product.name)}`;
     }
 
     modal.classList.add("active");
@@ -1806,6 +1825,7 @@ function initOrderForm() {
     // Pre-fill from URL params (when opened from product modal)
     const urlParams = new URLSearchParams(window.location.search);
     const productParam = urlParams.get("product");
+    const productIdParam = urlParams.get("productId");
     const tabParam = urlParams.get("tab");
 
     // Switch to correct tab if directed from modal
@@ -1826,6 +1846,19 @@ function initOrderForm() {
         }
     }
 
+    // Change texts to Pre-Order if preorder=true
+    const isPreorder = urlParams.get("preorder") === "true";
+    if (isPreorder) {
+        const orderTabBtn = document.getElementById("tab-btn-order");
+        if (orderTabBtn) orderTabBtn.innerHTML = "📅 Pre-Order Product";
+        
+        const submitBtn = document.querySelector("#order-form button[type='submit']");
+        if (submitBtn) submitBtn.innerHTML = "Submit Pre-Order Request →";
+
+        const orderTitle = document.querySelector("#tab-order h3");
+        if (orderTitle) orderTitle.textContent = "Pre-Order Details";
+    }
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = document.getElementById("order-name").value.trim();
@@ -1833,7 +1866,7 @@ function initOrderForm() {
         const email = document.getElementById("order-email").value.trim();
         const phone = document.getElementById("order-phone").value.trim();
         const product = document.getElementById("order-product").value.trim();
-        const qty = document.getElementById("order-qty").value;
+        const qty = parseInt(document.getElementById("order-qty").value, 10);
         const delivery = document.getElementById("order-delivery").value;
         const location = document.getElementById("order-location").value.trim();
         const notes = document.getElementById("order-notes").value.trim();
@@ -1849,30 +1882,43 @@ function initOrderForm() {
             email,
             phone,
             product,
+            productId: productIdParam || null,
             quantity: qty,
             delivery,
             location,
             notes
         });
 
+        if (productIdParam && qty > 0) {
+            if (typeof db !== 'undefined' && db.updateProductStock) {
+                // Only decrement if not a preorder, or we can let preorder also go negative if they track backorders.
+                // Assuming pre-orders don't decrement stock further from 0 to avoid massive negative numbers, or we can just let it go negative.
+                // It's usually safe to let it go negative to track how many are backordered.
+                db.updateProductStock(productIdParam, -qty);
+            }
+        }
+
         const container = form.parentElement;
+        const successTitle = isPreorder ? "Pre-Order Request Submitted!" : "Order Request Submitted!";
+        const successDesc = isPreorder ? `Your pre-order request for <strong>${qty}× ${product}</strong> has been received.` : `Your order request for <strong>${qty}× ${product}</strong> has been received.`;
+
         container.innerHTML = `
             <div class="form-success-message animate-fade-in" style="text-align:center; padding: 60px 20px;">
-                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(197,160,89,0.12);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">🛒</div>
-                <h2 style="font-size:26px;margin-bottom:12px;">Order Request Submitted!</h2>
+                <div class="form-success-icon" style="width:72px;height:72px;background:rgba(197,160,89,0.12);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;">${isPreorder ? '📅' : '🛒'}</div>
+                <h2 style="font-size:26px;margin-bottom:12px;">${successTitle}</h2>
                 <p style="color:var(--text-muted);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">
-                    Thank you, <strong>${name}</strong>. Your order request for <strong>${qty}× ${product}</strong> has been received.
+                    Thank you, <strong>${name}</strong>. ${successDesc}
                     Our sales team will contact you at <strong>${email}</strong> to confirm pricing and delivery details.
                 </p>
                 <div style="font-size:14px;text-align:left;background:var(--bg-light);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-color);max-width:420px;margin:0 auto 28px;">
-                    <p style="font-weight:700;margin-bottom:10px;">Order Summary:</p>
+                    <p style="font-weight:700;margin-bottom:10px;">${isPreorder ? 'Pre-Order' : 'Order'} Summary:</p>
                     <p style="margin-bottom:5px;">• Product: ${product}</p>
                     <p style="margin-bottom:5px;">• Quantity: ${qty}</p>
                     <p style="margin-bottom:5px;">• Organisation: ${company}</p>
                     <p style="margin-bottom:5px;">• Preferred Delivery: ${delivery.replace('asap','As soon as possible').replace('2weeks','Within 2 weeks').replace('1month','Within 1 month').replace('3months','Within 3 months').replace('flexible','Flexible')}</p>
                     ${location ? `<p style="margin-bottom:5px;">• Location: ${location}</p>` : ""}
                 </div>
-                <a href="products.html" class="btn btn-primary">Continue Browsing Products</a>
+                <button class="btn btn-primary" onclick="window.location.reload()">Submit Another Request</button>
             </div>
         `;
     });

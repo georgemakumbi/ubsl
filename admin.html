@@ -1022,6 +1022,11 @@
                         <option>Software Solutions</option>
                     </select>
                 </div>
+                <!-- Stock -->
+                <div class="pfm-field">
+                    <label class="pfm-label" for="pfm-stock">Stock Quantity</label>
+                    <input type="number" id="pfm-stock" class="pfm-input" placeholder="e.g. 10" value="0" min="0">
+                </div>
                 <!-- Description -->
                 <div class="pfm-field">
                     <label class="pfm-label" for="pfm-desc">Description *</label>
@@ -1296,6 +1301,9 @@
                     <div class="pm-card-body">
                         <div class="pm-card-cat">${escHtml(p.category)}</div>
                         <div class="pm-card-name">${escHtml(p.name)}</div>
+                        <div class="pm-card-stock" style="font-size:12px; margin-bottom:8px; font-weight:600; color:${(!p.stock || p.stock < 5) ? 'var(--accent)' : 'var(--success)'}">
+                            Stock: ${p.stock || 0} ${(!p.stock || p.stock < 5) ? ' (Low Stock)' : ''}
+                        </div>
                         <div class="pm-card-desc">${escHtml(p.description)}</div>
                         <div class="pm-card-id">ID: ${escHtml(p.id)}</div>
                     </div>
@@ -1322,6 +1330,7 @@
             // Reset form
             document.getElementById("pfm-name").value = "";
             document.getElementById("pfm-category").value = "";
+            document.getElementById("pfm-stock").value = "0";
             document.getElementById("pfm-desc").value = "";
             document.getElementById("pfm-image").value = "";
             document.getElementById("pfm-image-file").value = "";
@@ -1336,6 +1345,7 @@
                 submitBtn.textContent = "Save Changes";
                 document.getElementById("pfm-name").value = p.name || "";
                 document.getElementById("pfm-category").value = p.category || "";
+                document.getElementById("pfm-stock").value = p.stock || "0";
                 document.getElementById("pfm-desc").value = p.description || "";
                 document.getElementById("pfm-image").value = p.image || "";
                 if (p.image) document.getElementById("pfm-img-preview").src = p.image;
@@ -1415,6 +1425,7 @@
         async function submitProductForm() {
             const name = document.getElementById("pfm-name").value.trim();
             const category = document.getElementById("pfm-category").value;
+            const stock = parseInt(document.getElementById("pfm-stock").value, 10) || 0;
             const description = document.getElementById("pfm-desc").value.trim();
             const image = document.getElementById("pfm-image").value.trim();
             const specs = collectSpecs();
@@ -1428,7 +1439,7 @@
             btn.disabled = true;
             btn.textContent = "Saving...";
 
-            const data = { name, category, description, image, specs };
+            const data = { name, category, stock, description, image, specs };
 
             try {
                 if (editingProductId) {
