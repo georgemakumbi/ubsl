@@ -1,0 +1,251 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  passwordHash String
+  role         Role
+  createdAt    DateTime      @default(now())
+  salesOrders  SalesOrder[]
+  serviceJobs  ServiceJob[]
+}
+
+enum Role {
+  ADMIN
+  SALES
+  STORE
+  TECHNICIAN
+}
+
+model Customer {
+  id                    Int                    @id @default(autoincrement())
+  name                  String
+  contactName           String?
+  email                 String?
+  phone                 String?
+  creditTermDays        Int                    @default(0)
+  runningBalance        Decimal                @default(0.0)
+  salesOrders           SalesOrder[]
+  serialisedUnits       SerialisedUnit[]
+  serviceJobs           ServiceJob[]
+  softwareSubscriptions SoftwareSubscription[]
+}
+
+model Supplier {
+  id                   Int             @id @default(autoincrement())
+  name                 String
+  contactInfo          String?
+  expectedLeadTimeDays Int             @default(0)
+  purchaseOrders       PurchaseOrder[]
+}
+
+model Location {
+  id                Int               @id @default(autoincrement())
+  name              String
+  type              LocationType
+  inventoryBalances InventoryBalance[]
+  serialisedUnits   SerialisedUnit[]
+  stockTransactions StockTransaction[]
+}
+
+enum LocationType {
+  WAREHOUSE
+  TRANSIT
+  CLIENT_SITE
+}
+
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id                    Int                    @id @default(autoincrement())
+  categoryId            Int
+  category              ProductCategory        @relation(fields: [categoryId], references: [id])
+  name                  String
+  sku                   String                 @unique
+  trackingType          TrackingType
+  reorderLevel          Int                    @default(0)
+  customAttributes      Json?
+  inventoryBalances     InventoryBalance[]
+  serialisedUnits       SerialisedUnit[]
+  salesOrderItems       SalesOrderItem[]
+  purchaseOrderItems    PurchaseOrderItem[]
+  serviceJobParts       ServiceJobPart[]
+  softwareSubscriptions SoftwareSubscription[]
+  stockTransactions     StockTransaction[]
+}
+
+enum TrackingType {
+  SERIALISED
+  BULK
+  SOFTWARE
+}
+
+model InventoryBalance {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product  @relation(fields: [productId], references: [id])
+  locationId Int
+  location   Location @relation(fields: [locationId], references: [id])
+  quantity   Int      @default(0)
+
+  @@unique([productId, locationId])
+}
+
+model SerialisedUnit {
+  id                 Int          @id @default(autoincrement())
+  productId          Int
+  product            Product      @relation(fields: [productId], references: [id])
+  locationId         Int?
+  location           Location?    @relation(fields: [locationId], references: [id])
+  customerId         Int?
+  customer           Customer?    @relation(fields: [customerId], references: [id])
+  serialNumber       String       @unique
+  status             UnitStatus
+  warrantyExpiryDate DateTime?
+  serviceJobs        ServiceJob[]
+}
+
+enum UnitStatus {
+  IN_STOCK
+  DEPLOYED
+  IN_REPAIR
+  RETIRED
+}
+
+model StockTransaction {
+  id              Int             @id @default(autoincrement())
+  productId       Int
+  product         Product         @relation(fields: [productId], references: [id])
+  locationId      Int
+  location        Location        @relation(fields: [locationId], references: [id])
+  type            TransactionType
+  quantity        Int
+  referenceType   String?
+  referenceId     Int?
+  transactionDate DateTime        @default(now())
+}
+
+enum TransactionType {
+  IN
+  OUT
+  TRANSFER
+}
+
+model PurchaseOrder {
+  id               Int                 @id @default(autoincrement())
+  supplierId       Int
+  supplier         Supplier            @relation(fields: [supplierId], references: [id])
+  status           POStatus            @default(DRAFT)
+  orderDate        DateTime            @default(now())
+  expectedDelivery DateTime?
+  items            PurchaseOrderItem[]
+}
+
+enum POStatus {
+  DRAFT
+  SENT
+  RECEIVED
+}
+
+model PurchaseOrderItem {
+  id        Int           @id @default(autoincrement())
+  poId      Int
+  po        PurchaseOrder @relation(fields: [poId], references: [id])
+  productId Int
+  product   Product       @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitCost  Decimal
+}
+
+model SalesOrder {
+  id          Int              @id @default(autoincrement())
+  customerId  Int
+  customer    Customer         @relation(fields: [customerId], references: [id])
+  userId      Int
+  user        User             @relation(fields: [userId], references: [id])
+  status      SOStatus         @default(DRAFT)
+  totalAmount Decimal          @default(0.0)
+  orderDate   DateTime         @default(now())
+  dueDate     DateTime?
+  items       SalesOrderItem[]
+}
+
+enum SOStatus {
+  DRAFT
+  QUOTED
+  INVOICED
+  PAID
+}
+
+model SalesOrderItem {
+  id        Int        @id @default(autoincrement())
+  soId      Int
+  so        SalesOrder @relation(fields: [soId], references: [id])
+  productId Int
+  product   Product    @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Decimal
+}
+
+model ServiceJob {
+  id               Int              @id @default(autoincrement())
+  customerId       Int
+  customer         Customer         @relation(fields: [customerId], references: [id])
+  serialisedUnitId Int
+  serialisedUnit   SerialisedUnit   @relation(fields: [serialisedUnitId], references: [id])
+  technicianId     Int
+  technician       User             @relation(fields: [technicianId], references: [id])
+  status           JobStatus        @default(OPEN)
+  reportedIssue    String
+  resolutionNotes  String?
+  createdAt        DateTime         @default(now())
+  resolvedAt       DateTime?
+  parts            ServiceJobPart[]
+}
+
+enum JobStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+model ServiceJobPart {
+  id           Int        @id @default(autoincrement())
+  serviceJobId Int
+  serviceJob   ServiceJob @relation(fields: [serviceJobId], references: [id])
+  productId    Int
+  product      Product    @relation(fields: [productId], references: [id])
+  quantity     Int
+}
+
+model SoftwareSubscription {
+  id          Int                @id @default(autoincrement())
+  customerId  Int
+  customer    Customer           @relation(fields: [customerId], references: [id])
+  productId   Int
+  product     Product            @relation(fields: [productId], references: [id])
+  startDate   DateTime
+  renewalDate DateTime
+  status      SubscriptionStatus @default(ACTIVE)
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
