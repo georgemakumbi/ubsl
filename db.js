@@ -18,10 +18,10 @@
             // Initialize Firebase App
             firebase.initializeApp(firebaseConfig);
             firestoreInstance = firebase.firestore();
-            // Initialize Firebase Auth
-            authInstance = firebase.auth();
+            // Auth is only loaded on pages that need it; Firestore works without it.
+            authInstance = typeof firebase.auth === "function" ? firebase.auth() : null;
             dbType = "firebase";
-            console.log("UBSL Database: Connected to Firebase Firestore + Auth");
+            console.log("UBSL Database: Connected to Firebase Firestore");
         } catch (error) {
             console.error("UBSL Database: Firebase initialization failed. Falling back to localStorage.", error);
             dbType = "local";
