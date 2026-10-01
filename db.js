@@ -206,7 +206,7 @@
                 .onSnapshot(snapshot => {
                     const products = [];
                     snapshot.forEach(doc => products.push(doc.data()));
-                    onUpdate(products);
+                    onUpdate(mergeProducts(getLocalProducts(), products));
                 }, err => {
                     console.error("Firestore product listen failed, using localStorage:", err);
                     onUpdate(getLocalProducts());
@@ -215,6 +215,14 @@
             onUpdate(getLocalProducts());
             return () => {};
         }
+    }
+
+    function mergeProducts(localProducts, cloudProducts) {
+        const productsById = new Map();
+        localProducts.forEach(product => productsById.set(product.id, product));
+        cloudProducts.forEach(product => productsById.set(product.id, product));
+        return Array.from(productsById.values())
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
     function getLocalProducts() {
