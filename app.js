@@ -1558,12 +1558,16 @@ function initMobileMenu() {
 function initProductCatalog() {
     const grid = document.getElementById("products-catalog-root");
     const searchInput = document.getElementById("catalog-search");
-    const categoryButtons = document.querySelectorAll(".filter-btn");
+    const filterList = document.querySelector(".filter-list");
+    let categoryButtons = document.querySelectorAll(".filter-btn");
     const modal = document.getElementById("product-detail-modal");
     
     let activeCategory = "All";
     let searchQuery = "";
     let adminProducts = []; // Admin-created products from db layer
+    let catalogLoadError = null;
+    let initialCategoryApplied = false;
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
 
     // Merge static base + admin-created products
     function getAllProducts() {
@@ -1573,9 +1577,39 @@ function initProductCatalog() {
     // Update category badge counts after product list changes
     function updateCategoryBadges() {
         const all = getAllProducts();
+        const categories = ["All", ...new Set(all.map(product => product.category).filter(Boolean))];
+        filterList.innerHTML = "";
+
+        categories.forEach(category => {
+            const item = document.createElement("li");
+            item.className = "filter-item";
+            const button = document.createElement("button");
+            button.className = "filter-btn";
+            button.dataset.category = category;
+            button.append(document.createTextNode(category === "All" ? "All Equipment " : `${category} `));
+            const badge = document.createElement("span");
+            button.appendChild(badge);
+            item.appendChild(button);
+            filterList.appendChild(item);
+        });
+
+        categoryButtons = filterList.querySelectorAll(".filter-btn");
+        if (!initialCategoryApplied && requestedCategory) {
+            const normalizedRequest = requestedCategory.trim().replace(/\+/g, " ").toLowerCase();
+            const match = Array.from(categoryButtons).find(button =>
+                button.dataset.category.trim().toLowerCase() === normalizedRequest
+            );
+            if (match) {
+                activeCategory = match.dataset.category;
+                initialCategoryApplied = true;
+            }
+        }
+        if (!categories.includes(activeCategory)) activeCategory = "All";
+
         categoryButtons.forEach(btn => {
             const catName = btn.dataset.category;
             const badge = btn.querySelector("span");
+            btn.classList.toggle("active", catName === activeCategory);
             if (badge) {
                 const count = catName === "All"
                     ? all.length
@@ -1609,10 +1643,7 @@ function initProductCatalog() {
                     <p>Try refining your search text or category filter.</p>
                 </div>
             `;
-            return;
-        }
-
-        filtered.forEach(p => {
+        } else filtered.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card animate-fade-in";
             const imgSrc = p.image || "assets/product_accessories.png";
@@ -1641,16 +1672,26 @@ function initProductCatalog() {
             card.addEventListener("click", () => showProductModal(p));
             grid.appendChild(card);
         });
+
+        if (catalogLoadError) {
+            const notice = document.createElement("p");
+            notice.style.gridColumn = "1 / -1";
+            notice.style.color = "var(--accent)";
+            notice.textContent = "Shared custom products could not be loaded. Showing products saved on this device; check the Firestore products read permissions and connection.";
+            grid.appendChild(notice);
+        }
     }
 
     // Category button clicks
-    categoryButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+    filterList.addEventListener("click", event => {
+        const btn = event.target.closest(".filter-btn");
+        if (btn) {
             categoryButtons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
             activeCategory = btn.dataset.category;
+            initialCategoryApplied = true;
             renderCatalog();
-        });
+        }
     });
 
     // Search bar filtering
@@ -1669,34 +1710,18 @@ function initProductCatalog() {
         });
     }
 
-    // Check URL parameters for starting category filter
-    const urlParams = new URLSearchParams(window.location.search);
-    const catParam = urlParams.get("category");
-    if (catParam) {
-        const decodedCat = decodeURIComponent(catParam).trim().toLowerCase();
-        const matchingBtn = Array.from(categoryButtons).find(btn => {
-            const btnCat = btn.dataset.category.trim().toLowerCase();
-            return btnCat === decodedCat || btnCat.replace(/\s+/g, '+') === decodedCat;
-        });
-        if (matchingBtn) {
-            categoryButtons.forEach(b => b.classList.remove("active"));
-            matchingBtn.classList.add("active");
-            activeCategory = matchingBtn.dataset.category;
-        }
-    }
+    updateCategoryBadges();
+    renderCatalog();
 
     // Load admin products from db, then do initial render
     // db is available because db.js is always loaded before app.js
     if (typeof db !== "undefined" && db.getProducts) {
-        db.getProducts(products => {
+        db.getProducts((products, error) => {
             adminProducts = products;
+            catalogLoadError = error || null;
             updateCategoryBadges();
             renderCatalog();
         });
-    } else {
-        // Fallback: just render static products
-        updateCategoryBadges();
-        renderCatalog();
     }
 }
 

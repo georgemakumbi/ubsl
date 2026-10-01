@@ -209,7 +209,7 @@
                     onUpdate(mergeProducts(getLocalProducts(), products));
                 }, err => {
                     console.error("Firestore product listen failed, using localStorage:", err);
-                    onUpdate(getLocalProducts());
+                    onUpdate(getLocalProducts(), err);
                 });
         } else {
             onUpdate(getLocalProducts());
